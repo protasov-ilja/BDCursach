@@ -44,29 +44,32 @@
 // 	console.log('server is listening on ${port}')
 // })
 
-
-
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 
 let port = process.env.PORT;
-if (port == null || port == "") {
+if (port === null || port === "") {
 	port = 8000;
 }
 
 app.use(bodyParser.json());
 
-app.get('/', function (req, res){
+app.get('/', function (req, res) {
 	console.log('get request');
-	var resString = 'Hello, ' + new Date();
-	res.send(resString);
+	//var object_from_json = JSON.parse(req);
+	var postResponde = 'Hello, ' + req.body.user;
+	const data = {isActive: "true"};
+	res.send(JSON.stringify(data));
+	// var resString = 'Hello, ' + new Date();
 });
 
 app.post('/', function (req, res) {
 	console.log('post request');
 	var postResponde = 'Hello, ' + req.body.user;
-	res.send(postResponde);
+	console.log(req.body.login);
+	const data = {isActive: "true"};
+	res.send(JSON.stringify(data));
 });
 
 app.listen(port, function() {
