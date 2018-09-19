@@ -73,6 +73,21 @@ app.get('/', function (req, res) {
 	// var resString = 'Hello, ' + new Date();
 });
 
+app.post('/register', function (req, res) {
+	console.log('post request');
+	var data;
+	var postResponde = 'Hello, ' + req.body.login;
+	if (req.body.login === "Ilya")
+	{
+		data = {status:"admin"};
+	}
+	else
+	{
+		data = {status:"user"} ;
+	}
+	res.send(JSON.stringify(data));
+});
+
 app.post('/', function (req, res) {
 	console.log('post request');
 	var data;
