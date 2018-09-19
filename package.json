@@ -1,0 +1,19 @@
+{
+  "name": "node-store",
+  "version": "1.0.0",
+  "description": "bd cursach store or library",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js"
+  },
+  "keywords": [
+    "nodejs",
+    "server"
+  ],
+  "author": "IlyaProtasov AntonGaidukov",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3"
+  }
+}
