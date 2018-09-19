@@ -58,8 +58,17 @@ app.use(bodyParser.json());
 app.get('/', function (req, res) {
 	console.log('get request');
 	//var object_from_json = JSON.parse(req);
+	var data;
 	var postResponde = 'Hello, ' + req.body.user;
-	const data = {isActive: "true"};
+	if (req.body.user === "Ilya")
+	{
+		data = {status:"admin"};
+	}
+	else
+	{
+		data = {status:"user"} ;
+	}
+
 	res.send(JSON.stringify(data));
 	// var resString = 'Hello, ' + new Date();
 });
