@@ -44,9 +44,16 @@
 // 	console.log('server is listening on ${port}')
 // })
 
+
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+
+let port = process.env.PORT;
+if (port == null || port == "") {
+	port = 8000;
+}
 
 app.use(bodyParser.json());
 
@@ -62,13 +69,6 @@ app.post('/', function (req, res) {
 	res.send(postResponde);
 });
 
-app.listen(8080, function() {
+app.listen(port, function() {
 	console.log('ready on port 8080');
 });
-
-const ifaces = require('os').networkInterfaces();
-const localhost = Object.keys(ifaces).reduce((host,ifname) => {
-	let iface = ifaces[ifname].find(iface => !('IPv4' !== iface.family || iface.internal !== false));
-return iface? iface.address : host;
-}, '127.0.0.1');
-console.log(localhost);
