@@ -59,8 +59,8 @@ app.get('/', function (req, res) {
 	console.log('get request');
 	//var object_from_json = JSON.parse(req);
 	var data;
-	var postResponde = 'Hello, ' + req.body.user;
-	if (req.body.user === "Ilya")
+	var postResponde = 'Hello, ' + req.body.login;
+	if (req.body.login === "Ilya")
 	{
 		data = {status:"admin"};
 	}
@@ -75,9 +75,16 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
 	console.log('post request');
-	var postResponde = 'Hello, ' + req.body.user;
-	console.log(req.body.login);
-	const data = {isActive: "true"};
+	var data;
+	var postResponde = 'Hello, ' + req.body.login;
+	if (req.body.login === "Ilya")
+	{
+		data = {status:"admin"};
+	}
+	else
+	{
+		data = {status:"user"} ;
+	}
 	res.send(JSON.stringify(data));
 });
 
