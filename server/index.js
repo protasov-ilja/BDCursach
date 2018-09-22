@@ -44,8 +44,28 @@
 // 	console.log('server is listening on ${port}')
 // })
 
-var admins = ["Ilya" , "Anton"];
-var users = ["Petya", "Vasya"];
+var admins = [];
+admins[0] = {
+	login: "Ilya",
+	password: "qwerty123"
+};
+
+admins[1] = {
+	login: "Anton",
+	password: "qwerty321"
+};
+
+var users  = [];
+users[0] = {
+	login: "Bob",
+	password: "qwerty1"
+};
+
+users[1] = {
+	login: "Vasya",
+	password: "qwerty2"
+};
+
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -84,13 +104,37 @@ app.post('/register', function (req, res) {
 	console.log('post request');
 	var data;
 	var postResponde = 'Hello, ' + req.body.login;
-	if (req.body.login === "Ilya")
+	if (req.body in admins)
 	{
 		data = {status:"admin"};
 	}
+	else if (req.body in users)
+	{
+		data = {status:"user"};
+	}
 	else
 	{
-		data = {status:"user"} ;
+		data = {status:"unknown"};
+	}
+
+	res.send(JSON.stringify(data));
+});
+
+app.post('/login', function (req, res) {
+	console.log('post request');
+	var data;
+	var postResponde = 'Hello, ' + req.body.login;
+	if (req.body in admins)
+	{
+		data = {status:"admin"};
+	}
+	else if (req.body in users)
+	{
+		data = {status:"user"};
+	}
+	else
+	{
+		data = {status:"unknown"};
 	}
 
 	res.send(JSON.stringify(data));
@@ -108,6 +152,7 @@ app.post('/', function (req, res) {
 	{
 		data = {status:"user"} ;
 	}
+
 	res.send(JSON.stringify(data));
 });
 
