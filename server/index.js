@@ -95,7 +95,7 @@ app.get('/', function (req, res) {
 	{
 		data = {status:"unknown"};
 	}
-
+	console.log(data);
 	res.send(JSON.stringify(data));
 	// var resString = 'Hello, ' + new Date();
 });
@@ -116,7 +116,7 @@ app.post('/register', function (req, res) {
 	{
 		data = {status:"unknown"};
 	}
-
+	console.log(data);
 	res.send(JSON.stringify(data));
 });
 
@@ -136,7 +136,7 @@ app.post('/login', function (req, res) {
 	{
 		data = {status:"unknown"};
 	}
-
+	console.log(data);
 	res.send(JSON.stringify(data));
 });
 
@@ -150,8 +150,9 @@ app.post('/', function (req, res) {
 	}
 	else
 	{
-		data = {status:"user"} ;
+		data = {status:"user"};
 	}
+	console.log(data);
 
 	res.send(JSON.stringify(data));
 });
