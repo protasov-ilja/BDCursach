@@ -80,6 +80,16 @@ function ValidateUsers(arr, login, password)
 	return false;
 }
 
+function AddNewUser(newUser)
+{
+	users[users.length] = {
+		login: newUser.login,
+		password: newUser.password
+	};
+
+	console.log(users[users.length - 1]);
+}
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
@@ -93,34 +103,17 @@ app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
 	console.log('get request');
-	//var object_from_json = JSON.parse(req);
-	var data;
-	var postResponde = 'Hello, ' + req.body.login;
-	if (req.body.login in admins)
-	{
-		data = {status:"admin"};
-	}
-	else if (req.body.login in users)
-	{
-		data = {status:"user"};
-	}
-	else
-	{
-		data = {status:"unknown"};
-	}
-	console.log(data);
-	res.send(JSON.stringify(data));
-	// var resString = 'Hello, ' + new Date();
+
+	res.send("empty_get");
 });
 
-app.post('/register', function (req, res) {
+app.post('/login', function (req, res) {
 	console.log('post request');
 	var data;
-	var postResponde = 'Hello, ' + req.body.login;
 	if (ValidateUsers(admins, req.body.login, req.body.password)) {
 		data = {status:"admin"};
 	}
-	else if  (ValidateUsers(users, req.body.login, req.body.password)) {
+	else if (ValidateUsers(users, req.body.login, req.body.password)) {
 		data = {status:"user"};
 	}
 	else {
@@ -131,41 +124,26 @@ app.post('/register', function (req, res) {
 	res.send(JSON.stringify(data));
 });
 
-app.post('/login', function (req, res) {
+app.post('/register', function (req, res) {
 	console.log('post request');
 	var data;
-	var postResponde = 'Hello, ' + req.body.login;
-	if (req.body in admins)
+	if ((ValidateUsers(admins, req.body.login, req.body.password)) || (ValidateUsers(users, req.body.login, req.body.password)))
 	{
-		data = {status:"admin"};
-	}
-	else if (req.body in users)
-	{
-		data = {status:"user"};
+		data = { status:"already_exists"};
 	}
 	else
 	{
-		data = {status:"unknown"};
+		data = { status:"user_added" };
+		AddNewUser(req.body);
 	}
+
 	console.log(data);
 	res.send(JSON.stringify(data));
 });
 
 app.post('/', function (req, res) {
 	console.log('post request');
-	var data;
-	var postResponde = 'Hello, ' + req.body.login;
-	if (req.body.login === "Ilya")
-	{
-		data = {status:"admin"};
-	}
-	else
-	{
-		data = {status:"user"};
-	}
-	console.log(data);
-
-	res.send(JSON.stringify(data));
+	res.send("empty_post");
 });
 
 app.listen(port, function() {
