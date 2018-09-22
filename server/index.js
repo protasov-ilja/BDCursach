@@ -67,6 +67,19 @@ users[1] = {
 };
 
 
+function ValidateUsers(arr, login, password)
+{
+	for (var i = 0; i < arr.length; ++i)
+	{
+		if ((arr[i].login === login) && (arr[i].password === password))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
@@ -104,18 +117,16 @@ app.post('/register', function (req, res) {
 	console.log('post request');
 	var data;
 	var postResponde = 'Hello, ' + req.body.login;
-	if (req.body in admins)
-	{
+	if (ValidateUsers(admins, req.body.login, req.body.password)) {
 		data = {status:"admin"};
 	}
-	else if (req.body in users)
-	{
+	else if  (ValidateUsers(users, req.body.login, req.body.password)) {
 		data = {status:"user"};
 	}
-	else
-	{
+	else {
 		data = {status:"unknown"};
 	}
+
 	console.log(data);
 	res.send(JSON.stringify(data));
 });
