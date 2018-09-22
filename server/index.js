@@ -47,23 +47,23 @@
 var admins = [];
 admins[0] = {
 	login: "Ilya",
-	password: "qwerty123"
+	password: "qw1"
 };
 
 admins[1] = {
 	login: "Anton",
-	password: "qwerty321"
+	password: "qw2"
 };
 
 var users  = [];
 users[0] = {
 	login: "Bob",
-	password: "qwerty1"
+	password: "qw3"
 };
 
 users[1] = {
 	login: "Vasya",
-	password: "qwerty2"
+	password: "qw4"
 };
 
 
