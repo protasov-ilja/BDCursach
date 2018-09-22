@@ -44,6 +44,9 @@
 // 	console.log('server is listening on ${port}')
 // })
 
+var admins = ["Ilya" , "Anton"];
+var users = ["Petya", "Vasya"];
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
@@ -60,11 +63,11 @@ app.get('/', function (req, res) {
 	//var object_from_json = JSON.parse(req);
 	var data;
 	var postResponde = 'Hello, ' + req.body.login;
-	if (req.body.login === "Ilya")
+	if (req.body.login in admins)
 	{
 		data = {status:"admin"};
 	}
-	else
+	else if (req.body.login in users)
 	{
 		data = {status:"user"} ;
 	}
@@ -85,6 +88,7 @@ app.post('/register', function (req, res) {
 	{
 		data = {status:"user"} ;
 	}
+
 	res.send(JSON.stringify(data));
 });
 
