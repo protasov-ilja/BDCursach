@@ -69,7 +69,11 @@ app.get('/', function (req, res) {
 	}
 	else if (req.body.login in users)
 	{
-		data = {status:"user"} ;
+		data = {status:"user"};
+	}
+	else
+	{
+		data = {status:"unknown"};
 	}
 
 	res.send(JSON.stringify(data));
