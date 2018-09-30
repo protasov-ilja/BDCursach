@@ -44,28 +44,29 @@
 // 	console.log('server is listening on ${port}')
 // })
 
-var admins = [];
-admins[0] = {
-	login: "Ilya",
-	password: "qw1"
-};
+var admins = [
+	{
+		login: "Ilya",
+		password: "qw1"
+	},
 
-admins[1] = {
-	login: "Anton",
-	password: "qw2"
-};
+	{
+		login: "Anton",
+		password: "qw2"
+	}
+];
 
-var users  = [];
-users[0] = {
-	login: "Bob",
-	password: "qw3"
-};
+var users  = [
+	{
+		login: "Bob",
+		password: "qw3"
+	},
 
-users[1] = {
-	login: "Vasya",
-	password: "qw4"
-};
-
+	{
+		login: "Vasya",
+		password: "qw4"
+	}
+];
 
 function ValidateUsers(arr, login, password)
 {
@@ -90,6 +91,20 @@ function AddNewUser(newUser)
 	console.log(users[users.length - 1]);
 }
 
+var mysql = require('mysql');
+
+var connection = mysql.createConnection({
+	host     : 'us-cdbr-iron-east-01.cleardb.net',
+	user     : 'b6e1ae55117306',
+	password : 'f5bffc76',
+	database : 'heroku_785b375f435f04a'
+});
+
+con.connect(function(err) {
+	if (err) throw err;
+	console.log("Connected!");
+});
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
@@ -105,6 +120,17 @@ app.get('/', function (req, res) {
 	console.log('get request');
 
 	res.send("empty_get");
+});
+
+
+var query = connection.query('INSERT INTO users SET ?', user, function(err, result) {
+	console.log(err);
+	console.log(result);
+});
+
+var query = connection.query('UPDATE users SET ? WHERE id = 9', user, function(err, result) {
+	console.log(err);
+	console.log(result);
 });
 
 app.post('/login', function (req, res) {
