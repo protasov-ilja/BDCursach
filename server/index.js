@@ -91,18 +91,18 @@ function AddNewUser(newUser)
 	console.log(users[users.length - 1]);
 }
 
-var mysql = require('mysql');
-
-var connection = mysql.createConnection({
-	host     : 'us-cdbr-iron-east-01.cleardb.net',
-	user     : 'b6e1ae55117306',
-	password : 'f5bffc76',
-	database : 'heroku_785b375f435f04a'
-});
-
-connection.connect(function() {
-	console.log("Connected!");
-});
+// var mysql = require('mysql');
+//
+// var connection = mysql.createConnection({
+// 	host     : 'us-cdbr-iron-east-01.cleardb.net',
+// 	user     : 'b6e1ae55117306',
+// 	password : 'f5bffc76',
+// 	database : 'heroku_785b375f435f04a'
+// });
+//
+// connection.connect(function() {
+// 	console.log("Connected!");
+// });
 
 var express = require('express');
 var bodyParser = require('body-parser');
