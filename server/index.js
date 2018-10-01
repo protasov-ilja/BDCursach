@@ -123,15 +123,10 @@ app.get('/', function (req, res) {
 });
 
 
-var query = connection.query('INSERT INTO users SET ?', user, function(err, result) {
-	console.log(err);
-	console.log(result);
-});
-
-var query = connection.query('UPDATE users SET ? WHERE id = 9', user, function(err, result) {
-	console.log(err);
-	console.log(result);
-});
+// var query = connection.query('INSERT INTO users SET ?', user, function(err, result) {
+// 	console.log(err);
+// 	console.log(result);
+// });
 
 app.post('/login', function (req, res) {
 	console.log('post request');
