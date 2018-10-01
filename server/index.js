@@ -100,8 +100,7 @@ var connection = mysql.createConnection({
 	database : 'heroku_785b375f435f04a'
 });
 
-connection.connect(function(err) {
-	if (err) throw err;
+connection.connect(function() {
 	console.log("Connected!");
 });
 
@@ -121,12 +120,6 @@ app.get('/', function (req, res) {
 
 	res.send("empty_get");
 });
-
-
-// var query = connection.query('INSERT INTO users SET ?', user, function(err, result) {
-// 	console.log(err);
-// 	console.log(result);
-// });
 
 app.post('/login', function (req, res) {
 	console.log('post request');
