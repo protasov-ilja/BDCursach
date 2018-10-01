@@ -100,7 +100,7 @@ var connection = mysql.createConnection({
 	database : 'heroku_785b375f435f04a'
 });
 
-con.connect(function(err) {
+connection.connect(function(err) {
 	if (err) throw err;
 	console.log("Connected!");
 });
