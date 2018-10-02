@@ -44,6 +44,8 @@
 // 	console.log('server is listening on ${port}')
 // })
 
+const config = require('./config');
+
 var admins = [
 	{
 		login: "Ilya",
@@ -91,37 +93,27 @@ function AddNewUser(newUser)
 	console.log(users[users.length - 1]);
 }
 
-// var mysql = require('mysql');
-//
-// var connection = mysql.createConnection({
-// 	host     : 'us-cdbr-iron-east-01.cleardb.net',
-// 	user     : 'b6e1ae55117306',
-// 	password : 'f5bffc76',
-// 	database : 'heroku_785b375f435f04a'
-// });
-//
-// connection.connect(function() {
-// 	console.log("Connected!");
-// });
-
 var express = require('express');
 var bodyParser = require('body-parser');
-var app = express();
+var server = express();
 
-let port = process.env.PORT;
-if (port === null || port === "") {
-	port = 8000;
-}
+server.use(bodyParser.json());
 
-app.use(bodyParser.json());
+server.listen(config.port, function() {
+	console.log(`ready on port ${config.port}`);
+});
 
-app.get('/', function (req, res) {
+server.get('/', function (req, res) {
 	console.log('get request');
 
 	res.send("empty_get");
 });
 
-app.post('/login', function (req, res) {
+config.db.get.connect(function() {
+	console.log("db connected");
+});
+
+server.post('/login', function (req, res) {
 	console.log('post request');
 	var data;
 	if (ValidateUsers(admins, req.body.login, req.body.password)) {
@@ -138,7 +130,7 @@ app.post('/login', function (req, res) {
 	res.send(JSON.stringify(data));
 });
 
-app.post('/register', function (req, res) {
+server.post('/register', function (req, res) {
 	console.log('post request');
 	var data;
 	if ((ValidateUsers(admins, req.body.login, req.body.password)) || (ValidateUsers(users, req.body.login, req.body.password)))
@@ -155,11 +147,8 @@ app.post('/register', function (req, res) {
 	res.send(JSON.stringify(data));
 });
 
-app.post('/', function (req, res) {
+server.post('/', function (req, res) {
 	console.log('post request');
 	res.send("empty_post");
 });
 
-app.listen(port, function() {
-	console.log('ready on port 8080');
-});
