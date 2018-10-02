@@ -152,3 +152,4 @@ server.post('/', function (req, res) {
 	res.send("empty_post");
 });
 
+config.db.get.close();
