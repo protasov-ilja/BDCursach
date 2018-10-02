@@ -109,10 +109,6 @@ server.get('/', function (req, res) {
 	res.send("empty_get");
 });
 
-config.db.get.connect(function() {
-	console.log("db connected");
-});
-
 server.post('/login', function (req, res) {
 	console.log('post request');
 	var data;
@@ -151,5 +147,3 @@ server.post('/', function (req, res) {
 	console.log('post request');
 	res.send("empty_post");
 });
-
-config.db.get.end();
