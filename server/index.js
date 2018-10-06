@@ -47,6 +47,15 @@ function AddNewUser(newUser)
 	console.log(users[users.length - 1]);
 }
 
+function ErrorHandler (err, req, res, next) {
+	if (res.headersSent) {
+		return next(err);
+	}
+
+	res.status(500);
+	res.render('error', { error: err });
+}
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var server = express();
@@ -71,14 +80,7 @@ server.listen(config.port, function() {
 server.get('/', function (req, res, next) {
 	console.log('get request');
 	if(database.state === 'disconnected'){
-		database.connect(function(err) {
-			if (err) {
-				console.log(err);
-				throw err;
-			}
 
-			console.log('You are now connected...')
-		});
 	}
 	else
 	{
