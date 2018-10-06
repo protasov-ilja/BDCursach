@@ -1,28 +1,6 @@
 const config = require('./config');
+const temp = require('./tempfiles');
 
-var admins = [
-	{
-		login: "Ilya",
-		password: "qw1"
-	},
-
-	{
-		login: "Anton",
-		password: "qw2"
-	}
-];
-
-var users  = [
-	{
-		login: "Bob",
-		password: "qw3"
-	},
-
-	{
-		login: "Vasya",
-		password: "qw4"
-	}
-];
 
 function ValidateUsers(arr, login, password)
 {
@@ -63,8 +41,7 @@ var database = config.db.get;
 
 database.connect(function(err) {
 	if (err) {
-		console.log(err);
-		throw err;
+		ErrorHandler (err);
 	}
 
 	console.log('You are now connected...')
@@ -98,10 +75,10 @@ server.get('/', function (req, res, next) {
 server.post('/login', function (req, res) {
 	console.log('post request');
 	var data;
-	if (ValidateUsers(admins, req.body.login, req.body.password)) {
+	if (ValidateUsers(temp.admins, req.body.login, req.body.password)) {
 		data = {status:"admin"};
 	}
-	else if (ValidateUsers(users, req.body.login, req.body.password)) {
+	else if (ValidateUsers(temp.users, req.body.login, req.body.password)) {
 		data = {status:"user"};
 	}
 	else {
@@ -115,7 +92,7 @@ server.post('/login', function (req, res) {
 server.post('/register', function (req, res) {
 	console.log('post request');
 	var data;
-	if ((ValidateUsers(admins, req.body.login, req.body.password)) || (ValidateUsers(users, req.body.login, req.body.password)))
+	if ((ValidateUsers(temp.admins, req.body.login, req.body.password)) || (ValidateUsers(temp.users, req.body.login, req.body.password)))
 	{
 		data = { status:"already_exists"};
 	}
