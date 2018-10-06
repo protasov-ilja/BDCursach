@@ -52,9 +52,32 @@ var bodyParser = require('body-parser');
 var server = express();
 var database = config.db.get;
 
-database.connect(function() {
-	console.log(`ready database`);
+database.connect(function(err) {
+	if (err) {
+		console.log(err);
+		throw err;
+	}
+
+	console.log('You are now connected...')
 });
+
+
+
+
+database.query('CREATE TABLE people(id int primary key, name varchar(255), age int, address text)', function(err, result) {
+	if (err) throw err
+	database.query('INSERT INTO people (name, age, address) VALUES (?, ?, ?)', ['Larry', '41', 'California, USA'], function(err, result) {
+		if (err) throw err
+		database.query('SELECT * FROM people', function(err, results) {
+			if (err) throw err
+			console.log(results[0].id)
+			console.log(results[0].name)
+			console.log(results[0].age)
+			console.log(results[0].address)
+		})
+	})
+});
+
 
 server.use(bodyParser.json());
 
@@ -64,6 +87,28 @@ server.listen(config.port, function() {
 
 server.get('/', function (req, res) {
 	console.log('get request');
+	database.query('CREATE TABLE people(id int primary key, name varchar(255), age int, address text)', function(err, result) {
+		if (err) {
+			throw err;
+		}
+
+		database.query('INSERT INTO people (name, age, address) VALUES (?, ?, ?)', ['Larry', '41', 'California, USA'], function(err, result) {
+			if (err) {
+				throw err;
+			}
+
+			database.query('SELECT * FROM people', function(err, results) {
+				if (err) {
+					throw err;
+				}
+
+				console.log(results[0].id);
+				console.log(results[0].name);
+				console.log(results[0].age);
+				console.log(results[0].address);
+			});
+		});
+	});
 
 	res.send("empty_get");
 });
