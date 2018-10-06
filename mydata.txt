@@ -1,3 +1,0 @@
-=== pure-taiga-64408 Config Vars
-CLEARDB_MAROON_URL: mysql://ba23f8cc28a252:0d9d8afa@us-cdbr-iron-east-01.cleardb.net/heroku_c345378e95da7e8?reconnect=true
-DATABASE_URL:       mysql://b6e1ae55117306:f5bffc76@us-cdbr-iron-east-01.cleardb.net/heroku_785b375f435f04a?reconnect=true
