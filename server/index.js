@@ -1,50 +1,7 @@
-// const config = require('./config'),
-// 	express = require('express'),
-// 	errs = require('express-errors'),
-// 	mySqlClient = require("mysql"); // need sth TODO
-//
-// const server = express.createServer({
-// 	name: config.name,
-// 	version: config.version
-// });
-//
-// server.use(express.plugins.acceptParser(server.acceptable));
-// server.use(express.plugins.queryParser());
-// server.use(express.plugins.bodyParser());
-
-// 2v
-// const express = require('express');
-// const path = require('path');
-// const port = process.env.PORT || 3000;
-//
-// const publicPath = path.join(__dirname, '../public');
-//
-// const app = express();
-//
-// app.use(express.static(publicPath));
-//
-// app.listen(port, () => {
-// 	console.log(`Server has been started..  ${port}`)
-// });
-
-// 3v
-// const express = require('express')
-// const app = express()
-// const port = 3000
-//
-// app.get(‘/’, (request, response) => {
-// response.send('Hello from Express!')
-// })
-//
-// app.listen(port, (err) => {
-// 	if (err) {
-// 		return console.log('something bad happened', err)
-// 	}
-//
-// 	console.log('server is listening on ${port}')
-// })
 
 const config = require('./config');
+
+let database = config.db.get;
 
 var admins = [
 	{
@@ -94,8 +51,13 @@ function AddNewUser(newUser)
 }
 
 var express = require('express');
+var errs = require('express-errors');
 var bodyParser = require('body-parser');
 var server = express();
+
+database.connect(function() {
+	console.log(`ready database`);
+});
 
 server.use(bodyParser.json());
 
