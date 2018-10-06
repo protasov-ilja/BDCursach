@@ -85,30 +85,14 @@ server.listen(config.port, function() {
 	console.log(`ready on port ${config.port}`);
 });
 
-server.get('/', function (req, res) {
+server.get('/', function (req, res, next) {
 	console.log('get request');
-	database.query('CREATE TABLE people(id int primary key, name varchar(255), age int, address text)', function(err, result) {
+	var sql = 'CREATE TABLE people(id int primary key, name varchar(255), age int, address text)';
+	database.query(sql, function(err, result) {
 		if (err) {
-			throw err;
+			return next(new errs.BadGatewayError(err))
 		}
-
-		database.query('INSERT INTO people (name, age, address) VALUES (?, ?, ?)', ['Larry', '41', 'California, USA'], function(err, result) {
-			if (err) {
-				throw err;
-			}
-
-			database.query('SELECT * FROM people', function(err, results) {
-				if (err) {
-					throw err;
-				}
-
-				console.log(results[0].id);
-				console.log(results[0].name);
-				console.log(results[0].age);
-				console.log(results[0].address);
-			});
-		});
-	});
+	})
 
 	res.send("empty_get");
 });
