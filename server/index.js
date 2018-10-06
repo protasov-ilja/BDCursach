@@ -87,7 +87,7 @@ server.listen(config.port, function() {
 
 server.get('/', function (req, res, next) {
 	console.log('get request');
-	var sql = 'CREATE TABLE people(id int primary key, name varchar(255), age int, address text)';
+	var sql = 'CREATE TABLE IF NOT EXISTS people(id int primary key, name varchar(255), age int, address text)';
 	database.query(sql, function(err, result) {
 		if (err) {
 			return next(new errs.BadGatewayError(err))
