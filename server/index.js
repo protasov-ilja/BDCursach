@@ -1,7 +1,4 @@
-
 const config = require('./config');
-
-let database = config.db.get;
 
 var admins = [
 	{
@@ -51,9 +48,9 @@ function AddNewUser(newUser)
 }
 
 var express = require('express');
-var errs = require('express-errors');
 var bodyParser = require('body-parser');
 var server = express();
+var database = config.db.get;
 
 database.connect(function() {
 	console.log(`ready database`);
