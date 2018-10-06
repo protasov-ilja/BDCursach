@@ -62,23 +62,6 @@ database.connect(function(err) {
 });
 
 
-
-
-database.query('CREATE TABLE people(id int primary key, name varchar(255), age int, address text)', function(err, result) {
-	if (err) throw err
-	database.query('INSERT INTO people (name, age, address) VALUES (?, ?, ?)', ['Larry', '41', 'California, USA'], function(err, result) {
-		if (err) throw err
-		database.query('SELECT * FROM people', function(err, results) {
-			if (err) throw err
-			console.log(results[0].id)
-			console.log(results[0].name)
-			console.log(results[0].age)
-			console.log(results[0].address)
-		})
-	})
-});
-
-
 server.use(bodyParser.json());
 
 server.listen(config.port, function() {
@@ -87,12 +70,25 @@ server.listen(config.port, function() {
 
 server.get('/', function (req, res, next) {
 	console.log('get request');
-	var sql = 'CREATE TABLE IF NOT EXISTS people(id int primary key, name varchar(255), age int, address text)';
-	database.query(sql, function(err, result) {
-		if (err) {
-			return next(new errs.BadGatewayError(err))
-		}
-	})
+	if(database.state === 'disconnected'){
+		database.connect(function(err) {
+			if (err) {
+				console.log(err);
+				throw err;
+			}
+
+			console.log('You are now connected...')
+		});
+	}
+	else
+	{
+		var sql = 'CREATE TABLE IF NOT EXISTS people(id int primary key, name varchar(255), age int, address text)';
+		database.query(sql, function(err, result) {
+			if (err) {
+				return next(new errs.BadGatewayError(err))
+			}
+		})
+	}
 
 	res.send("empty_get");
 });
