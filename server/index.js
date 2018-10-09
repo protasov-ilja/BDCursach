@@ -1,10 +1,94 @@
 const config = require('./config');
 const temp = require('./tempfiles');
+const dbRequests = require('./requests/requests');
 
+let express = require('express');
+let bodyParser = require('body-parser');
+
+
+let server = express();
+let database = config.db.get;
+
+database.connect((err) => {
+	if (err) {
+		console.log("can't connect to database " + err);
+	}
+
+	console.log('You are now connected...')
+});
+
+// body-parser
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({extended: false}));
+
+//set static path
+//server.use(express.static(path.join(__dirname, 'public')));
+
+server.listen(config.port, () => {
+	console.log(`ready on port ${config.port}`);
+});
+
+server.get('/', (req, res) => {
+	if(!database.state === 'disconnected') {
+		let sql = 'ADD TABLE IF NOT EXISTS people(id int primary key, name varchar(255), age int, address text)';
+		database.query(sql, (err, result) => {
+			if (err) {
+				console.log("err: get/");
+			}
+		})
+	}
+
+	res.send("empty_get");
+});
+
+server.post('/login', (req, res) => {
+	console.log('post request');
+	let data;
+	if (ValidateUsers(temp.admins, req.body.login, req.body.password)) {
+		data = {status:"admin"};
+	}
+	else if (ValidateUsers(temp.users, req.body.login, req.body.password)) {
+		data = {status:"user"};
+	}
+	else {
+		data = {status:"unknown"};
+	}
+
+	console.log(data);
+
+	res.send(JSON.stringify(data));
+});
+
+server.post('/register', (req, res) => {
+	console.log('post request');
+	let data;
+	if ((ValidateUsers(temp.admins, req.body.login, req.body.password)) || (ValidateUsers(temp.users, req.body.login, req.body.password)))
+	{
+		data = { status:"already_exists"};
+	}
+	else
+	{
+		data = { status:"user_added" };
+		AddNewUser(req.body);
+	}
+
+	console.log(data);
+	res.send(JSON.stringify(data));
+});
+
+server.post('/', (req, res) => {
+	console.log('post request');
+	res.send("empty_post");
+});
+
+server.get('api/courese/:id', (req, res) =>
+{
+	res.send(req.params.id); // params in an object
+});
 
 function ValidateUsers(arr, login, password)
 {
-	for (var i = 0; i < arr.length; ++i)
+	for (let i = 0; i < arr.length; ++i)
 	{
 		if ((arr[i].login === login) && (arr[i].password === password))
 		{
@@ -25,88 +109,16 @@ function AddNewUser(newUser)
 	console.log(users[users.length - 1]);
 }
 
-function ErrorHandler (err, req, res, next) {
-	if (res.headersSent) {
-		return next(err);
-	}
+server.use(function(err, req, res, next) {
+	let errData = {
+			status:"error",
+			message: err.message
+		};
 
-	res.status(500);
-	res.render('error', { error: err });
-}
-
-var express = require('express');
-var bodyParser = require('body-parser');
-var server = express();
-var database = config.db.get;
-
-database.connect(function(err) {
-	if (err) {
-		ErrorHandler (err);
-	}
-
-	console.log('You are now connected...')
+	console.log(errData);
+	res.send(JSON.stringify(errData));
 });
 
+//dbRequests.addUser();
 
-server.use(bodyParser.json());
 
-server.listen(config.port, function() {
-	console.log(`ready on port ${config.port}`);
-});
-
-server.get('/', function (req, res, next) {
-	console.log('get request');
-	if(database.state === 'disconnected'){
-
-	}
-	else
-	{
-		var sql = 'CREATE TABLE IF NOT EXISTS people(id int primary key, name varchar(255), age int, address text)';
-		database.query(sql, function(err, result) {
-			if (err) {
-				return next(new errs.BadGatewayError(err))
-			}
-		})
-	}
-
-	res.send("empty_get");
-});
-
-server.post('/login', function (req, res) {
-	console.log('post request');
-	var data;
-	if (ValidateUsers(temp.admins, req.body.login, req.body.password)) {
-		data = {status:"admin"};
-	}
-	else if (ValidateUsers(temp.users, req.body.login, req.body.password)) {
-		data = {status:"user"};
-	}
-	else {
-		data = {status:"unknown"};
-	}
-
-	console.log(data);
-	res.send(JSON.stringify(data));
-});
-
-server.post('/register', function (req, res) {
-	console.log('post request');
-	var data;
-	if ((ValidateUsers(temp.admins, req.body.login, req.body.password)) || (ValidateUsers(temp.users, req.body.login, req.body.password)))
-	{
-		data = { status:"already_exists"};
-	}
-	else
-	{
-		data = { status:"user_added" };
-		AddNewUser(req.body);
-	}
-
-	console.log(data);
-	res.send(JSON.stringify(data));
-});
-
-server.post('/', function (req, res) {
-	console.log('post request');
-	res.send("empty_post");
-});
