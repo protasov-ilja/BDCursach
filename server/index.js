@@ -29,14 +29,14 @@ server.listen(config.port, () => {
 });
 
 server.get('/', (req, res) => {
-		let sql = `SELECT id_user, login, password FROM user WHERE password = '123' AND login = 'user'`;
+		let sql = `SELECT id_user, login, password FROM user WHERE password = '123' AND login = 'user';`;
 		console.log("work");
 		database.query(sql, (err, result) => {
 			if (err) {
 				console.log("err: get/");
 			}
 
-			console.log(result.toString() + "this");
+			console.log(result + "this");
 			res.send(result);
 		});
 
