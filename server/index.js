@@ -35,9 +35,15 @@ server.get('/', (req, res) => {
 			if (err) {
 				console.log("err: get/");
 			}
+			else
+			{
+				for (let i in result) {
+					console.log(i +': ');
+				}
 
-			console.log(result + "this");
-			res.send(result);
+				console.log(result + "this");
+				res.send(result);
+			}
 		});
 
 	res.send("empty_get");
