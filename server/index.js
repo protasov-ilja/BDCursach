@@ -29,37 +29,40 @@ server.listen(config.port, () => {
 });
 
 server.get('/', (req, res) => {
-		let sql = `SELECT id_user, login, password FROM user WHERE password = '123' AND login = 'user'`;
-		console.log("work");
-		database.query(sql, (err, result) => {
-			if (err) {
-				console.log("err: get/");
-			}
-			else
-			{
-				for (let i in result) {
-					console.log(i +': ');
-				}
 
-				console.log(result[0].id_user + "this");
-			}
-		});
 
 	res.send("empty_get");
 });
 
 server.post('/login', (req, res) => {
 	console.log('post request');
-	let data;
-	if (ValidateUsers(temp.admins, req.body.login, req.body.password)) {
-		data = {status:"admin"};
-	}
-	else if (ValidateUsers(temp.users, req.body.login, req.body.password)) {
-		data = {status:"user"};
-	}
-	else {
-		data = {status:"unknown"};
-	}
+	let data = {status: "unknown"};
+	let sql = `SELECT login, password, status FROM user WHERE password = '${req.body.password}' AND login = '${req.body.login}'`;
+	database.query(sql, (err, result) => {
+		if (err) {
+			console.log("err: get/");
+		}
+		else
+		{
+			if (result.length !== 0)
+			{
+				console.log("log: " + result[0].login + " pas: " + result[0].password + " stat: " + result[0].status);
+				data = {status: result[0].status};
+			}
+		}
+	});
+
+	console.log('post request');
+	// let data;
+	// if (ValidateUsers(temp.admins, req.body.login, req.body.password)) {
+	// 	data = {status:"admin"};
+	// }
+	// else if (ValidateUsers(temp.users, req.body.login, req.body.password)) {
+	// 	data = {status:"user"};
+	// }
+	// else {
+	// 	data = {status:"unknown"};
+	// }
 
 	console.log(data);
 
