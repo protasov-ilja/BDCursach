@@ -36,8 +36,8 @@ server.get('/adduser', (req, res) => {
 				console.log("err: get/");
 			}
 
-			console.log(result);
-			res.send(result);
+			console.log(result + "this");
+			//res.send(result);
 		})
 	}
 
