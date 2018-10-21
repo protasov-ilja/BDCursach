@@ -48,6 +48,7 @@ server.post('/login', (req, res) => {
 			{
 				console.log("log: " + result[0].login + " pas: " + result[0].password + " stat: " + result[0].status);
 				data = {status: result[0].status};
+				console.log(data);
 			}
 		}
 	});
