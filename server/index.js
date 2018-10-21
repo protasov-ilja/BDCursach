@@ -36,7 +36,7 @@ server.get('/', (req, res) => {
 
 server.post('/login', (req, res) => {
 	console.log('post request');
-	let data = {status: "unknown"};
+	let data;
 	let sql = `SELECT login, password, status FROM user WHERE password = '${req.body.password}' AND login = '${req.body.login}'`;
 	database.query(sql, (err, result) => {
 		if (err) {
@@ -49,6 +49,12 @@ server.post('/login', (req, res) => {
 				console.log("log: " + result[0].login + " pas: " + result[0].password + " stat: " + result[0].status);
 				data = {status: result[0].status};
 				console.log(data);
+				res.send(JSON.stringify(data));
+			}
+			else
+			{
+				data = {status:"unknown"};
+				res.send(JSON.stringify(data));
 			}
 		}
 	});
@@ -65,9 +71,7 @@ server.post('/login', (req, res) => {
 	// 	data = {status:"unknown"};
 	// }
 
-	console.log(data);
 
-	res.send(JSON.stringify(data));
 });
 
 server.post('/register', (req, res) => {
