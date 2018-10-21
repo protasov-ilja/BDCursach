@@ -30,11 +30,13 @@ server.listen(config.port, () => {
 
 server.get('/', (req, res) => {
 	if(!database.state === 'disconnected') {
-		let sql = 'ADD TABLE IF NOT EXISTS people(id int primary key, name varchar(255), age int, address text)';
+		let sql = 'SELECT id_user, login, password FROM user WHERE password = "123" AND login = "user"';
 		database.query(sql, (err, result) => {
 			if (err) {
 				console.log("err: get/");
 			}
+
+			res.send(result);
 		})
 	}
 
