@@ -36,7 +36,7 @@ server.get('/', (req, res) => {
 				console.log("err: get/");
 			}
 
-			console.log(result.rows[0] + "this");
+			console.log(result.toString() + "this");
 			res.send(result);
 		});
 
