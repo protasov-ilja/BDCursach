@@ -41,7 +41,7 @@ server.get('/', (req, res) => {
 					console.log(i +': ');
 				}
 
-				console.log(result + "this");
+				console.log(result[0] + "this");
 			}
 		});
 
