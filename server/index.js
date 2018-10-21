@@ -30,12 +30,13 @@ server.listen(config.port, () => {
 
 server.get('/adduser', (req, res) => {
 	if(!database.state === 'disconnected') {
-		let sql = `SELECT id_user, login, password FROM user WHERE password = '${"123"}' AND login = '${"user"}'`;
+		let sql = `SELECT id_user, login, password FROM user WHERE password = '${123}' AND login = '${user}'`;
 		database.query(sql, (err, result) => {
 			if (err) {
 				console.log("err: get/");
 			}
 
+			console.log(result);
 			res.send(result);
 		})
 	}
