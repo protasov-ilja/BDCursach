@@ -12,7 +12,7 @@ database.connect((err) => {
 		console.log("can't connect to database " + err);
 	}
 
-	console.log('You are now connected...')
+	console.log('You are now connected...');
 });
 
 // body-parser

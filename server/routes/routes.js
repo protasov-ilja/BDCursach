@@ -21,7 +21,7 @@ module.exports = (server, database) => {
 
 	function getSignIn(req, res, next) {
 		console.log('login');
-		const data = JSON.parse(req.body);
+		const data = req.body;
 		requestsDB.loginUser(database, data, next)
 			.then(() => {
 				//res.send(JSON.stringify(result));
