@@ -23,8 +23,8 @@ module.exports = (server, database) => {
 		console.log('login');
 		const data = req.body;
 		requestsDB.loginUser(database, data, next)
-			.then(() => {
-				//res.send(JSON.stringify(result));
+			.then((result) => {
+				res.send(result);
 			})
 			.catch(() => {
 				res.send("error on login");
