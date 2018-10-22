@@ -24,10 +24,11 @@ module.exports = (server, database) => {
 		const data = req.body;
 		requestsDB.loginUser(database, data, next)
 			.then((result) => {
+				console.log("responce: " + result);
 				res.send(result);
 			})
 			.catch(() => {
-				res.send("error on login");
+				res.send("err");
 			});
 	}
 };

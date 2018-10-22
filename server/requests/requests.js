@@ -35,12 +35,9 @@ exports.loginUser = function (database, data, next) {
 					console.log("log: " + result[0].login + " pas: " + result[0].password + " stat: " + result[0].status);
 					response = {status: result[0].status};
 					console.log(result);
-
-					//res.send(JSON.stringify(data));
 					resolve(JSON.stringify(response));
 				} else {
 					reject(JSON.stringify(response));
-					//res.send(JSON.stringify(data));
 				}
 			}
 		});
