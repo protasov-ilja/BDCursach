@@ -23,9 +23,17 @@ module.exports = (server, database) => {
 		console.log('login');
 		const data = req.body;
 		requestsDB.loginUser(database, data, next)
-			.then((result) => {
+			.then((result, errMassage) => {
 				console.log("responce: " + result);
-				res.send(result);
+				if (errMassage !== null)
+				{
+					console.log("errMassage: " + errMassage);
+					res.send(errMassage);
+				}
+				else
+				{
+					res.send(result);
+				}
 			})
 			.catch(() => {
 				res.send("err");
