@@ -1,10 +1,8 @@
 const config = require('./config');
 const temp = require('./tempfiles');
-const dbRequests = require('./requests/requests');
 
 let express = require('express');
 let bodyParser = require('body-parser');
-
 
 let server = express();
 let database = config.db.get;
@@ -26,63 +24,42 @@ server.use(bodyParser.urlencoded({extended: false}));
 
 server.listen(config.port, () => {
 	console.log(`ready on port ${config.port}`);
+	require("./routes/routes")(server, database);
 });
 
 server.get('/', (req, res) => {
-
-
+	console.log("get_request");
 	res.send("empty_get");
 });
 
-server.post('/login', (req, res) => {
-	console.log('post request');
-	let data;
-	let sql = `SELECT login, password, status FROM user WHERE password = '${req.body.password}' AND login = '${req.body.login}'`;
-	database.query(sql, (err, result) => {
-		if (err) {
-			console.log("err: get/");
-		}
-		else
-		{
-			if (result.length !== 0)
-			{
-				console.log("log: " + result[0].login + " pas: " + result[0].password + " stat: " + result[0].status);
-				data = {status: result[0].status};
-				console.log(data);
-				res.send(JSON.stringify(data));
-			}
-			else
-			{
-				data = {status:"unknown"};
-				res.send(JSON.stringify(data));
-			}
-		}
-	});
-
-	console.log('post request');
-	// let data;
-	// if (ValidateUsers(temp.admins, req.body.login, req.body.password)) {
-	// 	data = {status:"admin"};
-	// }
-	// else if (ValidateUsers(temp.users, req.body.login, req.body.password)) {
-	// 	data = {status:"user"};
-	// }
-	// else {
-	// 	data = {status:"unknown"};
-	// }
-
-
-});
+// server.post('/login', (req, res) => {
+// 	console.log('post request');
+// 	let data;
+// 	let sql = `SELECT login, password, status FROM user WHERE password = '${req.body.password}' AND login = '${req.body.login}'`;
+// 	database.query(sql, (err, result) => {
+// 		if (err) {
+// 			console.log("err: get/");
+// 		}
+// 		else {
+// 			if (result.length !== 0) {
+// 				console.log("log: " + result[0].login + " pas: " + result[0].password + " stat: " + result[0].status);
+// 				data = {status: result[0].status};
+// 				console.log(data);
+// 				res.send(JSON.stringify(data));
+// 			} else {
+// 				data = {status:"unknown"};
+// 				res.send(JSON.stringify(data));
+// 			}
+// 		}
+// 	});
+// });
 
 server.post('/register', (req, res) => {
 	console.log('post request');
 	let data;
-	if ((ValidateUsers(temp.admins, req.body.login, req.body.password)) || (ValidateUsers(temp.users, req.body.login, req.body.password)))
-	{
+	if ((ValidateUsers(temp.admins, req.body.login, req.body.password)) || (ValidateUsers(temp.users, req.body.login, req.body.password))) {
 		data = { status:"already_exists"};
-	}
-	else
-	{
+	} else {
 		data = { status:"user_added" };
 		AddNewUser(req.body);
 	}
@@ -103,10 +80,8 @@ server.get('api/courese/:id', (req, res) =>
 
 function ValidateUsers(arr, login, password)
 {
-	for (let i = 0; i < arr.length; ++i)
-	{
-		if ((arr[i].login === login) && (arr[i].password === password))
-		{
+	for (let i = 0; i < arr.length; ++i) {
+		if ((arr[i].login === login) && (arr[i].password === password)) {
 			return true;
 		}
 	}
@@ -133,7 +108,5 @@ server.use(function(err, req, res, next) {
 	console.log(errData);
 	res.send(JSON.stringify(errData));
 });
-
-//dbRequests.addUser();
 
 
