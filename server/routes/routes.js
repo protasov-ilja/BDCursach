@@ -3,19 +3,19 @@ module.exports = (server, database) => {
 
 	server.post("/v1/signUp", getSignUp);
 
-	function getSignUp(req, res, next) {
-		const data = JSON.parse(req.body);
-		if (!utils.isset(data.email, data.password)) {
-			return next(new errs.InvalidArgumentError("Not enough body data"));
-		}
-		requestsDB.addUser(database, data, next)
-			.then(() => {
-				res.send("success");
-			})
-			.catch(() => {
-				res.send("email is already exist");
-			});
-	}
+	// function getSignUp(req, res, next) {
+	// 	const data = JSON.parse(req.body);
+	// 	if (!utils.isset(data.email, data.password)) {
+	// 		return next(new errs.InvalidArgumentError("Not enough body data"));
+	// 	}
+	// 	requestsDB.addUser(database, data, next)
+	// 		.then(() => {
+	// 			res.send("success");
+	// 		})
+	// 		.catch(() => {
+	// 			res.send("email is already exist");
+	// 		});
+	// }
 
 	server.post('/login', getSignIn);
 
@@ -23,20 +23,29 @@ module.exports = (server, database) => {
 		console.log('login');
 		const data = req.body;
 		requestsDB.loginUser(database, data, next)
-			.then((result, errMassage) => {
+			.then((result) => {
 				console.log("responce: " + result);
-				if (errMassage !== null)
-				{
-					console.log("errMassage: " + errMassage);
-					res.send(errMassage);
-				}
-				else
-				{
-					res.send(result);
-				}
+				res.send(result);
 			})
 			.catch(() => {
-				res.send("err");
+				let response = {status:"unknown"};
+				res.send(JSON.stringify(response));
+			});
+	}
+
+	server.post('/register', getSignUp);
+
+	function getSignUp(req, res, next) {
+		console.log('register');
+		const data = req.body;
+		requestsDB.registerUser(database, data, next)
+			.then((result) => {
+				console.log("responce: " + result);
+				res.send(result);
+			})
+			.catch(() => {
+				let response = { status:"unknown" };
+				res.send(JSON.stringify(response));
 			});
 	}
 };

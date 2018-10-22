@@ -24,20 +24,49 @@ exports.addUser = function(database, data, next) {
 
 exports.loginUser = function (database, data, next) {
 	return new Promise(async (resolve, reject) => {
-		let response = {status:"unknown"};
+		let response = { status: "unknown" };
 		let sql = `SELECT login, password, status FROM user WHERE password = '${data.password}' AND login = '${data.login}'`;
 		database.query(sql, (err, result) => {
 			if (err) {
 				console.log("err: get/");
+				reject(JSON.stringify(response));
 			}
 			else {
 				if (result.length !== 0) {
 					console.log("log: " + result[0].login + " pas: " + result[0].password + " stat: " + result[0].status);
-					response = {status: result[0].status};
+					response = { status: result[0].status };
 					console.log(result);
 					resolve(JSON.stringify(response));
 				} else {
-					reject(JSON.stringify(response));
+					resolve(JSON.stringify(response));
+				}
+			}
+		});
+	});
+};
+
+exports.registerUser = function (database, data, next) {
+	return new Promise(async (resolve, reject) => {
+		let response = { status: "already_exists" };
+		let sql = `SELECT login FROM user WHERE login = '${data.login}'`;
+		database.query(sql, (err, result) => {
+			if (err) {
+				console.log("err in register user");
+				reject("err");
+			} else {
+				if (result.length !== 0) {
+					resolve(JSON.stringify(response));
+				} else {
+					let addedSql = `insert into user (adress, date_of_birth, first_name, last_name, login, password, sex, status) values ('${data.address}', '${data.birth_date}', '${data.first_name}', '${data.last_name}', '${data.login}', '${data.password}', '${data.sex}', '${data.status}')`;
+					database.query(addedSql, (err, newResult) => {
+						if (err) {
+							console.log("err in register user");
+							reject("err");
+						} else {
+							response = { status: "user_added" };
+							resolve(JSON.stringify(response));
+						}
+					});
 				}
 			}
 		});

@@ -54,19 +54,19 @@ server.get('/', (req, res) => {
 // 	});
 // });
 
-server.post('/register', (req, res) => {
-	console.log('post request');
-	let data;
-	if ((ValidateUsers(temp.admins, req.body.login, req.body.password)) || (ValidateUsers(temp.users, req.body.login, req.body.password))) {
-		data = { status:"already_exists"};
-	} else {
-		data = { status:"user_added" };
-		AddNewUser(req.body);
-	}
-
-	console.log(data);
-	res.send(JSON.stringify(data));
-});
+// server.post('/register', (req, res) => {
+// 	console.log('post request');
+// 	let data;
+// 	if ((ValidateUsers(temp.admins, req.body.login, req.body.password)) || (ValidateUsers(temp.users, req.body.login, req.body.password))) {
+// 		data = { status:"already_exists"};
+// 	} else {
+// 		data = { status: "user_added" };
+// 		AddNewUser(req.body);
+// 	}
+//
+// 	console.log(data);
+// 	res.send(JSON.stringify(data));
+// });
 
 server.post('/', (req, res) => {
 	console.log('post request');
