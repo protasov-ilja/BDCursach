@@ -29,16 +29,16 @@ exports.loginUser = function (database, data, next) {
 		database.query(sql, (err, result) => {
 			if (err) {
 				console.log("err: get/");
-				reject(JSON.stringify(response));
+				reject(response);
 			}
 			else {
 				if (result.length !== 0) {
 					console.log("log: " + result[0].login + " pas: " + result[0].password + " stat: " + result[0].status);
 					response = { status: result[0].status };
 					console.log(result);
-					resolve(JSON.stringify(response));
+					resolve(response);
 				} else {
-					resolve(JSON.stringify(response));
+					reject(response);
 				}
 			}
 		});

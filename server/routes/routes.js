@@ -25,11 +25,11 @@ module.exports = (server, database) => {
 		requestsDB.loginUser(database, data, next)
 			.then((result) => {
 				console.log("responce: " + result);
-				res.send(result);
+				res.send(JSON.stringify(result));
 			})
-			.catch(() => {
-				let response = {status:"unknown"};
-				res.send(JSON.stringify(response));
+			.catch((result) => {
+				console.log("reject: " + result);
+				res.send(JSON.stringify(result));
 			});
 	}
 
@@ -41,11 +41,11 @@ module.exports = (server, database) => {
 		requestsDB.registerUser(database, data, next)
 			.then((result) => {
 				console.log("responce: " + result);
-				res.send(result);
+				res.send(JSON.stringify(result));
 			})
-			.catch(() => {
-				let response = { status:"unknown" };
-				res.send(JSON.stringify(response));
+			.catch((result) => {
+				console.log("reject: " + result);
+				res.send(JSON.stringify(result));
 			});
 	}
 };
