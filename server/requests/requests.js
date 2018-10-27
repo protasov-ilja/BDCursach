@@ -57,7 +57,7 @@ exports.registerUser = function (database, data, next) {
 				if (result.length !== 0) {
 					resolve(JSON.stringify(response));
 				} else {
-					let addedSql = `insert into user (adress, date_of_birth, first_name, last_name, login, password, sex, status) values ('${data.address}', '${data.birth_date}', '${data.first_name}', '${data.last_name}', '${data.login}', '${data.password}', '${data.sex}', '${data.status}')`;
+					let addedSql = `insert into user (login, password, first_name, last_name, status, date_of_birth, address, sex) values ('${data.login}', '${data.password}', '${data.firstName}', '${data.lastName}', '${data.status}', '${data.dateOfBirth}', '${data.address}', '${data.sex}')`;
 					database.query(addedSql, (err, newResult) => {
 						if (err) {
 							console.log("err in register user");
@@ -67,6 +67,29 @@ exports.registerUser = function (database, data, next) {
 							resolve(JSON.stringify(response));
 						}
 					});
+				}
+			}
+		});
+	});
+};
+
+exports.getAllFlights = function (database, data, next) {
+	return new Promise(async (resolve, reject) => {
+		let response = { status: "empty" };
+		let sql = `SELECT * FROM flight'`;
+		database.query(sql, (err, result) => {
+			if (err) {
+				console.log("err in get all flights");
+				reject(response);
+			} else {
+				if (result.length !== 0) {
+					console.log(result[0]);
+					console.log(result[1]);
+					response = { status: result[0].status };
+					console.log(result);
+					resolve(response);
+				} else {
+					reject(response);
 				}
 			}
 		});

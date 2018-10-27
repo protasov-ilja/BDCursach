@@ -1,0 +1,1 @@
+insert into airport (name, location) values ('Domodedovo', 'Moscow');

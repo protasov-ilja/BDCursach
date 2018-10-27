@@ -1,0 +1,1 @@
+insert into company (name, rating) values ('FSB', 99.9);
