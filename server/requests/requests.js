@@ -73,10 +73,11 @@ exports.registerUser = function (database, data, next) {
 	});
 };
 
-exports.getAllFlights = function (database, data, next) {
+exports.getAllFlights = function (database, next) {
 	return new Promise(async (resolve, reject) => {
+		console.log('getAllFlights');
 		let response = { status: "empty" };
-		let sql = `SELECT * FROM flight'`;
+		let sql = `SELECT * FROM flight`;
 		database.query(sql, (err, result) => {
 			if (err) {
 				console.log("err in get all flights");

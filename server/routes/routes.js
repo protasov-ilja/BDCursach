@@ -61,7 +61,7 @@ module.exports = (server, database) => {
 
 	function getFlights(req, res, next) {
 		console.log('flights');
-		requestsDB.getAllFlights(database, data, next)
+		requestsDB.getAllFlights(database, next)
 			.then((result) => {
 				console.log("responce: " + result);
 				res.send(JSON.stringify(result));
