@@ -84,13 +84,11 @@ exports.getAllFlights = function (database, next) {
 				reject(response);
 			} else {
 				if (result.length !== 0) {
-					var newResponse;
 					for (let i = 0; i < result.length; ++i) {
-						newResponse.add(result[i]);
 						console.log(i + "-i: " + result[i]);
 					}
 
-					resolve(newResponse);
+					resolve(result);
 				} else {
 					reject(response);
 				}
