@@ -27,7 +27,8 @@ exports.registerUser = function (database, data, next) {
 		let sql = `SELECT login FROM user WHERE login = '${data.login}'`;
 		database.query(sql, (err, result) => {
 			if (err) {
-				console.log("err in register user");
+				console.log("error_in_sql");
+				response = { status: "error_in_sql" };
 				reject(response);
 			} else {
 				if (result.length !== 0) {
@@ -36,7 +37,8 @@ exports.registerUser = function (database, data, next) {
 					let addedSql = `insert into user (login, password, first_name, last_name, status, date_of_birth, address, sex) values ('${data.login}', '${data.password}', '${data.firstName}', '${data.lastName}', '${data.status}', '${data.dateOfBirth}', '${data.address}', '${data.sex}')`;
 					database.query(addedSql, (err, newResult) => {
 						if (err) {
-							console.log("err in register user");
+							response = { status: "error_in_sql_when_added" };
+							console.log("error_in_sql_when_added" );
 							reject(response);
 						} else {
 							response = { status: "user_added" };
