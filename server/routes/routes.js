@@ -82,7 +82,7 @@ module.exports = (server, database) => {
 		console.log('getTicketsForFlight');
 		const data = req.query;
 		if (!req.query) {
-			res.send("error no body");
+			res.send("error no query");
 		}
 
 		requestsDB.getAllTicketsForFlight(database, data, next)
