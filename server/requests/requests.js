@@ -122,6 +122,7 @@ exports.getAllTicketsForFlight = function (database, data, next) {
 		database.query(sql, (err, result) => {
 			if (err) {
 				console.log("err in getAllTicketsForFlight");
+				response = { status: "err_in_sql" };
 				reject(response);
 			} else {
 				if (result.length !== 0) {
@@ -131,6 +132,7 @@ exports.getAllTicketsForFlight = function (database, data, next) {
 
 					resolve(result);
 				} else {
+					console.log(data.idFlight);
 					reject(response);
 				}
 			}
