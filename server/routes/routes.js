@@ -80,8 +80,8 @@ module.exports = (server, database) => {
 
 	function getTicketsForFlight(req, res, next) {
 		console.log('getTicketsForFlight');
-		const data = req.header;
-		if (!req.header()) {
+		const data = req.head;
+		if (!req.head) {
 			res.send("error no body");
 		}
 
