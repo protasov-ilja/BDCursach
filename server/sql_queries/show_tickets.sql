@@ -1,9 +1,9 @@
 SELECT
-  ticket.id_ticket,
-  ticket.price,
-  class.name,
-  class.description,
-  ticket.decription
+  ticket.id_ticket AS idTicket,
+  ticket.price AS price,
+  class.name AS name,
+  class.description AS classDescription,
+  ticket.decription AS ticketDescription
 FROM `ticket`
   LEFT JOIN class ON class.id_class = ticket.id_class
 WHERE

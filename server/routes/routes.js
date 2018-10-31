@@ -76,7 +76,7 @@ module.exports = (server, database) => {
 			});
 	}
 
-	server.get('/flight/tickets', changeUserInfo);
+	server.get('/flight/tickets', getTicketsForFlight);
 
 	function getTicketsForFlight(req, res, next) {
 		console.log('getTicketsForFlight');
