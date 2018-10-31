@@ -127,7 +127,7 @@ exports.getAllTicketsForFlight = function (database, data, next) {
 		FROM ticket
 			LEFT JOIN class ON class.id_class = ticket.id_class
 		WHERE
-			ticket.id_flight = '${data.idFlight}'`;
+			ticket.id_flight = ${data.idFlight}`;
 		database.query(sql, (err, result) => {
 			if (err) {
 				console.log("err in getAllTicketsForFlight");
