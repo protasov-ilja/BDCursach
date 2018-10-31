@@ -34,7 +34,7 @@ exports.registerUser = function (database, data, next) {
 				if (result.length !== 0) {
 					reject(response);
 				} else {
-					let addedSql = `insert into user (login, password, first_name, last_name, status, date_of_birth, address, sex) values ('${data.login}', '${data.password}', '${data.firstName}', '${data.lastName}', '${data.status}', '${data.dateOfBirth}', '${data.address}', '${data.sex}')`;
+					let addedSql = `INSERT INTO user (login, password, first_name, last_name, status, date_of_birth, address, sex) VALUES ('${data.login}', '${data.password}', '${data.firstName}', '${data.lastName}', '${data.status}', '${data.dateOfBirth}', '${data.address}', '${data.sex}')`;
 					database.query(addedSql, (err, newResult) => {
 						if (err) {
 							response = { status: "error_in_sql_when_added" };
@@ -75,28 +75,72 @@ exports.getAllFlights = function (database, next) {
 	});
 };
 
-exports.editUserInfo = function (database, next) {
+exports.editUserInfo = function (database, data, next) {
 	return new Promise(async (resolve, reject) => {
-		let response = { status: "already_exists" };
-		let sql = `SELECT login FROM user WHERE login = '${data.login}'`;
+		let response = { status: "not_such_user" };
+		let sql = `SELECT id_user FROM user WHERE login = '${data.login}'`;
 		database.query(sql, (err, result) => {
 			if (err) {
-				console.log("err in editUserInfo user");
-				reject("err");
+				console.log("err in editUserInfo sql user");
+				response = { status: "err_in_sql" };
+				reject(response);
 			} else {
 				if (result.length !== 0) {
-					resolve(JSON.stringify(response));
-				} else {
-					let addedSql = `insert into user (login, password, first_name, last_name, status, date_of_birth, address, sex) values ('${data.login}', '${data.password}', '${data.firstName}', '${data.lastName}', '${data.status}', '${data.dateOfBirth}', '${data.address}', '${data.sex}')`;
-					database.query(addedSql, (err, newResult) => {
+					let updateSql =
+						`UPDATE user SET 
+						password = '${data.password}'
+						, first_name = '${data.firstName}'
+						, last_name = '${data.lastName}'
+						, status = '${data.status}'
+						, date_of_birth = '${data.dateOfBirth}'
+						, address = '${data.address}'
+						, sex = '${data.sex}'
+						WHERE id_user = '${result[0].id_user}'`;
+					database.query(updateSql, (err, newResult) => {
 						if (err) {
-							console.log("err in register user");
+							console.log("err in update user");
 							reject("err");
 						} else {
-							response = { status: "user_added" };
-							resolve(JSON.stringify(response));
+							response = { status: "user_updated" };
+							resolve(response);
 						}
 					});
+				} else {
+					console.log("err user not found");
+					reject(response);
+				}
+			}
+		});
+	});
+};
+
+exports.getAllTicketsForFlight = function (database, data, next) {
+	return new Promise(async (resolve, reject) => {
+		console.log('getAllTicketsForFlight');
+		let response = { status: "empty" };
+		let sql = `SELECT
+			ticket.id_ticket AS idTicket,
+			ticket.price AS price,
+			class.name AS name,
+			class.description AS classDescription,
+			ticket.decription AS ticketDescription
+		FROM ticket
+			LEFT JOIN class ON class.id_class = ticket.id_class
+		WHERE
+			ticket.id_flight = '${data.idFlight}'`;
+		database.query(sql, (err, result) => {
+			if (err) {
+				console.log("err in getAllTicketsForFlight");
+				reject(response);
+			} else {
+				if (result.length !== 0) {
+					for (let i = 0; i < result.length; ++i) {
+						console.log(i + "-i: " + result[i]);
+					}
+
+					resolve(result);
+				} else {
+					reject(response);
 				}
 			}
 		});

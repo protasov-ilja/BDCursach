@@ -56,7 +56,7 @@ module.exports = (server, database) => {
 			});
 	}
 
-	server.get('/user/change-info', changeUserInfo);
+	server.post('/user/change-info', changeUserInfo);
 
 	function changeUserInfo(req, res, next) {
 		console.log('changeUserInfo');
@@ -65,7 +65,27 @@ module.exports = (server, database) => {
 			res.send("error no body");
 		}
 
-		requestsDB.registerUser(database, data, next)
+		requestsDB.editUserInfo(database, data, next)
+			.then((result) => {
+				console.log("responce: " + result);
+				res.send(JSON.stringify(result));
+			})
+			.catch((result) => {
+				console.log("reject: " + result);
+				res.send(JSON.stringify(result));
+			});
+	}
+
+	server.get('/flight/tickets', changeUserInfo);
+
+	function getTicketsForFlight(req, res, next) {
+		console.log('getTicketsForFlight');
+		const data = req.body;
+		if (!req.body) {
+			res.send("error no body");
+		}
+
+		requestsDB.getAllTicketsForFlight(database, data, next)
 			.then((result) => {
 				console.log("responce: " + result);
 				res.send(JSON.stringify(result));

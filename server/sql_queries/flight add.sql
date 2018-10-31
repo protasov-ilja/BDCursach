@@ -1,2 +1,6 @@
 insert into flight (id_plane, id_airport, point_of_departure, point_of_destination, time_of_departure, time_of_destination) values (2, 1, 'Moscow, Domodedovo', 'New York', '11.10.18', '11.10.18');
 insert into flight (id_plane, id_airport, point_of_departure, point_of_destination, time_of_departure, time_of_destination) values (3, 1, 'Moscow, Sheremtevo', 'Sidney', '11.10.18', '12.10.18');
+
+INSERT INTO flight (id_flight, id_plane, id_airport, point_of_departure, point_of_destination, time_of_departure, time_of_destination) VALUES (1, 3, 1, 'Paris, ParisAirport', 'Moscow', '11.11.18', '12.9.18');
+INSERT INTO flight (id_flight, id_plane, id_airport, point_of_departure, point_of_destination, time_of_departure, time_of_destination) VALUES (2, 3, 1, 'Paris, ParisAirport', 'Moscow', '11.11.18', '12.9.18');
+INSERT INTO flight (id_flight, id_plane, id_airport, point_of_departure, point_of_destination, time_of_departure, time_of_destination) VALUES (3, 3, 1, 'Paris, ParisAirport', 'Moscow', '11.11.18', '12.9.18');
