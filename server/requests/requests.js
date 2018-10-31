@@ -132,6 +132,7 @@ exports.getAllTicketsForFlight = function (database, data, next) {
 
 					resolve(result);
 				} else {
+					console.log(data);
 					console.log(data.idFlight);
 					reject(response);
 				}
