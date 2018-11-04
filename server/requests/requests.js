@@ -7,8 +7,8 @@ exports.loginUser = function (database, data, next) {
 			password, 
 			status 
 		FROM user 
-			WHERE password = '${data.password}' AND login = '${data.login}'`;
-		database.query(sql, (err, result) => {
+			WHERE password = ? AND login = ?`;
+		database.query(sql, [data.password, data.login], (err, result) => {
 			if (err) {
 				console.log(database.escape(data.password));
 				console.log("err: get/");
