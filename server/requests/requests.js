@@ -7,7 +7,7 @@ exports.loginUser = function (database, data, next) {
 			password, 
 			status 
 		FROM user 
-			WHERE password = '${data.password}' AND login = '${data.login}'`;
+			WHERE password = '${database.escape(data.password)}' AND login = '${database.escape(data.login)}'`;
 		database.query(sql, (err, result) => {
 			if (err) {
 				console.log("err: get/");
@@ -33,7 +33,7 @@ exports.registerUser = function (database, data, next) {
 		SELECT 
 			login 
 		FROM user 
-			WHERE login = '${data.login}'`;
+			WHERE login = '${database.escape(data.login)}'`;
 		database.query(sql, (err, result) => {
 			if (err) {
 				console.log("error_in_sql");
@@ -45,7 +45,7 @@ exports.registerUser = function (database, data, next) {
 				reject(response);
 			} else {
 				let addedSql = `INSERT INTO user (login, password, first_name, last_name, status, date_of_birth, address, sex) 
-				VALUES ('${data.login}', '${data.password}', '${data.firstName}', '${data.lastName}', '${data.status}', '${data.dateOfBirth}', '${data.address}', '${data.sex}')`;
+				VALUES ('${database.escape(data.login)}', '${database.escape(data.password)}', '${database.escape(data.firstName)}', '${database.escape(data.lastName)}', '${database.escape(data.status)}', '${database.escape(data.dateOfBirth)}', '${database.escape(data.address)}', '${database.escape(data.sex)}')`;
 				database.query(addedSql, (err, newResult) => {
 					if (err) {
 						response = { status: "error_in_sql_when_added" };
@@ -92,7 +92,7 @@ exports.editUserInfo = function (database, data, next) {
 		SELECT 
 			id_user 
 		FROM user 
-			WHERE login = '${data.login}'`;
+			WHERE login = '${database.escape(data.login)}'`;
 		database.query(sql, (err, result) => {
 			if (err) {
 				console.log("err in editUserInfo sql user");
@@ -102,14 +102,14 @@ exports.editUserInfo = function (database, data, next) {
 				if (result.length !== 0) {
 					let updateSql =
 						`UPDATE user SET 
-						password = '${data.password}'
-						, first_name = '${data.firstName}'
-						, last_name = '${data.lastName}'
-						, status = '${data.status}'
-						, date_of_birth = '${data.dateOfBirth}'
-						, address = '${data.address}'
-						, sex = '${data.sex}'
-						WHERE id_user = '${result[0].id_user}'`;
+						password = '${database.escape(data.password)}'
+						, first_name = '${database.escape(data.firstName)}'
+						, last_name = '${database.escape(data.lastName)}'
+						, status = '${database.escape(data.status)}'
+						, date_of_birth = '${database.escape(data.dateOfBirth)}'
+						, address = '${database.escape(data.address)}'
+						, sex = '${database.escape(data.sex)}'
+						WHERE id_user = '${database.escape(result[0].id_user)}'`;
 					database.query(updateSql, (err, newResult) => {
 						if (err) {
 							console.log("err in update user");
