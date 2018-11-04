@@ -1,1 +1,1 @@
-insert into company (name, rating) values ('FSB', 99.9);
+INSERT INTO company (name, rating) VALUES ('FSB', 99.9);
