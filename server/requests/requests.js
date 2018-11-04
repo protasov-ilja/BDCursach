@@ -44,8 +44,24 @@ exports.registerUser = function (database, data, next) {
 			if (result.length !== 0) {
 				reject(response);
 			} else {
-				let addedSql = `INSERT INTO user (login, password, first_name, last_name, status, date_of_birth, address, sex) 
-				VALUES ('${database.escape(data.login)}', '${database.escape(data.password)}', '${database.escape(data.firstName)}', '${database.escape(data.lastName)}', '${database.escape(data.status)}', '${database.escape(data.dateOfBirth)}', '${database.escape(data.address)}', '${database.escape(data.sex)}')`;
+				let addedSql = `INSERT INTO user (
+					login,
+					password,
+					first_name,
+					last_name,
+					status,
+					date_of_birth,
+					address,
+					sex) 
+				VALUES (
+					'${database.escape(data.login)}',
+					'${database.escape(data.password)}',
+					'${database.escape(data.firstName)}',
+					'${database.escape(data.lastName)}',
+					'${database.escape(data.status)}',
+					'${database.escape(data.dateOfBirth)}',
+					'${database.escape(data.address)}',
+					'${database.escape(data.sex)}')`;
 				database.query(addedSql, (err, newResult) => {
 					if (err) {
 						response = { status: "error_in_sql_when_added" };
