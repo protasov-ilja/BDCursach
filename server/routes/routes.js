@@ -76,6 +76,26 @@ module.exports = (server, database) => {
 			});
 	}
 
+	server.post('/user/get-info', getUserInfo);
+
+	function getUserInfo(req, res, next) {
+		console.log('getUserInfo');
+		const data = req.body;
+		if (!req.body) {
+			res.send("error no body");
+		}
+
+		requestsDB.getUser(database, data, next)
+			.then((result) => {
+				console.log("responce: " + result);
+				res.send(JSON.stringify(result));
+			})
+			.catch((result) => {
+				console.log("reject: " + result);
+				res.send(JSON.stringify(result));
+			});
+	}
+
 	server.get('/flight/tickets', getTicketsForFlight);
 
 	function getTicketsForFlight(req, res, next) {

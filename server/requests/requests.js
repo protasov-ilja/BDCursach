@@ -124,6 +124,36 @@ exports.editUserInfo = function (database, data, next) {
 	});
 };
 
+exports.getUser = function (database, data, next) {
+	return new Promise(async (resolve, reject) => {
+		let response = { status: "no such user" };
+		let sql = `
+		SELECT
+			login
+			, password
+			, first_name AS firstName
+			, last_name AS lastName
+			, status
+			, date_of_birth AS dateOfBirth
+			, address
+			, sex 
+		FROM user 
+			WHERE password = ? AND login = ?`;
+		database.query(sql, [data.password, data.login], (err, result) => {
+			if (err) {
+				response = { status: "err: query" };
+				reject(response);
+			}
+
+			if (result.length !== 0) {
+				resolve(result);
+			} else {
+				reject(response);
+			}
+		});
+	});
+};
+
 exports.getAllTicketsForFlight = function (database, data, next) {
 	return new Promise(async (resolve, reject) => {
 		let response = { status: "empty" };
