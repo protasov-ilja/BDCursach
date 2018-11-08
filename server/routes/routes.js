@@ -86,7 +86,7 @@ module.exports = (server, database) => {
 		}
 		else
 		{
-			for (let par in body)
+			for (let par in data)
 			{
 				console.log(par);
 			}
