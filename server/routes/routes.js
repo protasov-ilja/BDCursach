@@ -84,6 +84,14 @@ module.exports = (server, database) => {
 		if (!req.body) {
 			res.send("error no body");
 		}
+		else
+		{
+			for (let par in body)
+			{
+				console.log(par);
+			}
+
+		}
 
 		requestsDB.getUser(database, data, next)
 			.then((result) => {

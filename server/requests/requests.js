@@ -126,12 +126,11 @@ exports.editUserInfo = function (database, data, next) {
 
 exports.getUser = function (database, data, next) {
 	return new Promise(async (resolve, reject) => {
+		console.log("getUser");
 		let response = { status: "no_such_user" };
 		let sql = `
 		SELECT
-			login
-			, password
-			, first_name AS firstName
+			first_name AS firstName
 			, last_name AS lastName
 			, status
 			, date_of_birth AS dateOfBirth
