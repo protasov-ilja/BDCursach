@@ -126,7 +126,7 @@ exports.editUserInfo = function (database, data, next) {
 
 exports.getUser = function (database, data, next) {
 	return new Promise(async (resolve, reject) => {
-		let response = { status: "no such user" };
+		let response = { status: "no_such_user" };
 		let sql = `
 		SELECT
 			login
@@ -141,7 +141,7 @@ exports.getUser = function (database, data, next) {
 			WHERE password = ? AND login = ?`;
 		database.query(sql, [data.password, data.login], (err, result) => {
 			if (err) {
-				response = { status: "err: query" };
+				response = { status: "err_query" };
 				reject(response);
 			}
 
