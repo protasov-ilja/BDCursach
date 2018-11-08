@@ -132,10 +132,10 @@ exports.getUser = function (database, data, next) {
 		SELECT
 			first_name AS firstName
 			, last_name AS lastName
-			, status
+			, status AS status
 			, date_of_birth AS dateOfBirth
-			, address
-			, sex 
+			, address AS address
+			, sex AS sex
 		FROM user 
 			WHERE password = ? AND login = ?`;
 		database.query(sql, [data.password, data.login], (err, result) => {

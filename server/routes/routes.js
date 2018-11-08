@@ -86,11 +86,7 @@ module.exports = (server, database) => {
 		}
 		else
 		{
-			for (let par in data)
-			{
-				console.log(par);
-			}
-
+			console.log(data.password);
 		}
 
 		requestsDB.getUser(database, data, next)
