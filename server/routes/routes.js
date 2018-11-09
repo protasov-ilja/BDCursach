@@ -56,7 +56,7 @@ module.exports = (server, database) => {
 			});
 	}
 
-	server.post('/user/change-info', changeUserInfo);
+	server.post('/user/change_info', changeUserInfo);
 
 	function changeUserInfo(req, res, next) {
 		console.log('changeUserInfo');
@@ -76,7 +76,7 @@ module.exports = (server, database) => {
 			});
 	}
 
-	server.post('/user/get-info', getUserInfo);
+	server.post('/user/get_info', getUserInfo);
 
 	function getUserInfo(req, res, next) {
 		console.log('getUserInfo');

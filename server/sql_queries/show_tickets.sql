@@ -64,6 +64,16 @@ WHERE id_user = 1;
 
 
 
+SELECT
+    first_name AS firstName
+  , last_name AS lastName
+  , status AS status
+  , date_of_birth AS dateOfBirth
+  , address AS address
+  , sex AS sex
+FROM user
+WHERE password = 'qwe' AND login = 'qwe';
+
 
 
 
