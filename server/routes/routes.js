@@ -4,7 +4,6 @@ module.exports = (server, database) => {
 	server.post('/login', getSignIn);
 
 	function getSignIn(req, res, next) {
-		console.log('login');
 		const data = req.body;
 		if (!req.body) {
 			res.send("error no body");
@@ -12,19 +11,17 @@ module.exports = (server, database) => {
 
 		requestsDB.loginUser(database, data, next)
 			.then((result) => {
-				console.log("responce: " + result);
+				console.log("responce");
 				res.send(JSON.stringify(result));
 			})
 			.catch((result) => {
 				console.log("reject: " + result);
-				res.send(JSON.stringify(result));
 			});
 	}
 
 	server.post('/register', getSignUp);
 
 	function getSignUp(req, res, next) {
-		console.log('register');
 		const data = req.body;
 		if (!req.body) {
 			res.send("error no body");
@@ -32,34 +29,30 @@ module.exports = (server, database) => {
 
 		requestsDB.registerUser(database, data, next)
 			.then((result) => {
-				console.log("responce: " + result);
+				console.log("responce");
 				res.send(JSON.stringify(result));
 			})
 			.catch((result) => {
 				console.log("reject: " + result);
-				res.send(JSON.stringify(result));
 			});
 	}
 
 	server.get('/flights', getFlights);
 
 	function getFlights(req, res, next) {
-		console.log('flights');
 		requestsDB.getAllFlights(database, next)
 			.then((result) => {
-				console.log("responce: " + result);
+				console.log("responce");
 				res.send(JSON.stringify(result));
 			})
 			.catch((result) => {
 				console.log("reject: " + result);
-				res.send(JSON.stringify(result));
 			});
 	}
 
 	server.post('/user/change', changeUserInfo);
 
 	function changeUserInfo(req, res, next) {
-		console.log('changeUserInfo');
 		const data = req.body;
 		if (!req.body) {
 			res.send("error no body");
@@ -67,37 +60,29 @@ module.exports = (server, database) => {
 
 		requestsDB.editUserInfo(database, data, next)
 			.then((result) => {
-				console.log("responce: " + result);
+				console.log("responce");
 				res.send(JSON.stringify(result));
 			})
 			.catch((result) => {
 				console.log("reject: " + result);
-				res.send(JSON.stringify(result));
 			});
 	}
 
 	server.post('/user/get', getUserInfo);
 
 	function getUserInfo(req, res, next) {
-		console.log('getUserInfo');
 		const data = req.body;
 		if (!req.body) {
 			res.send("error no body");
 		}
-		else
-		{
-			console.log(data.login);
-			console.log(data.password);
-		}
 
 		requestsDB.getUser(database, data, next)
 			.then((result) => {
-				console.log("responce: " + result);
+				console.log("responce");
 				res.send(JSON.stringify(result));
 			})
 			.catch((result) => {
 				console.log("reject: " + result);
-				res.send(JSON.stringify(result));
 			});
 	}
 
@@ -112,12 +97,11 @@ module.exports = (server, database) => {
 
 		requestsDB.getAllTicketsForFlight(database, data, next)
 			.then((result) => {
-				console.log("responce: " + result);
+				console.log("responce");
 				res.send(JSON.stringify(result));
 			})
 			.catch((result) => {
 				console.log("reject: " + result);
-				res.send(JSON.stringify(result));
 			});
 	}
 };

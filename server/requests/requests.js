@@ -10,7 +10,7 @@ exports.loginUser = function (database, data, next) {
 			WHERE password = ? AND login = ?`;
 		database.query(sql, [data.password, data.login], (err, result) => {
 			if (err) {
-				response = { status: "err: query" };
+				response = { status: "err in query" };
 				reject(response);
 			}
 
@@ -18,7 +18,7 @@ exports.loginUser = function (database, data, next) {
 				response = { status: result[0].status };
 				resolve(response);
 			} else {
-				reject(response);
+				resolve(response);
 			}
 		});
 	});
@@ -34,12 +34,12 @@ exports.registerUser = function (database, data, next) {
 			WHERE login = ?`;
 		database.query(sql, [data.login], (err, result) => {
 			if (err) {
-				response = { status: "error_in_sql" };
+				response = { status: "err in query" };
 				reject(response);
 			}
 
 			if (result.length !== 0) {
-				reject(response);
+				resolve(response);
 			} else {
 				let addedSql = `INSERT INTO user (
 					login,
@@ -49,36 +49,19 @@ exports.registerUser = function (database, data, next) {
 					status,
 					date_of_birth,
 					address,
-					sex) 
+					sex,
+					url_image) 
 				VALUES (
-					?, ?, ?, ?, ?, ?, ?, ?)`;
-				database.query(addedSql, [data.login, data.password, data.firstName, data.lastName, data.status, data.dateOfBirth, data.address, data.sex], (err, newResult) => {
+					?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+				database.query(addedSql, [data.login, data.password, data.firstName, data.lastName, data.status, data.dateOfBirth, data.address, data.sex, data.urlImage], (err, newResult) => {
 					if (err) {
-						response = { status: "error_in_sql_when_added" };
+						response = { status: "err in query when added" };
 						reject(response);
 					}
 
 					response = { status: "user_added" };
 					resolve(response);
 				});
-			}
-		});
-	});
-};
-
-exports.getAllFlights = function (database, next) {
-	return new Promise(async (resolve, reject) => {
-		let response = { status: "empty" };
-		let sql = `SELECT * FROM flight`;
-		database.query(sql, (err, result) => {
-			if (err) {
-				reject(response);
-			}
-
-			if (result.length !== 0) {
-				resolve(result);
-			} else {
-				reject(response);
 			}
 		});
 	});
@@ -94,7 +77,7 @@ exports.editUserInfo = function (database, data, next) {
 			WHERE login = ?`;
 		database.query(sql, [data.login], (err, result) => {
 			if (err) {
-				response = { status: "err_in_sql" };
+				response = { status: "err in query" };
 				reject(response);
 			} else {
 				if (result.length !== 0) {
@@ -107,17 +90,19 @@ exports.editUserInfo = function (database, data, next) {
 						, date_of_birth = ?
 						, address = ?
 						, sex = ?
+						, url_image = ?
 						WHERE id_user = '${result[0].id_user}'`;
-					database.query(updateSql, [data.password, data.firstName, data.lastName, data.status, data.dateOfBirth, data.address, data.sex], (err, newResult) => {
+					database.query(updateSql, [data.password, data.firstName, data.lastName, data.status, data.dateOfBirth, data.address, data.sex, data.urlImage], (err, newResult) => {
 						if (err) {
-							reject("err");
+							response = { status: "err in query" };
+							reject(response);
 						} else {
 							response = { status: "user_updated" };
 							resolve(response);
 						}
 					});
 				} else {
-					reject(response);
+					resolve(response);
 				}
 			}
 		});
@@ -126,28 +111,47 @@ exports.editUserInfo = function (database, data, next) {
 
 exports.getUser = function (database, data, next) {
 	return new Promise(async (resolve, reject) => {
-		console.log("getUser");
 		let response = { status: "no_such_user" };
 		let sql = `
 		SELECT
 			first_name AS firstName
 			, last_name AS lastName
-			, status AS status
+			, status
 			, date_of_birth AS dateOfBirth
-			, address AS address
-			, sex AS sex
+			, address
+			, sex
+			, url_image AS urlImage
 		FROM user 
 			WHERE password = ? AND login = ?`;
 		database.query(sql, [data.password, data.login], (err, result) => {
 			if (err) {
-				response = { status: "err_query" };
+				response = { status: "err in query" };
 				reject(response);
 			}
 
 			if (result.length !== 0) {
 				resolve(result[0]);
 			} else {
+				resolve(response);
+			}
+		});
+	});
+};
+
+exports.getAllFlights = function (database, next) {
+	return new Promise(async (resolve, reject) => {
+		let response = { status: "empty" };
+		let sql = `SELECT * FROM flight`;
+		database.query(sql, (err, result) => {
+			if (err) {
+				response = { status: "err in query" };
 				reject(response);
+			}
+
+			if (result.length !== 0) {
+				resolve(result);
+			} else {
+				resolve(response);
 			}
 		});
 	});
@@ -160,6 +164,7 @@ exports.getAllTicketsForFlight = function (database, data, next) {
 		SELECT 
 			ticket.id_ticket AS idTicket,
 			ticket.price AS price,
+			ticket.place_number AS placeNumber,
 		  	class.name AS name,
 		   	class.description AS classDescription,
 		    ticket.decription AS ticketDescription
@@ -168,13 +173,13 @@ exports.getAllTicketsForFlight = function (database, data, next) {
 		WHERE ticket.id_flight = ?`;
 		database.query(sql, [data.idFlight], (err, result) => {
 			if (err) {
-				response = { status: "err_in_sql" };
+				response = { status: "err in query" };
 				reject(response);
 			} else {
 				if (result.length !== 0) {
 					resolve(result);
 				} else {
-					reject(response);
+					resolve(response);
 				}
 			}
 		});

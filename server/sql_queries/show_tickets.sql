@@ -3,6 +3,7 @@
 SELECT
   ticket.id_ticket AS idTicket,
   ticket.price AS price,
+  ticket.place_number AS placeNumber,
   class.name AS name,
   class.description AS classDescription,
   ticket.decription AS ticketDescription
@@ -42,14 +43,24 @@ FROM user
 WHERE login = 'qwe';
 
 -- get all flights
-SELECT * FROM flight;
-
+SELECT
+  flight.id_flight AS idFlight,
+  flight.id_plane AS idPlane,
+  flight.id_airport AS idAirport,
+  flight.point_of_departure AS pointOfDeparture,
+  flight.point_of_destination AS pointOfDestination,
+  flight.time_of_departure AS timeOfDeparture,
+  flight.time_of_destination AS timeOfDestination,
+  plane.type,
+  company.name AS companyName
+FROM flight
+  LEFT JOIN plane ON plane.id_plane = flight.id_flight
+  LEFT JOIN company ON company.id_company = plane.id_plane;
 
 SELECT
   id_user
 FROM user
 WHERE login = 'qwe';
-
 
 -- update user
 UPDATE user SET
@@ -61,8 +72,6 @@ UPDATE user SET
   , address = 'Moskov'
   , sex = 'male'
 WHERE id_user = 1;
-
-
 
 SELECT
     first_name AS firstName
