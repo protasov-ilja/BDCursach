@@ -86,6 +86,7 @@ module.exports = (server, database) => {
 		}
 		else
 		{
+			console.log(data.login);
 			console.log(data.password);
 		}
 
