@@ -145,7 +145,7 @@ exports.getUser = function (database, data, next) {
 			}
 
 			if (result.length !== 0) {
-				resolve(result);
+				resolve(result[0]);
 			} else {
 				reject(response);
 			}
