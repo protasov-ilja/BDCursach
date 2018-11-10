@@ -39,10 +39,10 @@ module.exports = (server, database) => {
 						.catch((error) => {
 							console.log("reject: " + error);
 						});
+				} else {
+					let response = { status: "already_exists" };
+					res.send(JSON.stringify(response));
 				}
-
-				let response = { status: "already_exists" };
-				res.send(JSON.stringify(response));
 			})
 			.catch((error) => {
 				console.log("reject: " + error);
