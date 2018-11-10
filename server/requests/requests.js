@@ -37,15 +37,15 @@ function getUserStatus(database, sql, password, login) {
 		if (err) {
 			isError = true;
 			response = { status: "err in query" };
-			return {response, isError};
+			return new {response, isError};
 		}
 
 		if (result.length !== 0) {
 			response = { status: result[0].status };
-			return {response, isError};
+			return new {response, isError};
 		}
 
-		return {response, isError};
+		return new {response, isError};
 	});
 }
 
