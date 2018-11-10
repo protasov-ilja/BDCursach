@@ -14,8 +14,8 @@ module.exports = (server, database) => {
 				console.log("responce");
 				res.send(JSON.stringify(result));
 			})
-			.catch((result) => {
-				console.log("reject: " + result);
+			.catch((error) => {
+				console.log("reject: " + error);
 			});
 	}
 
@@ -36,16 +36,16 @@ module.exports = (server, database) => {
 							console.log("responce2");
 							res.send(JSON.stringify(result));
 						})
-						.catch((result) => {
-							console.log("reject: " + result);
+						.catch((error) => {
+							console.log("reject: " + error);
 						});
-				} else {
-					let response = { status: "already_exists" };
-					res.send(JSON.stringify(response));
 				}
+
+				let response = { status: "already_exists" };
+				res.send(JSON.stringify(response));
 			})
-			.catch((result) => {
-				console.log("reject: " + result);
+			.catch((error) => {
+				console.log("reject: " + error);
 			});
 	}
 
@@ -57,8 +57,8 @@ module.exports = (server, database) => {
 				console.log("responce");
 				res.send(JSON.stringify(result));
 			})
-			.catch((result) => {
-				console.log("reject: " + result);
+			.catch((error) => {
+				console.log("reject: " + error);
 			});
 	}
 
@@ -75,8 +75,8 @@ module.exports = (server, database) => {
 				console.log("responce");
 				res.send(JSON.stringify(result));
 			})
-			.catch((result) => {
-				console.log("reject: " + result);
+			.catch((error) => {
+				console.log("reject: " + error);
 			});
 	}
 
@@ -93,8 +93,8 @@ module.exports = (server, database) => {
 				console.log("responce");
 				res.send(JSON.stringify(result));
 			})
-			.catch((result) => {
-				console.log("reject: " + result);
+			.catch((error) => {
+				console.log("reject: " + error);
 			});
 	}
 
@@ -112,8 +112,8 @@ module.exports = (server, database) => {
 				console.log("responce");
 				res.send(JSON.stringify(result));
 			})
-			.catch((result) => {
-				console.log("reject: " + result);
+			.catch((error) => {
+				console.log("reject: " + error);
 			});
 	}
 };

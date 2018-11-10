@@ -41,9 +41,9 @@ exports.checkUserExistenceBeforeAdding = function (database, data, next) {
 			if (result.length !== 0) {
 				let response = { isFound : true };
 				resolve(response);
-			} else {
-				resolve(response)
 			}
+
+			resolve(response)
 		});
 	});
 };
