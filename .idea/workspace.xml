@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ccf1a72e-3f30-4db3-a230-ad25d8569c28" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/requests/requests.js" afterPath="$PROJECT_DIR$/server/requests/requests.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/routes.js" afterPath="$PROJECT_DIR$/server/routes/routes.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,7 +23,7 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.40934372">
+    <splitter split-orientation="horizontal" split-proportion="0.49810964">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
           <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
@@ -60,8 +59,8 @@
           <file leaf-file-name="show_tickets.sql" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/server/sql_queries/show_tickets.sql">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="298">
-                  <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+                <state relative-caret-position="423">
+                  <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -71,7 +70,7 @@
             <entry file="file://$PROJECT_DIR$/server/sql_queries/add_company.sql">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="0">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <caret line="0" column="34" lean-forward="false" selection-start-line="0" selection-start-column="34" selection-end-line="0" selection-end-column="34" />
                   <folding />
                 </state>
               </provider>
@@ -80,8 +79,8 @@
           <file leaf-file-name="tempfiles.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/server/tempfiles.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="63">
-                  <caret line="3" column="5" lean-forward="false" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
+                <state relative-caret-position="84">
+                  <caret line="4" column="22" lean-forward="true" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
                   <folding />
                 </state>
               </provider>
@@ -90,8 +89,8 @@
           <file leaf-file-name="routes.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/server/routes/routes.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="378">
-                  <caret line="21" column="26" lean-forward="false" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="26" />
+                <state relative-caret-position="483">
+                  <caret line="44" column="17" lean-forward="true" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
                   <folding />
                 </state>
               </provider>
@@ -134,8 +133,8 @@
           <file leaf-file-name="requests.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/server/requests/requests.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="315">
-                  <caret line="54" column="21" lean-forward="false" selection-start-line="54" selection-start-column="16" selection-end-line="54" selection-end-column="21" />
+                <state relative-caret-position="987">
+                  <caret line="65" column="160" lean-forward="false" selection-start-line="65" selection-start-column="152" selection-end-line="65" selection-end-column="160" />
                   <folding />
                 </state>
               </provider>
@@ -215,8 +214,8 @@
         <option value="$PROJECT_DIR$/server/requests/register_user.js" />
         <option value="$PROJECT_DIR$/server/requests/login_user.js" />
         <option value="$PROJECT_DIR$/server/sql_queries/show_tickets.sql" />
-        <option value="$PROJECT_DIR$/server/routes/routes.js" />
         <option value="$PROJECT_DIR$/server/requests/requests.js" />
+        <option value="$PROJECT_DIR$/server/routes/routes.js" />
       </list>
     </option>
   </component>
@@ -238,8 +237,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="952" />
-    <option name="width" value="976" />
+    <option name="x" value="793" />
+    <option name="width" value="1135" />
     <option name="height" value="1038" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -349,12 +348,12 @@
       <workItem from="1541617231107" duration="577000" />
       <workItem from="1541656772765" duration="1193000" />
       <workItem from="1541783872606" duration="7537000" />
-      <workItem from="1541841971209" duration="6613000" />
+      <workItem from="1541841971209" duration="7067000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="116668000" />
+    <option name="totallyTimeSpent" value="117122000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -366,10 +365,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="952" y="0" width="976" height="1038" extended-state="0" />
+    <frame x="793" y="0" width="1135" height="1038" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32915717" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -678,14 +677,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/tempfiles.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="5" lean-forward="false" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/requests/login_user.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -710,22 +701,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/sql_queries/add_company.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/sql_queries/show_tickets.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/sql_queries/plane_add.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -744,16 +719,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/requests/requests.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="54" column="21" lean-forward="false" selection-start-line="54" selection-start-column="16" selection-end-line="54" selection-end-column="21" />
+        <state relative-caret-position="987">
+          <caret line="65" column="160" lean-forward="false" selection-start-line="65" selection-start-column="152" selection-end-line="65" selection-end-column="160" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/sql_queries/add_company.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="34" lean-forward="false" selection-start-line="0" selection-start-column="34" selection-end-line="0" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/tempfiles.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="22" lean-forward="true" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/sql_queries/show_tickets.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="423">
+          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/routes/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="21" column="26" lean-forward="false" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="26" />
+        <state relative-caret-position="483">
+          <caret line="44" column="17" lean-forward="true" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
           <folding />
         </state>
       </provider>
