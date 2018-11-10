@@ -11,9 +11,9 @@ exports.loginUser = function (database, data, next) {
 		let result = getUserStatus(database, sql, data.password, data.login);
 		if (!result.isError) {
 			resolve(result.response);
-		} else {
-			reject(result.response);
 		}
+
+		reject(result.response);
 		// database.query(sql, [data.password, data.login], (err, result) => {
 		// 	if (err) {
 		// 		response = { status: "err in query" };
