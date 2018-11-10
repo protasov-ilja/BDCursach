@@ -27,10 +27,22 @@ module.exports = (server, database) => {
 			res.send("error no body");
 		}
 
-		requestsDB.registerUser(database, data, next)
-			.then((result) => {
-				console.log("responce");
-				res.send(JSON.stringify(result));
+		requestsDB.checkUserExistenceBeforeAdding(database, data, next)
+			.then((userState) => {
+				if (userState.isFound) {
+					console.log("responce1");
+					requestsDB.registerUser(database, data, next)
+						.then((result) => {
+							console.log("responce2");
+							res.send(JSON.stringify(result));
+						})
+						.catch((result) => {
+							console.log("reject: " + result);
+						});
+				} else {
+					let response = { status: "already_exists" };
+					res.send(JSON.stringify(response));
+				}
 			})
 			.catch((result) => {
 				console.log("reject: " + result);
@@ -50,9 +62,9 @@ module.exports = (server, database) => {
 			});
 	}
 
-	server.post('/user/change', changeUserInfo);
+	server.post('/user/change', postChangeUserInfo);
 
-	function changeUserInfo(req, res, next) {
+	function postChangeUserInfo(req, res, next) {
 		const data = req.body;
 		if (!req.body) {
 			res.send("error no body");
@@ -68,9 +80,9 @@ module.exports = (server, database) => {
 			});
 	}
 
-	server.post('/user/get', getUserInfo);
+	server.post('/user/get', postGetUserInfo);
 
-	function getUserInfo(req, res, next) {
+	function postGetUserInfo(req, res, next) {
 		const data = req.body;
 		if (!req.body) {
 			res.send("error no body");

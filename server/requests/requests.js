@@ -1,5 +1,6 @@
 exports.loginUser = function (database, data, next) {
 	return new Promise(async (resolve, reject) => {
+		let response = { status: "unknown" };
 		let sql = `
 		SELECT 
 			login, 
@@ -7,51 +8,25 @@ exports.loginUser = function (database, data, next) {
 			status 
 		FROM user 
 			WHERE password = ? AND login = ?`;
+		database.query(sql, [data.password, data.login], (err, result) => {
+			if (err) {
+				response = { status: "err in query" };
+				reject(response);
+			}
 
-		let result = await getUserStatus(database, sql, data.password, data.login);
-		if (!result.isError) {
-			resolve(result.response);
-		}
-
-		reject(result.response);
-		// database.query(sql, [data.password, data.login], (err, result) => {
-		// 	if (err) {
-		// 		response = { status: "err in query" };
-		// 		reject(response);
-		// 	}
-		//
-		// 	if (result.length !== 0) {
-		// 		response = { status: result[0].status };
-		// 		resolve(response);
-		// 	} else {
-		// 		resolve(response);
-		// 	}
-		// });
+			if (result.length !== 0) {
+				response = { status: result[0].status };
+				resolve(response);
+			} else {
+				resolve(response);
+			}
+		});
 	});
 };
 
-function getUserStatus(database, sql, password, login) {
-	database.query(sql, [password, login], (err, result) => {
-		let isError = false;
-		let response = { status: "unknown" };
-		if (err) {
-			isError = true;
-			response = { status: "err in query" };
-			return {response, isError};
-		}
-
-		if (result.length !== 0) {
-			response = { status: result[0].status };
-			return {response, isError};
-		}
-
-		return {response, isError};
-	});
-}
-
-exports.registerUser = function (database, data, next) {
+exports.checkUserExistenceBeforeAdding = function (database, data, next) {
 	return new Promise(async (resolve, reject) => {
-		let response = { status: "already_exists" };
+		let response = { isFound : false };
 		let sql = `
 		SELECT 
 			login 
@@ -64,30 +39,37 @@ exports.registerUser = function (database, data, next) {
 			}
 
 			if (result.length !== 0) {
+				let response = { isFound : true };
 				resolve(response);
 			} else {
-				let addedSql = `INSERT INTO user (
-					login,
-					password,
-					first_name,
-					last_name,
-					status,
-					date_of_birth,
-					address,
-					sex,
-					url_image) 
-				VALUES (
-					?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-				database.query(addedSql, [data.login, data.password, data.firstName, data.lastName, data.status, data.dateOfBirth, data.address, data.sex, data.urlImage], (err, newResult) => {
-					if (err) {
-						response = { status: "err in query when added" };
-						reject(response);
-					}
-
-					response = { status: "user_added" };
-					resolve(response);
-				});
+				resolve(response)
 			}
+		});
+	});
+};
+
+exports.registerUser = function (database, data, next) {
+	return new Promise(async (resolve, reject) => {
+		let response = { status: "user_added" };
+		let addedSql = `INSERT INTO user (
+				login,
+				password,
+				first_name,
+				last_name,
+				status,
+				date_of_birth,
+				address,
+				sex,
+				url_image) 
+			VALUES (
+				?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+		database.query(addedSql, [data.login, data.password, data.firstName, data.lastName, data.status, data.dateOfBirth, data.address, data.sex, data.urlImage], (err, newResult) => {
+			if (err) {
+				response = { status: "err in query when added" };
+				reject(response);
+			}
+
+			resolve(response);
 		});
 	});
 };
@@ -99,8 +81,8 @@ exports.editUserInfo = function (database, data, next) {
 		SELECT 
 			id_user 
 		FROM user 
-			WHERE login = ?`;
-		database.query(sql, [data.login], (err, result) => {
+			WHERE login = ? AND password = ?`;
+		database.query(sql, [data.login, data.password], (err, result) => {
 			if (err) {
 				response = { status: "err in query" };
 				reject(response);
