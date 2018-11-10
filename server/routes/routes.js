@@ -29,7 +29,7 @@ module.exports = (server, database) => {
 
 		requestsDB.checkUserExistenceBeforeAdding(database, data, next)
 			.then((userState) => {
-				if (userState.isFound) {
+				if (!userState.isFound) {
 					console.log("responce1");
 					requestsDB.registerUser(database, data, next)
 						.then((result) => {
