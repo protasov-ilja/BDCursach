@@ -1,6 +1,5 @@
 exports.loginUser = function (database, data, next) {
 	return new Promise(async (resolve, reject) => {
-		let response = { status: "unknown" };
 		let sql = `
 		SELECT 
 			login, 
@@ -8,21 +7,47 @@ exports.loginUser = function (database, data, next) {
 			status 
 		FROM user 
 			WHERE password = ? AND login = ?`;
-		database.query(sql, [data.password, data.login], (err, result) => {
-			if (err) {
-				response = { status: "err in query" };
-				reject(response);
-			}
 
-			if (result.length !== 0) {
-				response = { status: result[0].status };
-				resolve(response);
-			} else {
-				resolve(response);
-			}
-		});
+		let result = getUserStatus(database, sql, data.password, data.login);
+		if (!result.isError) {
+			resolve(result.response);
+		} else {
+			reject(result.response);
+		}
+		// database.query(sql, [data.password, data.login], (err, result) => {
+		// 	if (err) {
+		// 		response = { status: "err in query" };
+		// 		reject(response);
+		// 	}
+		//
+		// 	if (result.length !== 0) {
+		// 		response = { status: result[0].status };
+		// 		resolve(response);
+		// 	} else {
+		// 		resolve(response);
+		// 	}
+		// });
 	});
 };
+
+function getUserStatus(database, sql, password, login) {
+	database.query(sql, [password, login], (err, result) => {
+		let isError = false;
+		let response = { status: "unknown" };
+		if (err) {
+			isError = true;
+			response = { status: "err in query" };
+			return {response, isError};
+		}
+
+		if (result.length !== 0) {
+			response = { status: result[0].status };
+			return {response, isError};
+		}
+
+		return {response, isError};
+	});
+}
 
 exports.registerUser = function (database, data, next) {
 	return new Promise(async (resolve, reject) => {
