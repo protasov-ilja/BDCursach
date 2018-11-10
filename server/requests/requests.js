@@ -10,10 +10,10 @@ exports.loginUser = function (database, data, next) {
 
 		let result = getUserStatus(database, sql, data.password, data.login);
 		if (!result.isError) {
-			resolve(result.response);
+			return resolve(result.response);
 		}
 
-		reject(result.response);
+		return reject(result.response);
 		// database.query(sql, [data.password, data.login], (err, result) => {
 		// 	if (err) {
 		// 		response = { status: "err in query" };
@@ -37,15 +37,15 @@ function getUserStatus(database, sql, password, login) {
 		if (err) {
 			isError = true;
 			response = { status: "err in query" };
-			return new {response, isError};
+			return {response, isError};
 		}
 
 		if (result.length !== 0) {
 			response = { status: result[0].status };
-			return new {response, isError};
+			return {response, isError};
 		}
 
-		return new {response, isError};
+		return {response, isError};
 	});
 }
 
