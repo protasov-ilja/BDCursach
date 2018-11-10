@@ -8,7 +8,7 @@ exports.loginUser = function (database, data, next) {
 		FROM user 
 			WHERE password = ? AND login = ?`;
 
-		let result = getUserStatus(database, sql, data.password, data.login);
+		let result = await getUserStatus(database, sql, data.password, data.login);
 		if (!result.isError) {
 			return resolve(result.response);
 		}
