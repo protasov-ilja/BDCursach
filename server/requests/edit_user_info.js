@@ -31,7 +31,7 @@ exports.editUserInfo = function (database, idUser, data, next) {
 				, url_image = ?
 			WHERE id_user = '${idUser}'`;
 		database.query(updateSql, [
-				data.password,
+				data.newPassword,
 				data.firstName,
 				data.lastName,
 				data.status,

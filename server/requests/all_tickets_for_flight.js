@@ -16,12 +16,12 @@ exports.getAllTicketsForFlight = function (database, data, next) {
 			if (err) {
 				response = { status: "err in query" };
 				reject(response);
+			}
+
+			if (result.length !== 0) {
+				resolve(result);
 			} else {
-				if (result.length !== 0) {
-					resolve(result);
-				} else {
-					resolve(response);
-				}
+				resolve(response);
 			}
 		});
 	});
