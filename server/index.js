@@ -1,5 +1,4 @@
 const config = require('./config');
-const temp = require('./tempfiles');
 
 let express = require('express');
 let bodyParser = require('body-parser');
