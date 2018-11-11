@@ -71,12 +71,18 @@ module.exports = (server, database) => {
 			res.send("error no body");
 		}
 
+
+		for (let ob in data)
+		{
+			console.log(ob);
+		}
+
 		console.log(data.login);
 		console.log(data.password);
-
 		changeUserInfo.checkUserAccess(database, data, next)
 			.then((result) => {
 				console.log("response1");
+				console.log("length" + result.length);
 				if (result.length !== 0) {
 					changeUserInfo.editUserInfo(database, result[0].id_user, data, next)
 						.then((newResult) => {
