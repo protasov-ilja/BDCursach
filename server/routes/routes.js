@@ -71,6 +71,9 @@ module.exports = (server, database) => {
 			res.send("error no body");
 		}
 
+		console.log(data.login);
+		console.log(data.password);
+
 		changeUserInfo.checkUserAccess(database, data, next)
 			.then((result) => {
 				console.log("response1");
