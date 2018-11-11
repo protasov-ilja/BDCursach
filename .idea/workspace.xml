@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ccf1a72e-3f30-4db3-a230-ad25d8569c28" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/requests/edit_user_info.js" afterPath="$PROJECT_DIR$/server/requests/edit_user_info.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/routes.js" afterPath="$PROJECT_DIR$/server/routes/routes.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/requests/get_user_info.js" afterPath="$PROJECT_DIR$/server/requests/get_user_info.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -67,17 +66,17 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="get_user_info.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="get_user_info.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/server/requests/get_user_info.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="42">
-                  <caret line="2" column="49" lean-forward="true" selection-start-line="2" selection-start-column="49" selection-end-line="2" selection-end-column="49" />
+                <state relative-caret-position="504">
+                  <caret line="24" column="34" lean-forward="true" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="edit_user_info.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="edit_user_info.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/server/requests/edit_user_info.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="315">
@@ -204,7 +203,6 @@
         <option value="$PROJECT_DIR$/server/requests/register_user.js" />
         <option value="$PROJECT_DIR$/server/sql_queries/show_tickets.sql" />
         <option value="$PROJECT_DIR$/server/requests/login_user.js" />
-        <option value="$PROJECT_DIR$/server/requests/get_user_info.js" />
         <option value="$PROJECT_DIR$/server/requests/utils.js" />
         <option value="$PROJECT_DIR$/server/requests/all_flights.js" />
         <option value="$PROJECT_DIR$/server/requests/requests.js" />
@@ -213,6 +211,7 @@
         <option value="$PROJECT_DIR$/server/requests/all_tickets_for_flight.js" />
         <option value="$PROJECT_DIR$/server/routes/routes.js" />
         <option value="$PROJECT_DIR$/server/requests/edit_user_info.js" />
+        <option value="$PROJECT_DIR$/server/requests/get_user_info.js" />
       </list>
     </option>
   </component>
@@ -338,12 +337,12 @@
       <workItem from="1541656772765" duration="1193000" />
       <workItem from="1541783872606" duration="7537000" />
       <workItem from="1541841971209" duration="10951000" />
-      <workItem from="1541957233676" duration="4943000" />
+      <workItem from="1541957233676" duration="5561000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="125949000" />
+    <option name="totallyTimeSpent" value="126567000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -723,14 +722,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/requests/get_user_info.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="49" lean-forward="true" selection-start-line="2" selection-start-column="49" selection-end-line="2" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/routes/routes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -743,6 +734,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="15" column="11" lean-forward="true" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/requests/get_user_info.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="24" column="34" lean-forward="true" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
           <folding />
         </state>
       </provider>

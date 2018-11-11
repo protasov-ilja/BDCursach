@@ -3,7 +3,8 @@ exports.getUser = function (database, data, next) {
 		let response = { status: "no_such_user" };
 		let sql = `
 		SELECT
-			first_name AS firstName
+			id_user AS idUser
+			, first_name AS firstName
 			, last_name AS lastName
 			, status
 			, date_of_birth AS dateOfBirth
