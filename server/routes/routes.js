@@ -77,8 +77,8 @@ module.exports = (server, database) => {
 			console.log(ob);
 		}
 
-		console.log(data.login);
-		console.log(data.password);
+		// console.log(data.login);
+		// console.log(data.password);
 		changeUserInfo.checkUserAccess(database, data, next)
 			.then((result) => {
 				console.log("response1");
