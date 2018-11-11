@@ -84,7 +84,7 @@ module.exports = (server, database) => {
 				console.log("response1");
 				console.log("length" + result.length);
 				if (result.length !== 0) {
-					changeUserInfo.editUserInfo(database, result[0].id_user, data, next)
+					changeUserInfo.editUserInfo(database, result[0].idUser, data, next)
 						.then((newResult) => {
 							console.log("response2");
 							res.send(JSON.stringify(newResult));

@@ -3,10 +3,10 @@ exports.checkUserAccess = function (database, data, next) {
 		console.log("checkUserAccess");
 		let sql = `
 		SELECT 
-			id_user 
+			id_user AS idUser 
 		FROM user 
-			WHERE login = ? AND password = ?`;
-		database.query(sql, [data.login, data.password], (err, result) => {
+			WHERE id_user = ? AND password = ?`;
+		database.query(sql, [data.idUser, data.password], (err, result) => {
 			if (err) {
 				let response = { status: "err in query" };
 				reject(response);
