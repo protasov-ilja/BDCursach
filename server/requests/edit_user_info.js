@@ -24,6 +24,10 @@ exports.editUserInfo = function (database, idUser, data, next) {
 		console.log("editUserInfo");
 		console.log(idUser);
 		console.log(data.login);
+		console.log(data.password);
+		console.log(data.dateOfBirth);
+		console.log(data.status);
+		console.log(urlImage);
 		let response = { status: "user_updated" };
 		let updateSql =
 			`UPDATE user SET 
