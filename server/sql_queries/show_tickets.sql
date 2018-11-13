@@ -36,6 +36,11 @@ FROM user
 WHERE password = 'qwe' AND login = 'qwe';
 
 
+SELECT
+  id_user AS idUser
+FROM user
+WHERE login = 'user' AND password = '123';
+
 
 SELECT
   login
@@ -60,7 +65,7 @@ FROM flight
 SELECT
   id_user
 FROM user
-WHERE login = 'qwe';
+WHERE login = 'qwe' AND password = 'qwe';
 
 -- update user
 UPDATE user SET
