@@ -45,7 +45,7 @@ exports.editUserInfo = function (database, idUser, data, next) {
 				data.firstName,
 				data.lastName,
 				data.status,
-				"12.12.12",
+				'12.12.12',
 				data.address,
 				data.sex,
 				data.urlImage
