@@ -80,7 +80,6 @@ module.exports = (server, database) => {
 		console.log();
 		console.log(data.login);
 		console.log(data.password);
-		console.log(data.data);
 
 		changeUserInfo.checkUserAccess(database, data, next)
 			.then((result) => {
