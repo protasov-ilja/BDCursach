@@ -22,6 +22,8 @@ exports.checkUserAccess = function (database, data, next) {
 exports.editUserInfo = function (database, idUser, data, next) {
 	return new Promise(async (resolve, reject) => {
 		console.log("editUserInfo");
+		console.log(idUser);
+		console.log(data.login);
 		let response = { status: "user_updated" };
 		let updateSql =
 			`UPDATE user SET 
