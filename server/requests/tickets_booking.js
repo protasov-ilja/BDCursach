@@ -53,18 +53,18 @@ exports.createBooking = function(database, idUser, next) {
 
 exports.createTicketsInBooking = function(database, idBooking, data, next) {
     return new Promise(async (resolve, reject) => {
-        console.log("createTicketsInBooking");
-        for (let i = 0; i < data.tickets.length; ++i)
-        {
-            console.log(data.tickets[i].idTicket, idBooking, data.tickets[i].price, data.tickets[i].firstName, data.tickets[i].lastName, data.tickets[i].sex);
-            let sql = `INSERT INTO ticket_in_booking (id_ticket, id_booking, price, first_name_of_user, last_name_of_user, sex, date_of_birth) VALUES (?, ?, ?, ?, ?, ?, NOW())`;
-            database.query(sql, [data.tickets[i].idTicket, idBooking, data.tickets[i].price, data.tickets[i].firstName, data.tickets[i].lastName, data.tickets[i].sex], (err, result) => {
-                if (err) {
-                    let response = { status: "err in query" };
-                    reject(response);
-                }
-            });
-        }
+        // console.log("createTicketsInBooking");
+        // for (let i = 0; i < data.tickets.length; ++i)
+        // {
+        //     console.log(data.tickets[i].idTicket, idBooking, data.tickets[i].price, data.tickets[i].firstName, data.tickets[i].lastName, data.tickets[i].sex);
+        //     let sql = `INSERT INTO ticket_in_booking (id_ticket, id_booking, price, first_name_of_user, last_name_of_user, sex, date_of_birth) VALUES (?, ?, ?, ?, ?, ?, NOW())`;
+        //     database.query(sql, [data.tickets[i].idTicket, idBooking, data.tickets[i].price, data.tickets[i].firstName, data.tickets[i].lastName, data.tickets[i].sex], (err, result) => {
+        //         if (err) {
+        //             let response = { status: "err in query" };
+        //             reject(response);
+        //         }
+        //     });
+        // }
 
         let response = { status : "booked" };
         resolve(response);
