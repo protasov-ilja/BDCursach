@@ -9,12 +9,15 @@ exports.checkUserAccess = function(database, data, next) {
 			WHERE login = ? AND password = ?`;
         database.query(sql, [data.login, data.password], (err, result) => {
             if (err) {
-                let response = { status: "err in query" };
+                let response = "err in query";
                 console.log("err in query");
                 reject(response);
             }
 
-            console.log(result.idUser);
+            for (let obj in result) {
+                console.log(obj);
+            }
+
             resolve(result);
         });
     });
@@ -26,14 +29,14 @@ exports.createBooking = function(database, idUser, data, next) {
       let sql = `INSERT INTO booking (date, id_user, number_card, status) VALUES (NOW(), ?, ?, ?)`;
       database.query(sql, [idUser, "123123", "booked"], (err, result) => {
           if (err) {
-              let response = { status: "err in query" };
+              let response = "err in query";
               reject(response);
           }
 
           let newSql = `SELECT LAST_INSERT_ID() AS newId`;
           database.query(newSql, (err, newResult) => {
               if (err) {
-                  let response = { status: "err in query" };
+                  let response = "err in query";
                   reject(response);
               }
 
