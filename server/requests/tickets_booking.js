@@ -30,15 +30,15 @@ exports.createBooking = function(database, idUser, data, next) {
               reject(response);
           }
 
-          let newSql = `SELECT LAST_INSERT_ID()`;
+          let newSql = `SELECT LAST_INSERT_ID() AS newId`;
           database.query(newSql, (err, newResult) => {
               if (err) {
                   let response = { status: "err in query" };
                   reject(response);
               }
 
-              console.log(newResult[0]);
-              resolve(newResult);
+              console.log(newResult[0].newId);
+              resolve(newResult[0].newId);
           });
       });
   })
