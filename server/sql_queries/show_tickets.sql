@@ -88,6 +88,16 @@ SELECT
 FROM user
 WHERE password = 'qwe' AND login = 'qwe';
 
+UPDATE user SET
+  password = '123'
+  , first_name = 'daat'
+  , last_name = 'data'
+  , status = 'user'
+  , date_of_birth = '12.12.12'
+  , address = '12.12.12'
+  , sex = 'sex'
+  , url_image = 'http'
+WHERE id_user = 1;
 
 
 

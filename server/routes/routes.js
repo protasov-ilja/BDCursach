@@ -5,6 +5,7 @@ module.exports = (server, database) => {
 	const changeUserInfo = require("../requests/edit_user_info");
 	const getUserInfo = require("../requests/get_user_info");
 	const ticketsForFlight = require("../requests/all_tickets_for_flight");
+	const ticketsBooking = require("../requests/tickets_booking");
 
 	server.post('/login', getSignIn);
 	function getSignIn(req, res, next) {
@@ -137,4 +138,39 @@ module.exports = (server, database) => {
 				console.log("reject: " + error);
 			});
 	}
+
+    server.post('/book-tickets', postBookTickets);
+    function postBookTickets(req, res, next) {
+        const data = req.body;
+        if (!req.body) {
+            res.send("error no body");
+        }
+
+        ticketsBooking.checkUserAccess(database, data, next)
+            .then((result) => {
+                console.log("response1");
+				if (result !== 0) {
+                    ticketsBooking.createBooking(database, result[0].idUser, data, next)
+						.then((newResult) => {
+							ticketsBooking.createTicketsInBooking(database, newResult, data, next)
+								.then(() => {
+                                    let response = { status : "booked" };
+                                    res.send(JSON.stringify(response));
+								})
+								.catch((error) => {
+                                    console.log("reject: " + error);
+                                })
+						})
+                        .catch((error) => {
+                            console.log("reject: " + error);
+                        })
+				} else {
+                    let response = { status : "not_found" };
+                    res.send(JSON.stringify(response));
+				}
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+            });
+    }
 };

@@ -1,1 +1,1 @@
-INSERT INTO airport (name, location) VALUES ('Domodedovo', 'Moscow');
+INSERT INTO airport (name, location) VALUES ('Domodedovo', 'Moscow')

@@ -39,16 +39,17 @@ exports.editUserInfo = function (database, idUser, data, next) {
 				, address = ?
 				, sex = ?
 				, url_image = ?
-			WHERE id_user = '${idUser}'`;
+			WHERE id_user = ?`;
 		database.query(updateSql, [
 				data.newPassword,
 				data.firstName,
 				data.lastName,
 				data.status,
-				'12.12.12',
+				data.dateOfBirth,
 				data.address,
 				data.sex,
-				data.urlImage
+				data.urlImage,
+                idUser
 			],
 			(err, result) => {
 			if (err) {
