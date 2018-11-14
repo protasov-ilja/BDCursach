@@ -10,6 +10,7 @@ exports.checkUserAccess = function(database, data, next) {
         database.query(sql, [data.login, data.password], (err, result) => {
             if (err) {
                 let response = { status: "err in query" };
+                console.log("err in query");
                 reject(response);
             }
 
