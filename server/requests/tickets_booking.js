@@ -48,7 +48,7 @@ exports.createBooking = function(database, idUser, next) {
               resolve(newResult[0].newId);
           });
       });
-  })
+  });
 };
 
 exports.createTicketsInBooking = function(database, idBooking, data, next) {
@@ -56,6 +56,7 @@ exports.createTicketsInBooking = function(database, idBooking, data, next) {
         console.log("createTicketsInBooking");
         for (let i = 0; i < data.tickets.length; ++i)
         {
+            console.log(data.tickets[i].idTicket, idBooking, data.tickets[i].price, data.tickets[i].firstName, data.tickets[i].lastName, data.tickets[i].sex);
             let sql = `INSERT INTO ticket_in_booking (id_ticket, id_booking, price, first_name_of_user, last_name_of_user, sex, date_of_birth) VALUES (?, ?, ?, ?, ?, ?, NOW())`;
             database.query(sql, [data.tickets[i].idTicket, idBooking, data.tickets[i].price, data.tickets[i].firstName, data.tickets[i].lastName, data.tickets[i].sex], (err, result) => {
                 if (err) {
@@ -65,6 +66,7 @@ exports.createTicketsInBooking = function(database, idBooking, data, next) {
             });
         }
 
-        resolve();
-    })
+        let response = { status : "booked" };
+        resolve(response);
+    });
 };

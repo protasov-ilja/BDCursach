@@ -153,17 +153,16 @@ module.exports = (server, database) => {
                     ticketsBooking.createBooking(database, result[0].idUser, next)
 						.then((newResult) => {
 							ticketsBooking.createTicketsInBooking(database, newResult, data, next)
-								.then(() => {
-                                    let response = { status : "booked" };
-                                    res.send(JSON.stringify(response));
+								.then((resp) => {
+                                    res.send(JSON.stringify(resp));
 								})
 								.catch((error) => {
                                     console.log("reject: " + error);
-                                })
+                                });
 						})
                         .catch((error) => {
                             console.log("reject: " + error);
-                        })
+                        });
 				} else {
                     let response = { status : "not_found" };
                     res.send(JSON.stringify(response));
