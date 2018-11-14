@@ -145,10 +145,11 @@ module.exports = (server, database) => {
         if (!req.body) {
             res.send("error no body");
         }
-        console.log(data.tickets.length);
+
         for (let i = 0; i < data.tickets.length; ++i) {
             console.log(data.tickets[i].idTicket, data.tickets[i].price, data.tickets[i].firstName, data.tickets[i].lastName, data.tickets[i].sex);
         }
+
         ticketsBooking.checkUserAccess(database, data, next)
             .then((result) => {
                 console.log("response1");
