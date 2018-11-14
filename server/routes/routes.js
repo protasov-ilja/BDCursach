@@ -149,7 +149,7 @@ module.exports = (server, database) => {
         ticketsBooking.checkUserAccess(database, data, next)
             .then((result) => {
                 console.log("response1");
-				if (result !== 0) {
+				if (result.length !== 0) {
                     ticketsBooking.createBooking(database, result[0].idUser, next)
 						.then((newResult) => {
 							ticketsBooking.createTicketsInBooking(database, newResult, data, next)
