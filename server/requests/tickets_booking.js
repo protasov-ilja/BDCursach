@@ -53,7 +53,7 @@ exports.createBooking = function(database, idUser, next) {
 
 exports.createTicketsInBooking = function(database, idBooking, data, next) {
     return new Promise(async (resolve, reject) => {
-        console.log("createBooking");
+        console.log("createTicketsInBooking");
         for (let i = 0; i < data.tickets.length; ++i)
         {
             let sql = `INSERT INTO ticket_in_booking (id_ticket, id_booking, price, first_name_of_user, last_name_of_user, sex, date_of_birth) VALUES (?, ?, ?, ?, ?, ?, NOW())`;
