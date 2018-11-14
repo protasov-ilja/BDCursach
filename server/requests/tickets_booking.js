@@ -14,8 +14,9 @@ exports.checkUserAccess = function(database, data, next) {
                 reject(response);
             }
 
+            console.log(result.length);
             for (let obj in result) {
-                console.log(obj);
+                console.log(obj.idUser);
             }
 
             resolve(result);
@@ -23,7 +24,7 @@ exports.checkUserAccess = function(database, data, next) {
     });
 };
 
-exports.createBooking = function(database, idUser, data, next) {
+exports.createBooking = function(database, idUser, next) {
   return new Promise(async (resolve, reject) => {
       console.log("createBooking");
       let sql = `INSERT INTO booking (date, id_user, number_card, status) VALUES (NOW(), ?, ?, ?)`;
