@@ -14,6 +14,7 @@ exports.checkUserAccess = function(database, data, next) {
                 reject(response);
             }
 
+            console.log(result.idUser);
             resolve(result);
         });
     });

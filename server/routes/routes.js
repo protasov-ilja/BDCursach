@@ -150,7 +150,7 @@ module.exports = (server, database) => {
             .then((result) => {
                 console.log("response1");
 				if (result !== 0) {
-                    ticketsBooking.createBooking(database, result[0].idUser, data, next)
+                    ticketsBooking.createBooking(database, result.idUser, data, next)
 						.then((newResult) => {
 							ticketsBooking.createTicketsInBooking(database, newResult, data, next)
 								.then(() => {
