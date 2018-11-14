@@ -146,8 +146,8 @@ module.exports = (server, database) => {
             res.send("error no body");
         }
 
-        for (let i = 0; i < data.tickets.length; ++i) {
-            console.log(data.tickets[i].idTicket, data.tickets[i].price, data.tickets[i].firstName, data.tickets[i].lastName, data.tickets[i].sex);
+        for (let i in data.tickets) {
+            console.log(i.idTicket, i.price, i.firstName, i.lastName, i.sex);
         }
 
         ticketsBooking.checkUserAccess(database, data, next)
