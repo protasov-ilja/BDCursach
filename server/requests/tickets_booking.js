@@ -1,5 +1,3 @@
-INSERT INTO airport (name, location) VALUES ('Domodedovo', 'Moscow')
-
 
 exports.checkUserAccess = function(database, data, next) {
     return new Promise(async (resolve, reject) => {
