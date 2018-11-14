@@ -29,7 +29,7 @@ exports.createBooking = function(database, idUser, next) {
       console.log("createBooking");
       let status = "booked";
       let card = "123123";
-      consol.log(idUser, card, status);
+      console.log(idUser, card, status);
       let sql = `INSERT INTO booking (date, id_user, number_card, status) VALUES (NOW(), ?, ?, ?)`;
       database.query(sql, [idUser, card, status], (err, result) => {
           if (err) {
