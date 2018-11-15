@@ -21,6 +21,8 @@ module.exports = (server, database) => {
 			})
 			.catch((error) => {
 				console.log("reject: " + error);
+                let response = { status: "error" };
+                res.send(JSON.stringify(response));
 			});
 	}
 
@@ -42,6 +44,8 @@ module.exports = (server, database) => {
 						})
 						.catch((error) => {
 							console.log("reject: " + error);
+                            let response = { status: "error" };
+                            res.send(JSON.stringify(response));
 						});
 				} else {
 					let response = { status: "already_exists" };
@@ -62,6 +66,8 @@ module.exports = (server, database) => {
 			})
 			.catch((error) => {
 				console.log("reject: " + error);
+                let response = { status: "error" };
+                res.send(JSON.stringify(response));
 			});
 	}
 
@@ -94,6 +100,8 @@ module.exports = (server, database) => {
 						})
 						.catch((error) => {
 							console.log("reject: " + error);
+                            let response = { status: "error" };
+                            res.send(JSON.stringify(response));
 						});
 				} else {
 					let response = { status: "not_such_user" };
@@ -102,6 +110,8 @@ module.exports = (server, database) => {
 			})
 			.catch((error) => {
 				console.log("reject: " + error);
+                let response = { status: "error" };
+                res.send(JSON.stringify(response));
 			});
 	}
 
@@ -119,6 +129,8 @@ module.exports = (server, database) => {
 			})
 			.catch((error) => {
 				console.log("reject: " + error);
+                let response = { status: "error" };
+                res.send(JSON.stringify(response));
 			});
 	}
 
@@ -136,6 +148,8 @@ module.exports = (server, database) => {
 			})
 			.catch((error) => {
 				console.log("reject: " + error);
+                let response = { status: "error" };
+                res.send(JSON.stringify(response));
 			});
 	}
 
@@ -163,10 +177,14 @@ module.exports = (server, database) => {
 								})
 								.catch((error) => {
                                     console.log("reject: " + error);
+                                    let response = { status: "error" };
+                                    res.send(JSON.stringify(response));
                                 });
 						})
                         .catch((error) => {
                             console.log("reject: " + error);
+                            let response = { status: "error" };
+                            res.send(JSON.stringify(response));
                         });
 				} else {
                     let response = { status : "not_found" };
@@ -175,6 +193,8 @@ module.exports = (server, database) => {
             })
             .catch((error) => {
                 console.log("reject: " + error);
+                let response = { status: "error" };
+                res.send(JSON.stringify(response));
             });
     }
 };
