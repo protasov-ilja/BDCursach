@@ -92,8 +92,7 @@ module.exports = (server, database) => {
 		for (let ob of data) {
 			console.log(ob);
 		}
-		
-		console.log();
+
 		console.log(data.login);
 		console.log(data.password);
 
@@ -176,7 +175,8 @@ module.exports = (server, database) => {
 				if (result.length !== 0) {
                     ticketsBooking.createBooking(database, result[0].idUser, next)
 						.then((newResult) => {
-							ticketsBooking.createTicketsInBooking(database, newResult, data, next)
+						    data.idBooking = newResult;
+							ticketsBooking.createTicketsInBooking(database, data, next)
 								.then((resp) => {
                                     console.log("response3");
                                     res.send(JSON.stringify(resp));

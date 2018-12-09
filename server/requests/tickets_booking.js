@@ -28,7 +28,6 @@ exports.createBooking = function(database, idUser, next) {
   return new Promise(async (resolve, reject) => {
       console.log("createBooking");
       let status = "booked";
-      let card = "123123";
       console.log(idUser, card, status);
       let sql = `INSERT INTO booking (date, id_user, number_card, status) VALUES (NOW(), ?, ?, ?)`;
       database.query(sql, [idUser, card, status], (err, result) => {
@@ -51,13 +50,15 @@ exports.createBooking = function(database, idUser, next) {
   });
 };
 
-exports.createTicketsInBooking = function(database, idBooking, data, next) {
+exports.createTicketsInBooking = function(database, data, next) {
     return new Promise(async (resolve, reject) => {
         console.log("createTicketsInBooking");
+        let sql = `
+          INSERT INTO ticket_in_booking (id_ticket, id_booking, price, first_name_of_user, last_name_of_user, sex, date_of_birth) 
+          VALUES (?, ?, ?, ?, ?, ?, ?)`;
         for (let ticket of data.tickets) {
-            console.log(ticket.idTicket, idBooking, ticket.price, ticket.firstName, ticket.lastName, ticket.sex);
-            let sql = `INSERT INTO ticket_in_booking (id_ticket, id_booking, price, first_name_of_user, last_name_of_user, sex, date_of_birth) VALUES (?, ?, ?, ?, ?, ?, NOW())`;
-            database.query(sql, [ticket.idTicket, idBooking, ticket.price, ticket.firstName, ticket.lastName, ticket.sex], (err, result) => {
+            console.log(ticket.idTicket, data.idBooking, ticket.price, ticket.firstName, ticket.lastName, ticket.sex, ticket.dateOfBirth);
+            database.query(sql, [ticket.idTicket, data.idBooking, ticket.price, ticket.firstName, ticket.lastName, ticket.sex, ticket.dateOfBirth], (err, result) => {
                 if (err) {
                     let response = { status: "err in query" };
                     reject(response);
