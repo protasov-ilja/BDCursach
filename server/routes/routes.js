@@ -18,10 +18,12 @@ module.exports = (server, database) => {
     server.get('/flight/tickets', getTicketsForFlight); // + next TODO показ билетов, которые еще не забронированы
     server.post('/book-tickets', postBookTickets); // TODO !waiting for build!
     server.post('/admin/add-tickets', postAddTickets); // TODO !waiting for build!
+    server.post('/admin/add-ticket', postAddTicket); // TODO !waiting for build!
 	server.post('/admin/add-flight', postAddFlight); // TODO !waiting for build!
     server.post('/admin/add-flights', postAddFlights); // TODO !waiting for build!
 	// server.post('/flight/confirm', postConfirmBooking); // TODO
 	server.get('search-flights-by-city', getSearchFlights); // TODO !waiting for build!
+
 
     function getSignIn(req, res, next) {
         const data = req.body;
@@ -249,6 +251,24 @@ module.exports = (server, database) => {
         }
 
         addingTickets.addTickets(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
+    }
+
+    function postAddTicket(req, res, next) {
+        const data = req.body;
+        if (!req.body) {
+            res.send("error no body");
+        }
+
+        addingTickets.addTicket(database, data, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));
