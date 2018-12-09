@@ -6,7 +6,9 @@ module.exports = (server, database) => {
 	const getUserInfo = require("../requests/get_user_info");
 	const ticketsForFlight = require("../requests/all_tickets_for_flight");
 	const ticketsBooking = require("../requests/tickets_booking");
-	const searchFlightsByCity  =require("../requests/search_flights");
+	const searchFlightsByCity = require("../requests/search_flights");
+	const addingTickets = require("../requests/add_tickets");
+	const addingFlights = require("../requests/add_flights");
 
 	server.post('/login', getSignIn); // +
     server.post('/register', getSignUp); // +
@@ -15,9 +17,9 @@ module.exports = (server, database) => {
     server.post('/user/get', postGetUserInfo); // + next TODO images url parsing
     server.get('/flight/tickets', getTicketsForFlight); // + next TODO показ билетов, которые еще не забронированы
     server.post('/book-tickets', postBookTickets); // TODO !waiting for build!
-    //server.post('/admin/add-tickets', postAddTickets); // TODO
-	server.post('/admin/add-flights', postAddFlight); // TODO
-	//server.post('/flight/confirm', postConfirmBooking); // TODO
+    server.post('/admin/add-tickets', postAddTickets); // TODO !waiting for build!
+	server.post('/admin/add-flights', postAddFlight); // TODO !waiting for build!
+	// server.post('/flight/confirm', postConfirmBooking); // TODO
 	server.get('search-flights-by-city', getSearchFlights); // TODO !waiting for build!
 
     function getSignIn(req, res, next) {
@@ -209,7 +211,7 @@ module.exports = (server, database) => {
             res.send("error no body");
         }
 
-        searchFlightsByCity.searchFlights(database, data, next)
+        addingFlights.addFlights(database, data, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));
@@ -219,39 +221,24 @@ module.exports = (server, database) => {
                 let response = {status: "error"};
                 res.send(JSON.stringify(response));
             });
+    }
 
-        // ticketsBooking.checkUserAccess(database, data, next)
-        //     .then((result) => {
-        //         console.log("response1");
-        //         if (result.length !== 0) {
-        //             ticketsBooking.createBooking(database, result[0].idUser, next)
-        //                 .then((newResult) => {
-        //                     ticketsBooking.createTicketsInBooking(database, newResult, data, next)
-        //                         .then((resp) => {
-        //                             console.log("response3");
-        //                             res.send(JSON.stringify(resp));
-        //                         })
-        //                         .catch((error) => {
-        //                             console.log("reject: " + error);
-        //                             let response = { status: "error" };
-        //                             res.send(JSON.stringify(response));
-        //                         });
-        //                 })
-        //                 .catch((error) => {
-        //                     console.log("reject: " + error);
-        //                     let response = { status: "error" };
-        //                     res.send(JSON.stringify(response));
-        //                 });
-        //         } else {
-        //             let response = { status : "not_found" };
-        //             res.send(JSON.stringify(response));
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.log("reject: " + error);
-        //         let response = { status: "error" };
-        //         res.send(JSON.stringify(response));
-        //     });
+    function postAddTickets(req, res, next) {
+        const data = req.body;
+        if (!req.body) {
+            res.send("error no body");
+        }
+
+        addingTickets.addTickets(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
     }
 
     function getSearchFlights(req, res, next) {
