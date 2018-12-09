@@ -59,8 +59,8 @@ SELECT
   plane.type,
   company.name AS companyName
 FROM flight
-  LEFT JOIN plane ON plane.id_plane = flight.id_flight
-  LEFT JOIN company ON company.id_company = plane.id_plane;
+  LEFT JOIN plane ON plane.id_plane = flight.id_plane
+  LEFT JOIN company ON company.id_company = plane.id_company;
 
 SELECT
   id_user

@@ -6,27 +6,38 @@ module.exports = (server, database) => {
 	const getUserInfo = require("../requests/get_user_info");
 	const ticketsForFlight = require("../requests/all_tickets_for_flight");
 	const ticketsBooking = require("../requests/tickets_booking");
+	const searchFlightsByCity  =require("../requests/search_flights");
 
-	server.post('/login', getSignIn);
-	function getSignIn(req, res, next) {
-		const data = req.body;
-		if (!req.body) {
-			res.send("error no body");
-		}
+	server.post('/login', getSignIn); // +
+    server.post('/register', getSignUp); // +
+    server.get('/flights', getFlights); // + next TODO показ билетов, которые еще не забронированы
+    server.post('/user/change', postChangeUserInfo); // + next TODO images url sending
+    server.post('/user/get', postGetUserInfo); // + next TODO images url parsing
+    server.get('/flight/tickets', getTicketsForFlight); // + next TODO показ билетов, которые еще не забронированы
+    server.post('/book-tickets', postBookTickets); // TODO !waiting for build!
+    //server.post('/admin/add-tickets', postAddTickets); // TODO
+	server.post('/admin/add-flights', postAddFlight); // TODO
+	//server.post('/flight/confirm', postConfirmBooking); // TODO
+	server.get('search-flights-by-city', getSearchFlights); // TODO !waiting for build!
 
-		signIn.loginUser(database, data, next)
-			.then((result) => {
-				console.log("response");
-				res.send(JSON.stringify(result));
-			})
-			.catch((error) => {
-				console.log("reject: " + error);
+    function getSignIn(req, res, next) {
+        const data = req.body;
+        if (!req.body) {
+            res.send("error no body");
+        }
+
+        signIn.loginUser(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
                 let response = { status: "error" };
                 res.send(JSON.stringify(response));
-			});
-	}
+            });
+    }
 
-	server.post('/register', getSignUp);
 	function getSignUp(req, res, next) {
 		const data = req.body;
 		if (!req.body) {
@@ -57,7 +68,6 @@ module.exports = (server, database) => {
 			});
 	}
 
-	server.get('/flights', getFlights);
 	function getFlights(req, res, next) {
 		flights.getAllFlights(database, next)
 			.then((result) => {
@@ -71,13 +81,11 @@ module.exports = (server, database) => {
 			});
 	}
 
-	server.post('/user/change', postChangeUserInfo);
 	function postChangeUserInfo(req, res, next) {
 		const data = req.body;
 		if (!req.body) {
 			res.send("error no body");
 		}
-
 
 		for (let ob in data)
 		{
@@ -115,7 +123,6 @@ module.exports = (server, database) => {
 			});
 	}
 
-	server.post('/user/get', postGetUserInfo);
 	function postGetUserInfo(req, res, next) {
 		const data = req.body;
 		if (!req.body) {
@@ -124,9 +131,9 @@ module.exports = (server, database) => {
 
 		getUserInfo.getUser(database, data, next)
 			.then((result) => {
-				console.log("response");
-				res.send(JSON.stringify(result));
-			})
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
 			.catch((error) => {
 				console.log("reject: " + error);
                 let response = { status: "error" };
@@ -134,7 +141,6 @@ module.exports = (server, database) => {
 			});
 	}
 
-	server.get('/flight/tickets', getTicketsForFlight);
 	function getTicketsForFlight(req, res, next) {
 		const data = req.query;
 		if (!req.query) {
@@ -153,14 +159,13 @@ module.exports = (server, database) => {
 			});
 	}
 
-    server.post('/book-tickets', postBookTickets);
     function postBookTickets(req, res, next) {
         const data = req.body;
         if (!req.body) {
             res.send("error no body");
         }
 
-        for (let i in data.tickets) {
+        for (let i of data.tickets) {
             console.log(i.idTicket, i.price, i.firstName, i.lastName, i.sex);
         }
 
@@ -194,6 +199,75 @@ module.exports = (server, database) => {
             .catch((error) => {
                 console.log("reject: " + error);
                 let response = { status: "error" };
+                res.send(JSON.stringify(response));
+            });
+    }
+
+    function postAddFlight(req, res, next) {
+        const data = req.body;
+        if (!req.body) {
+            res.send("error no body");
+        }
+
+        searchFlightsByCity.searchFlights(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
+
+        // ticketsBooking.checkUserAccess(database, data, next)
+        //     .then((result) => {
+        //         console.log("response1");
+        //         if (result.length !== 0) {
+        //             ticketsBooking.createBooking(database, result[0].idUser, next)
+        //                 .then((newResult) => {
+        //                     ticketsBooking.createTicketsInBooking(database, newResult, data, next)
+        //                         .then((resp) => {
+        //                             console.log("response3");
+        //                             res.send(JSON.stringify(resp));
+        //                         })
+        //                         .catch((error) => {
+        //                             console.log("reject: " + error);
+        //                             let response = { status: "error" };
+        //                             res.send(JSON.stringify(response));
+        //                         });
+        //                 })
+        //                 .catch((error) => {
+        //                     console.log("reject: " + error);
+        //                     let response = { status: "error" };
+        //                     res.send(JSON.stringify(response));
+        //                 });
+        //         } else {
+        //             let response = { status : "not_found" };
+        //             res.send(JSON.stringify(response));
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         console.log("reject: " + error);
+        //         let response = { status: "error" };
+        //         res.send(JSON.stringify(response));
+        //     });
+    }
+
+    function getSearchFlights(req, res, next) {
+        const data = req.query;
+        if (!req.query) {
+            res.send("error no query");
+        }
+
+        searchFlightsByCity.searchFlights(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
                 res.send(JSON.stringify(response));
             });
     }

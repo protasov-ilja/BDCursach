@@ -19,7 +19,6 @@ exports.getUser = function (database, data, next) {
 				reject(response);
 			}
 
-
 			console.log(result[0].dateOfBirth);
 
 			if (result.length !== 0) {
