@@ -89,8 +89,7 @@ module.exports = (server, database) => {
 			res.send("error no body");
 		}
 
-		for (let ob in data)
-		{
+		for (let ob of data) {
 			console.log(ob);
 		}
 		
