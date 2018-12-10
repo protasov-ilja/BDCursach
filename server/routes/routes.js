@@ -17,12 +17,13 @@ module.exports = (server, database) => {
     server.post('/user/get', postGetUserInfo); // + next TODO images url parsing
     server.get('/flight/tickets', getTicketsForFlight); // + next TODO показ билетов, которые еще не забронированы
     server.post('/book-tickets', postBookTickets); // TODO !waiting for build!
-    server.post('/admin/add-tickets', postAddTickets); // TODO !waiting for build!
-    server.post('/admin/add-ticket', postAddTicket); // TODO !waiting for build!
-	server.post('/admin/add-flight', postAddFlight); // TODO !waiting for build!
-    server.post('/admin/add-flights', postAddFlights); // TODO !waiting for build!
+    server.post('/admin/add-tickets', postAddTickets);
+    server.post('/admin/add-ticket', postAddTicket);
+	server.post('/admin/add-flight', postAddFlight);
+    server.post('/admin/add-flights', postAddFlights);
 	// server.post('/flight/confirm', postConfirmBooking); // TODO
-	server.get('search-flights-by-city', getSearchFlights); // TODO !waiting for build!
+	server.get('search-flights-by-two-cities', getSearchFlightsTwo);
+    server.get('search-flights-by-city', getSearchFlightsOne);
 
 
     function getSignIn(req, res, next) {
@@ -280,13 +281,31 @@ module.exports = (server, database) => {
             });
     }
 
-    function getSearchFlights(req, res, next) {
+    function getSearchFlightsTwo(req, res, next) {
         const data = req.query;
         if (!req.query) {
             res.send("error no query");
         }
 
         searchFlightsByCity.searchFlights(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
+    }
+
+    function getSearchFlightsOne(req, res, next) {
+        const data = req.query;
+        if (!req.query) {
+            res.send("error no query");
+        }
+
+        searchFlightsByCity.searchFlightsByCity(database, data, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));

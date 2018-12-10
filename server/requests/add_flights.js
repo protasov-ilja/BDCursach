@@ -33,7 +33,9 @@ exports.addFlight = function (database, data, next) {
                     reject(response);
                 }
 
-                resolve(response);
+
             });
+
+        resolve(response);
     });
 };
