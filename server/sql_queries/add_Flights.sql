@@ -7,4 +7,6 @@ VALUES idFlight, idClass, price, description, placeNumber;
 
 -- TODO: fix search add % to string before sql creation
 SELECT * FROM flight
-WHERE point_of_destination LIKE ('Moscow' + '%'); -- not working
+WHERE point_of_destination LIKE 'Moscow+ %';
+
+ -- not working

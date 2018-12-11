@@ -22,9 +22,8 @@ module.exports = (server, database) => {
 	server.post('/admin/add-flight', postAddFlight);
     server.post('/admin/add-flights', postAddFlights);
 	// server.post('/flight/confirm', postConfirmBooking); // TODO
-	server.get('search-flights-by-two-cities', getSearchFlightsTwo);
-    server.get('search-flights-by-city', getSearchFlightsOne);
-
+	server.get('/search-flights-by-two-cities', getSearchFlightsTwo);
+    server.get('/search-flights-by-city', getSearchFlightsOne);
 
     function getSignIn(req, res, next) {
         const data = req.body;

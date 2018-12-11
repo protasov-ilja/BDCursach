@@ -17,7 +17,7 @@ exports.checkUserExistenceBeforeAdding = function (database, data, next) {
 				resolve(response);
 			}
 
-			resolve(response)
+			resolve(response);
 		});
 	});
 };
