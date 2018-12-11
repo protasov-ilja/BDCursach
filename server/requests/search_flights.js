@@ -7,7 +7,7 @@ exports.searchFlights = function(database, data, next) {
 			, id_plane AS idPlane
 			, id_airport AS idAirport
 			, point_of_departure AS pointOfDeparture
-			, point_of_destination AS pointOfDestionation
+			, point_of_destination AS pointOfDestination
 			, time_of_departure AS timeOfDeparture
 			, time_of_destination AS timeOfDestination
 		FROM flight
@@ -40,7 +40,7 @@ exports.searchFlightsByCity = function(database, data, next) {
 			, id_plane AS idPlane
 			, id_airport AS idAirport
 			, point_of_departure AS pointOfDeparture
-			, point_of_destination AS pointOfDestionation
+			, point_of_destination AS pointOfDestination
 			, time_of_departure AS timeOfDeparture
 			, time_of_destination AS timeOfDestination
 		FROM flight
