@@ -3,13 +3,13 @@ exports.searchFlights = function(database, data, next) {
         let response = { status: "no_flights" };
         let sql = `
           SELECT
-                 id_flight AS idFlight
-              , id_plane AS idPlane
-              , id_airport AS idAirport
-              , point_of_departure AS pointOfDeparture
-              , point_of_destination AS pointOfDestination
-              , time_of_departure AS timeOfDeparture
-              , time_of_destination AS timeOfDestination
+                 flight.id_flight AS idFlight
+              , flight.id_plane AS idPlane
+              , flight.id_airport AS idAirport
+              , flight.point_of_departure AS pointOfDeparture
+              , flight.point_of_destination AS pointOfDestination
+              , flight.time_of_departure AS timeOfDeparture
+              , flight.time_of_destination AS timeOfDestination
               , company.name AS companyName
           FROM flight
             LEFT JOIN plane ON plane.id_plane = flight.id_plane
@@ -39,13 +39,13 @@ exports.searchFlightsByCity = function(database, data, next) {
         let response = { status: "no_flights" };
         let sql = `
 		SELECT
-			id_flight AS idFlight
-			, id_plane AS idPlane
-			, id_airport AS idAirport
-			, point_of_departure AS pointOfDeparture
-			, point_of_destination AS pointOfDestination
-			, time_of_departure AS timeOfDeparture
-			, time_of_destination AS timeOfDestination
+              flight.id_flight AS idFlight
+			, flight.id_plane AS idPlane
+			, flight.id_airport AS idAirport
+			, flight.point_of_departure AS pointOfDeparture
+			, flight.point_of_destination AS pointOfDestination
+			, flight.time_of_departure AS timeOfDeparture
+			, flight.time_of_destination AS timeOfDestination
             , company.name AS companyName
 		FROM flight
             LEFT JOIN plane ON plane.id_plane = flight.id_plane
