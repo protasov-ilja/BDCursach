@@ -24,6 +24,8 @@ module.exports = (server, database) => {
 	// server.post('/flight/confirm', postConfirmBooking); // TODO
 	server.get('/search-flights-by-two-cities', getSearchFlightsTwo);
     server.get('/search-flights-by-city', getSearchFlightsOne);
+    server.post('/delete/flight');
+    server.post('/delete/ticket');
 
     function getSignIn(req, res, next) {
         const data = req.body;
@@ -176,7 +178,8 @@ module.exports = (server, database) => {
             .then((result) => {
                 console.log("response1");
 				if (result.length !== 0) {
-                    ticketsBooking.createBooking(database, result[0].idUser, next)
+				    data.idUser = result[0].idUser;
+                    ticketsBooking.createBooking(database, data, next)
 						.then((newResult) => {
 						    data.idBooking = newResult;
 							ticketsBooking.createTicketsInBooking(database, data, next)

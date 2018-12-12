@@ -24,13 +24,13 @@ exports.checkUserAccess = function(database, data, next) {
     });
 };
 
-exports.createBooking = function(database, idUser, next) {
+exports.createBooking = function(database, data, next) {
   return new Promise(async (resolve, reject) => {
       console.log("createBooking");
       let status = "booked";
-      console.log(idUser, card, status);
+      console.log(data.idUser, data.card, status);
       let sql = `INSERT INTO booking (date, id_user, number_card, status) VALUES (NOW(), ?, ?, ?)`;
-      database.query(sql, [idUser, card, status], (err, result) => {
+      database.query(sql, [data.idUser, data.card, status], (err, result) => {
           if (err) {
               let response = "err in query";
               reject(response);
