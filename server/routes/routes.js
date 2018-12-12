@@ -9,6 +9,7 @@ module.exports = (server, database) => {
 	const searchFlightsByCity = require("../requests/search_flights");
 	const addingTickets = require("../requests/add_tickets");
 	const addingFlights = require("../requests/add_flights");
+	const userBooking = require("../requests/get_user_booking");
 
 	server.post('/login', getSignIn); // +
     server.post('/register', getSignUp); // +
@@ -24,6 +25,7 @@ module.exports = (server, database) => {
 	// server.post('/flight/confirm', postConfirmBooking); // TODO
 	server.get('/search-flights-by-two-cities', getSearchFlightsTwo);
     server.get('/search-flights-by-city', getSearchFlightsOne);
+    server.get('/user/booking', getBookingsForUser);
     server.post('/delete/flight');
     server.post('/delete/ticket');
 
@@ -308,6 +310,24 @@ module.exports = (server, database) => {
         }
 
         searchFlightsByCity.searchFlightsByCity(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
+    }
+
+    function getBookingsForUser(req, res, next) {
+        const data = req.query;
+        if (!req.query) {
+            res.send("error no query");
+        }
+
+        userBooking.getBookingForUser(database, data, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));
