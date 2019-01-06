@@ -20,7 +20,7 @@ exports.getUser = function (database, data, next) {
 			}
 
 			console.log(result[0].dateOfBirth);
-
+            result[0].dateOfBirth = new Date(result[0].dateOfBirth);
 			if (result.length !== 0) {
 				resolve(result[0]);
 			} else {
