@@ -11,7 +11,7 @@ exports.getAllTicketsForFlight = function (database, data, next) {
 		    ticket.decription AS ticketDescription
 		FROM ticket 
 			LEFT JOIN class ON class.id_class = ticket.id_class 
-		WHERE ticket.id_flight = ?`;
+		WHERE ticket.id_flight = ? AND ticket.is_booked = FALSE`;
 		database.query(sql, [data.idFlight], (err, result) => {
 			if (err) {
 				response = { status: "err in query" };

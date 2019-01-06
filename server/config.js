@@ -6,7 +6,7 @@ module.exports = {
 	port: process.env.PORT || 8000,
 	db: {
 		get: mysql.createConnection({
-                host     : 'www.db4free.net',
+			host     : 'www.db4free.net',
 			user     : 'pfltriot',
 			password : 'Qweryt123',
 			database : 'air_tickets_bd'

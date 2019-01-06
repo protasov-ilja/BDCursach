@@ -10,24 +10,32 @@ module.exports = (server, database) => {
 	const addingTickets = require("../requests/add_tickets");
 	const addingFlights = require("../requests/add_flights");
 	const userBooking = require("../requests/get_user_booking");
+	const airports = require("../requests/all_airports");
+	const planes = require("../requests/all_planes");
+	const classes = require("../requests/all_classes");
+	const changeBookingStatus = require("../requests/post_confirm_booking");
 
 	server.post('/login', getSignIn); // +
     server.post('/register', getSignUp); // +
-    server.get('/flights', getFlights); // + next TODO показ билетов, которые еще не забронированы
     server.post('/user/change', postChangeUserInfo); // + next TODO images url sending
     server.post('/user/get', postGetUserInfo); // + next TODO images url parsing
-    server.get('/flight/tickets', getTicketsForFlight); // + next TODO показ билетов, которые еще не забронированы
     server.post('/book-tickets', postBookTickets); // TODO !waiting for build!
     server.post('/admin/add-tickets', postAddTickets);
     server.post('/admin/add-ticket', postAddTicket);
 	server.post('/admin/add-flight', postAddFlight);
     server.post('/admin/add-flights', postAddFlights);
-	// server.post('/flight/confirm', postConfirmBooking); // TODO
+	server.post('/flight/confirm', postConfirmBooking);
+    server.post('/delete/flight', postDeleteFlight); // TODO in progress
+    //server.post('/delete/ticket', postDeleteTicket); // TODO in progress
+
+    server.get('/flights', getFlights); // + next TODO показ билетов, которые еще не забронированы
+    server.get('/flight/tickets', getTicketsForFlight); // + next TODO показ билетов, которые еще не забронированы
 	server.get('/search-flights-by-two-cities', getSearchFlightsTwo);
     server.get('/search-flights-by-city', getSearchFlightsOne);
     server.get('/user/booking', getBookingsForUser);
-    server.post('/delete/flight');
-    server.post('/delete/ticket');
+    server.get('/planes', getPlanes);
+    server.get('/classes', getClasses);
+    server.get('airports', getAirports);
 
     function getSignIn(req, res, next) {
         const data = req.body;
@@ -230,7 +238,6 @@ module.exports = (server, database) => {
             });
     }
 
-
     function postAddFlight(req, res, next) {
         const data = req.body;
         if (!req.body) {
@@ -285,6 +292,42 @@ module.exports = (server, database) => {
             });
     }
 
+    function postDeleteFlight(req, res, next) {
+        const data = req.body;
+        if (!req.body) {
+            res.send("error no body");
+        }
+
+        // deleteTickets.deleteTicket(database, data, next)
+        //     .then((result) => {
+        //         console.log("response");
+        //         res.send(JSON.stringify(result));
+        //     })
+        //     .catch((error) => {
+        //         console.log("reject: " + error);
+        //         let response = {status: "error"};
+        //         res.send(JSON.stringify(response));
+        //     });
+    }
+
+    function postConfirmBooking(req, res, next) {
+        const data = req.body;
+        if (!req.body) {
+            res.send("error no body");
+        }
+
+        changeBookingStatus.confirmBooking(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
+    }
+
     function getSearchFlightsTwo(req, res, next) {
         const data = req.query;
         if (!req.query) {
@@ -328,6 +371,60 @@ module.exports = (server, database) => {
         }
 
         userBooking.getBookingForUser(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
+    }
+
+    function getPlanes(req, res, next) {
+        const data = req.query;
+        if (!req.query) {
+            res.send("error no query");
+        }
+
+        planes.getAllPlanes(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
+    }
+
+    function getAirports(req, res, next) {
+        const data = req.query;
+        if (!req.query) {
+            res.send("error no query");
+        }
+
+        airports.getAllAirports(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
+    }
+
+    function getClasses(req, res, next) {
+        const data = req.query;
+        if (!req.query) {
+            res.send("error no query");
+        }
+
+        classes.getAllClasses(database, data, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));
