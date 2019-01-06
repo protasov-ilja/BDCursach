@@ -27,7 +27,7 @@ exports.editUserInfo = function (database, idUser, data, next) {
 		console.log(data.password);
 		console.log(data.dateOfBirth);
 		console.log(data.status);
-		let date = "2012-08-18";
+		let date = new Date("11.11.12");
 		let img = "http://img";
 		let response = { status: "user_updated" };
 		let updateSql =
