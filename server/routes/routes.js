@@ -103,11 +103,6 @@ module.exports = (server, database) => {
 		if (!req.body) {
 			res.send("error no body");
 		}
-
-		for (let ob of data) {
-			console.log(ob);
-		}
-
 		console.log(data.login);
 		console.log(data.password);
 
