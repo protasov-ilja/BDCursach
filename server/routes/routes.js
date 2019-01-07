@@ -25,7 +25,7 @@ module.exports = (server, database) => {
     server.post('/user/get', postGetUserInfo); // TODO images url parsing
 
     server.post('/book-tickets', postBookTickets);
-    server.post('/flight/confirm', postConfirmBooking);
+    server.post('/booking/confirm', postConfirmBooking);
 
     server.post('/admin/add-tickets', postAddTickets);
     server.post('/admin/add-ticket', postAddTicket);
@@ -87,8 +87,8 @@ module.exports = (server, database) => {
                 }
             })
             .then((result) => {
-            console.log("response2");
-            res.send(JSON.stringify(result));
+                console.log("response2");
+                res.send(JSON.stringify(result));
             })
             .catch((error) => {
                 console.log("reject: " + error);
@@ -123,20 +123,15 @@ module.exports = (server, database) => {
                 console.log("response1");
                 console.log("length" + result.length);
                 if (result.length !== 0) {
-                    changeUserInfo.editUserInfo(database, result[0].idUser, data, next)
-                        .then((newResult) => {
-                            console.log("response2");
-                            res.send(JSON.stringify(newResult));
-                        })
-                        .catch((error) => {
-                            console.log("reject: " + error);
-                            let response = {status: "error"};
-                            res.send(JSON.stringify(response));
-                        });
+                     return changeUserInfo.editUserInfo(database, result[0].idUser, data, next);
                 } else {
                     let response = {status: "not_such_user"};
                     res.send(JSON.stringify(response));
                 }
+            })
+            .then((newResult) => {
+                console.log("response2");
+                res.send(JSON.stringify(newResult));
             })
             .catch((error) => {
                 console.log("reject: " + error);
