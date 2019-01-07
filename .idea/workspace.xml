@@ -189,8 +189,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/server/requests/get_user_booking.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="340">
-                  <caret line="20" column="33" lean-forward="true" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+                <state relative-caret-position="238">
+                  <caret line="14" column="30" lean-forward="true" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
                 </state>
               </provider>
             </entry>
@@ -580,12 +580,12 @@
       <workItem from="1546760602271" duration="14709000" />
       <workItem from="1546809228978" duration="2357000" />
       <workItem from="1546873751196" duration="369000" />
-      <workItem from="1546877694551" duration="11922000" />
+      <workItem from="1546877694551" duration="12055000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="242056000" />
+    <option name="totallyTimeSpent" value="242189000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -620,7 +620,7 @@
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="12" sideWeight="0.4986577" weight="0.43404254" />
       <window_info anchor="bottom" id="Console" order="13" />
-      <window_info anchor="bottom" id="DB Execution Console" order="14" sideWeight="0.49798658" visible="true" weight="0.32907802" />
+      <window_info active="true" anchor="bottom" id="DB Execution Console" order="14" sideWeight="0.49798658" visible="true" weight="0.32907802" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -934,8 +934,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/requests/get_user_booking.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="33" lean-forward="true" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+        <state relative-caret-position="238">
+          <caret line="14" column="30" lean-forward="true" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
         </state>
       </provider>
     </entry>

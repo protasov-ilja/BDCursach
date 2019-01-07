@@ -8,7 +8,7 @@ exports.bookingForUser = function(database, data, next) {
               , booking.date AS date
              
           FROM booking
-                LEFT JOIN 'user' USING (id_user)
+                LEFT JOIN user USING (id_user)
                 
             WHERE login = ? AND password = ?
             `;
