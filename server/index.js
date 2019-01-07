@@ -31,20 +31,6 @@ server.get('/', (req, res) => {
 	res.send("empty_get");
 });
 
-// server.post('/register', (req, res) => {
-// 	console.log('post request');
-// 	let data;
-// 	if ((ValidateUsers(temp.admins, req.body.login, req.body.password)) || (ValidateUsers(temp.users, req.body.login, req.body.password))) {
-// 		data = { status:"already_exists"};
-// 	} else {
-// 		data = { status: "user_added" };
-// 		AddNewUser(req.body);
-// 	}
-//
-// 	console.log(data);
-// 	res.send(JSON.stringify(data));
-// });
-
 server.post('/', (req, res) => {
 	console.log('post request');
 	res.send("empty_post");
@@ -55,26 +41,6 @@ server.get('api/courese/:id', (req, res) =>
 	res.send(req.params.id); // params in an object
 });
 
-function ValidateUsers(arr, login, password)
-{
-	for (let i = 0; i < arr.length; ++i) {
-		if ((arr[i].login === login) && (arr[i].password === password)) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
-function AddNewUser(newUser)
-{
-	users[users.length] = {
-		login: newUser.login,
-		password: newUser.password
-	};
-
-	console.log(users[users.length - 1]);
-}
 
 server.use(function(err, req, res, next) {
 	let errData = {
