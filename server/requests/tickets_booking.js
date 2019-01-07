@@ -9,7 +9,7 @@ exports.checkUserAccess = function(database, data, next) {
 			WHERE login = ? AND password = ?`;
         database.query(sql, [data.login, data.password], (err, result) => {
             if (err) {
-                let response = "err in query";
+                let response = { status: "err in query" };
                 console.log("err in query");
                 reject(response);
             }
@@ -32,14 +32,14 @@ exports.createBooking = function(database, data, next) {
       let sql = `INSERT INTO booking (date, id_user, number_card, status) VALUES (NOW(), ?, ?, ?)`;
       database.query(sql, [data.idUser, data.card, status], (err, result) => {
           if (err) {
-              let response = "err in query";
+              let response = { status: "err in query" };
               reject(response);
           }
 
           let newSql = `SELECT LAST_INSERT_ID() AS newId`;
           database.query(newSql, (err, newResult) => {
               if (err) {
-                  let response = "err in query";
+                  let response = { status: "err in query" };
                   reject(response);
               }
 
@@ -72,7 +72,7 @@ exports.createTicketsInBooking = function(database, data, next) {
 
 exports.changeTicketsStatus = function(database, data, next) {
     return new Promise(async (resolve, reject) => {
-        console.log("createTicketsInBooking");
+        console.log("changeTicketsStatus");
         for (const ticket of data.tickets) {
             let sql = `
               UPDATE ticket 

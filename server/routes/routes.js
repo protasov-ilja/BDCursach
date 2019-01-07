@@ -18,6 +18,7 @@ module.exports = (server, database) => {
     const planes = require("../requests/all_planes");
     const classes = require("../requests/all_classes");
     const changeBookingStatus = require("../requests/post_confirm_booking");
+    const rejection = require("../requests/post_reject_booking");
 
     server.post('/login', postSignIn);
     server.post('/register', postSignUp);
@@ -42,7 +43,7 @@ module.exports = (server, database) => {
     // server.post('/airport/del', postDeleteAirport);
     // server.post('plane/del', postDeletePlane);
 
-    //server.post('/reject/booking', postRejectBooking);
+    server.post('/reject/booking', postRejectBooking);
 
     server.get('/flights', getFlights);
     server.get('/flight/tickets', getTicketsForFlight);
@@ -207,6 +208,47 @@ module.exports = (server, database) => {
             }).then((resp) => {
                 console.log("response4");
                 res.send(JSON.stringify(resp));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
+    }
+
+    function postRejectBooking(req, res, next) {
+        const data = req.body;
+        if (!req.body) {
+            res.send("error no body");
+        }
+
+        ticketsBooking.checkUserAccess(database, data, next)
+            .then((result) => {
+                console.log("response1");
+                if (result.length !== 0) {
+                    data.idUser = result[0].idUser;
+                    return rejection.getBookingTickets(database, data, next);
+                } else {
+                    let response = {status: "not_found"};
+                    res.send(JSON.stringify(response));
+                }
+            })
+            .then((newResult) => {
+                data.idBooking = newResult;
+                return rejection.deleteAllTicketsFromBooking(database, data, next);
+            })
+            .then((newResult) => {
+                data.idBooking = newResult;
+                return rejection.rejectBooking(database, data, next);
+            })
+            .then(() => {
+                console.log("response3");
+                data.isBooked = false;
+                return ticketsBooking.changeTicketsStatus(database, data, next);
+            }).then((resp) => {
+                console.log("response4");
+                let response = {status: "rejected"};
+                res.send(JSON.stringify(response));
             })
             .catch((error) => {
                 console.log("reject: " + error);
