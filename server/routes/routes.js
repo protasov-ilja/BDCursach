@@ -233,12 +233,10 @@ module.exports = (server, database) => {
                     res.send(JSON.stringify(response));
                 }
             })
-            .then((newResult) => {
-                data.idBooking = newResult;
+            .then(() => {
                 return rejection.deleteAllTicketsFromBooking(database, data, next);
             })
             .then((newResult) => {
-                data.idBooking = newResult;
                 return rejection.rejectBooking(database, data, next);
             })
             .then(() => {
