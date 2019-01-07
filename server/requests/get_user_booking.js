@@ -8,7 +8,7 @@ exports.getBookingForUser = function(database, data, next) {
               , booking.date AS date
               , SUM(ticket_in_booking.price) AS bookingPrice
           FROM booking
-                LEFT JOIN \`user\` USING (id_user)
+                LEFT JOIN user USING (id_user)
                 LEFT JOIN ticket_in_booking USING (id_booking)
             WHERE login = ? AND password = ?
             GROUP BY id_booking`;
@@ -20,7 +20,6 @@ exports.getBookingForUser = function(database, data, next) {
                 reject(response);
             }
 
-            console.log(result.length);
             resolve(result);
         });
     });

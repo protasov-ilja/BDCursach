@@ -1,31 +1,31 @@
 module.exports = (server, database) => {
-	const signIn = require("../requests/sign_in_user");
-	const signUp = require("../requests/sign_up_user");
-	const flights = require("../requests/all_flights");
-	const changeUserInfo = require("../requests/edit_user_info");
-	const getUserInfo = require("../requests/get_user_info");
-	const ticketsForFlight = require("../requests/all_tickets_for_flight");
-	const ticketsBooking = require("../requests/tickets_booking");
-	const searchFlightsByCity = require("../requests/search_flights");
-	const addingTickets = require("../requests/add_tickets");
-	const addingFlights = require("../requests/add_flights");
+    const signIn = require("../requests/sign_in_user");
+    const signUp = require("../requests/sign_up_user");
+    const flights = require("../requests/all_flights");
+    const changeUserInfo = require("../requests/edit_user_info");
+    const getUserInfo = require("../requests/get_user_info");
+    const ticketsForFlight = require("../requests/all_tickets_for_flight");
+    const ticketsBooking = require("../requests/tickets_booking");
+    const searchFlightsByCity = require("../requests/search_flights");
+    const addingTickets = require("../requests/add_tickets");
+    const addingFlights = require("../requests/add_flights");
     const addingPlanes = require("../requests/post_add_plane");
     const addingClasses = require("../requests/post_add_class");
     const addingAirports = require("../requests/post_add_airport");
     const addingCompanies = require("../requests/post_add_company");
-	const userBooking = require("../requests/get_user_booking");
-	const airports = require("../requests/all_airports");
-	const planes = require("../requests/all_planes");
-	const classes = require("../requests/all_classes");
-	const changeBookingStatus = require("../requests/post_confirm_booking");
+    const userBooking = require("../requests/get_user_booking");
+    const airports = require("../requests/all_airports");
+    const planes = require("../requests/all_planes");
+    const classes = require("../requests/all_classes");
+    const changeBookingStatus = require("../requests/post_confirm_booking");
 
-	server.post('/login', postSignIn);
+    server.post('/login', postSignIn);
     server.post('/register', postSignUp);
     server.post('/user/change', postChangeUserInfo); // TODO images url sending
     server.post('/user/get', postGetUserInfo); // TODO images url parsing
 
     server.post('/book-tickets', postBookTickets);
-	server.post('/flight/confirm', postConfirmBooking);
+    server.post('/flight/confirm', postConfirmBooking);
 
     server.post('/admin/add-tickets', postAddTickets);
     server.post('/admin/add-ticket', postAddTicket);
@@ -44,7 +44,7 @@ module.exports = (server, database) => {
 
     server.get('/flights', getFlights);
     server.get('/flight/tickets', getTicketsForFlight);
-	server.get('/search-flights-by-two-cities', getSearchFlightsTwo);
+    server.get('/search-flights-by-two-cities', getSearchFlightsTwo);
     server.get('/search-flights-by-city', getSearchFlightsOne);
     server.get('/user/booking', getBookingsForUser);
     server.get('/planes', getPlanes);
@@ -65,124 +65,121 @@ module.exports = (server, database) => {
             })
             .catch((error) => {
                 console.log("reject: " + error);
-                let response = { status: "error" };
+                let response = {status: "error"};
                 res.send(JSON.stringify(response));
             });
     }
 
-	function postSignUp(req, res, next) {
-		const data = req.body;
-		if (!req.body) {
-			res.send("error no body");
-		}
+    function postSignUp(req, res, next) {
+        const data = req.body;
+        if (!req.body) {
+            res.send("error no body");
+        }
 
-		signUp.checkUserExistenceBeforeAdding(database, data, next)
-			.then((userState) => {
-				if (!userState.isFound) {
-					console.log("response1");
-					signUp.registerUser(database, data, next)
-						.then((result) => {
-							console.log("response2");
-							res.send(JSON.stringify(result));
-						})
-						.catch((error) => {
-							console.log("reject: " + error);
-                            let response = { status: "error" };
-                            res.send(JSON.stringify(response));
-						});
-				} else {
-					let response = { status: "already_exists" };
-					res.send(JSON.stringify(response));
-				}
-			})
-			.catch((error) => {
-				console.log("reject: " + error);
-			});
-	}
-
-	function getFlights(req, res, next) {
-		flights.getAllFlights(database, next)
-			.then((result) => {
-				console.log("response");
-				res.send(JSON.stringify(result));
-			})
-			.catch((error) => {
-				console.log("reject: " + error);
-                let response = { status: "error" };
+        signUp.checkUserExistenceBeforeAdding(database, data, next)
+            .then((userState) => {
+                if (!userState.isFound) {
+                    console.log("response1");
+                    return signUp.registerUser(database, data, next);
+                } else {
+                    let response = {status: "already_exists"};
+                    res.send(JSON.stringify(response));
+                }
+            })
+            .then((result) => {
+            console.log("response2");
+            res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
                 res.send(JSON.stringify(response));
-			});
-	}
+            });
+    }
 
-	function postChangeUserInfo(req, res, next) {
-		const data = req.body;
-		if (!req.body) {
-			res.send("error no body");
-		}
-		console.log(data.login);
-		console.log(data.password);
-
-		changeUserInfo.checkUserAccess(database, data, next)
-			.then((result) => {
-				console.log("response1");
-				console.log("length" + result.length);
-				if (result.length !== 0) {
-					changeUserInfo.editUserInfo(database, result[0].idUser, data, next)
-						.then((newResult) => {
-							console.log("response2");
-							res.send(JSON.stringify(newResult));
-						})
-						.catch((error) => {
-							console.log("reject: " + error);
-                            let response = { status: "error" };
-                            res.send(JSON.stringify(response));
-						});
-				} else {
-					let response = { status: "not_such_user" };
-					res.send(JSON.stringify(response));
-				}
-			})
-			.catch((error) => {
-				console.log("reject: " + error);
-                let response = { status: "error" };
-                res.send(JSON.stringify(response));
-			});
-	}
-
-	function postGetUserInfo(req, res, next) {
-		const data = req.body;
-		if (!req.body) {
-			res.send("error no body");
-		}
-
-		getUserInfo.getUser(database, data, next)
-			.then((result) => {
+    function getFlights(req, res, next) {
+        flights.getAllFlights(database, next)
+            .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));
             })
-			.catch((error) => {
-				console.log("reject: " + error);
-                let response = { status: "error" };
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
                 res.send(JSON.stringify(response));
-			});
-	}
+            });
+    }
 
-	function getTicketsForFlight(req, res, next) {
-		const data = req.query;
-		if (!req.query) {
-			res.send("error no query");
-		}
+    function postChangeUserInfo(req, res, next) {
+        const data = req.body;
+        if (!req.body) {
+            res.send("error no body");
+        }
+        console.log(data.login);
+        console.log(data.password);
 
-		ticketsForFlight.getAllTicketsForFlight(database, data, next)
-			.then((result) => {
-				console.log("response");
-				res.send(JSON.stringify(result));
-			})
-			.catch((error) => {
-				console.log("reject: " + error);
-                let response = { status: "error" };
+        changeUserInfo.checkUserAccess(database, data, next)
+            .then((result) => {
+                console.log("response1");
+                console.log("length" + result.length);
+                if (result.length !== 0) {
+                    changeUserInfo.editUserInfo(database, result[0].idUser, data, next)
+                        .then((newResult) => {
+                            console.log("response2");
+                            res.send(JSON.stringify(newResult));
+                        })
+                        .catch((error) => {
+                            console.log("reject: " + error);
+                            let response = {status: "error"};
+                            res.send(JSON.stringify(response));
+                        });
+                } else {
+                    let response = {status: "not_such_user"};
+                    res.send(JSON.stringify(response));
+                }
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
                 res.send(JSON.stringify(response));
-			});
-	}
+            });
+    }
+
+    function postGetUserInfo(req, res, next) {
+        const data = req.body;
+        if (!req.body) {
+            res.send("error no body");
+        }
+
+        getUserInfo.getUser(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
+    }
+
+    function getTicketsForFlight(req, res, next) {
+        const data = req.query;
+        if (!req.query) {
+            res.send("error no query");
+        }
+
+        ticketsForFlight.getAllTicketsForFlight(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
+    }
 
     function postBookTickets(req, res, next) {
         const data = req.body;
@@ -190,42 +187,49 @@ module.exports = (server, database) => {
             res.send("error no body");
         }
 
-        for (let i of data.tickets) {
-            console.log(i.idTicket, i.price, i.firstName, i.lastName, i.sex);
-        }
+        // for (let i of data.tickets) {
+        //     console.log(i.idTicket, i.price, i.firstName, i.lastName, i.sex);
+        // }
 
         ticketsBooking.checkUserAccess(database, data, next)
             .then((result) => {
                 console.log("response1");
-				if (result.length !== 0) {
-				    data.idUser = result[0].idUser;
-                    ticketsBooking.createBooking(database, data, next)
-						.then((newResult) => {
-						    data.idBooking = newResult;
-							ticketsBooking.createTicketsInBooking(database, data, next)
-								.then((resp) => {
-                                    console.log("response3");
-                                    res.send(JSON.stringify(resp));
-								})
-								.catch((error) => {
-                                    console.log("reject: " + error);
-                                    let response = { status: "error" };
-                                    res.send(JSON.stringify(response));
-                                });
-						})
-                        .catch((error) => {
-                            console.log("reject: " + error);
-                            let response = { status: "error" };
-                            res.send(JSON.stringify(response));
-                        });
-				} else {
-                    let response = { status : "not_found" };
+                if (result.length !== 0) {
+                    data.idUser = result[0].idUser;
+                    return ticketsBooking.createBooking(database, data, next);
+                        // .then((newResult) => {
+                        //     data.idBooking = newResult;
+                        //     ticketsBooking.createTicketsInBooking(database, data, next)
+                        //         .then((resp) => {
+                        //             console.log("response3");
+                        //             res.send(JSON.stringify(resp));
+                        //         })
+                        //         .catch((error) => {
+                        //             console.log("reject: " + error);
+                        //             let response = {status: "error"};
+                        //             res.send(JSON.stringify(response));
+                        //         });
+                        // })
+                        // .catch((error) => {
+                        //     console.log("reject: " + error);
+                        //     let response = {status: "error"};
+                        //     res.send(JSON.stringify(response));
+                        // });
+                } else {
+                    let response = {status: "not_found"};
                     res.send(JSON.stringify(response));
-				}
+                }
+            })
+            .then((newResult) => {
+                data.idBooking = newResult;
+                return ticketsBooking.createTicketsInBooking(database, data, next);
+            }).then((resp) => {
+                console.log("response3");
+                res.send(JSON.stringify(resp));
             })
             .catch((error) => {
                 console.log("reject: " + error);
-                let response = { status: "error" };
+                let response = {status: "error"};
                 res.send(JSON.stringify(response));
             });
     }
