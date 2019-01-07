@@ -415,6 +415,8 @@ module.exports = (server, database) => {
             res.send("error no body");
         }
 
+        console.log(req.body.idBooking);
+
         changeBookingStatus.confirmBooking(database, data, next)
             .then((result) => {
                 console.log("response");
