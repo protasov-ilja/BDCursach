@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ccf1a72e-3f30-4db3-a230-ad25d8569c28" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/server/requests/post_reject_booking.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/requests/add_tickets.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/requests/add_tickets.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/requests/tickets_booking.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/requests/tickets_booking.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/requests/post_reject_booking.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/requests/post_reject_booking.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -165,14 +161,14 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5775226">
+    <splitter split-orientation="horizontal" split-proportion="0.5283019">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/server/routes/routes.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="338">
-                  <caret line="45" column="24" lean-forward="true" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
+                <state relative-caret-position="2497">
+                  <caret line="211" column="31" lean-forward="true" selection-start-line="211" selection-start-column="31" selection-end-line="211" selection-end-column="31" />
                   <folding>
                     <marker date="1546900932366" expanded="true" signature="2071:2339" ph="..." />
                     <marker date="1546900932366" expanded="true" signature="14997:15585" ph="..." />
@@ -181,11 +177,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/server/requests/post_reject_booking.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="17">
-                  <caret line="1" selection-start-line="1" selection-end-line="1" />
+                <state relative-caret-position="306">
+                  <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
                 </state>
               </provider>
             </entry>
@@ -332,8 +328,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/server/requests/tickets_booking.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="320">
-                  <caret line="80" column="63" selection-start-line="80" selection-start-column="33" selection-end-line="80" selection-end-column="63" />
+                <state relative-caret-position="17">
+                  <caret line="1" selection-start-line="1" selection-end-line="1" />
                 </state>
               </provider>
             </entry>
@@ -416,8 +412,8 @@
         <option value="$PROJECT_DIR$/server/requests/post_confirm_booking.js" />
         <option value="$PROJECT_DIR$/server/requests/add_tickets.js" />
         <option value="$PROJECT_DIR$/server/requests/tickets_booking.js" />
-        <option value="$PROJECT_DIR$/server/requests/post_reject_booking.js" />
         <option value="$PROJECT_DIR$/server/routes/routes.js" />
+        <option value="$PROJECT_DIR$/server/requests/post_reject_booking.js" />
       </list>
     </option>
   </component>
@@ -589,12 +585,12 @@
       <workItem from="1546760602271" duration="14709000" />
       <workItem from="1546809228978" duration="2357000" />
       <workItem from="1546873751196" duration="369000" />
-      <workItem from="1546877694551" duration="20021000" />
+      <workItem from="1546877694551" duration="20465000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="250155000" />
+    <option name="totallyTimeSpent" value="250599000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -956,13 +952,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/requests/tickets_booking.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="80" column="63" selection-start-line="80" selection-start-column="33" selection-end-line="80" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/requests/post_reject_booking.js">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
@@ -970,12 +959,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/routes/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="45" column="24" lean-forward="true" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
+        <state relative-caret-position="2497">
+          <caret line="211" column="31" lean-forward="true" selection-start-line="211" selection-start-column="31" selection-end-line="211" selection-end-column="31" />
           <folding>
             <marker date="1546900932366" expanded="true" signature="2071:2339" ph="..." />
             <marker date="1546900932366" expanded="true" signature="14997:15585" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/requests/post_reject_booking.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
         </state>
       </provider>
     </entry>

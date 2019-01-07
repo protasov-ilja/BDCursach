@@ -2,8 +2,6 @@
 exports.getBookingTickets = function(database, data, next) {
     return new Promise(async (resolve, reject) => {
         console.log("getBookingTickets");
-        let status = "booked";
-        console.log(data.idUser, data.card, status);
         let sql = `SELECT 
                           id_ticket AS idTicket
           FROM ticket_in_booking 
@@ -27,9 +25,7 @@ exports.getBookingTickets = function(database, data, next) {
 
 exports.deleteAllTicketsFromBooking = function(database, data, next) {
     return new Promise(async (resolve, reject) => {
-        console.log("getBookingTickets");
-        let status = "booked";
-        console.log(data.idUser, data.card, status);
+        console.log("deleteAllTicketsFromBooking");
         let sql = `DELETE 
                    FROM ticket_in_booking
                   WHERE id_booking = ?`;
@@ -48,9 +44,7 @@ exports.deleteAllTicketsFromBooking = function(database, data, next) {
 
 exports.rejectBooking = function(database, data, next) {
     return new Promise(async (resolve, reject) => {
-        console.log("getBookingTickets");
-        let status = "booked";
-        console.log(data.idUser, data.card, status);
+        console.log("rejectBooking");
         let sql = `UPDATE booking 
           SET status = 'rejected'
           WHERE id_booking = ?`;
