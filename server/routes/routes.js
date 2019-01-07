@@ -1,24 +1,33 @@
 module.exports = (server, database) => {
     const signIn = require("../requests/sign_in_user");
     const signUp = require("../requests/sign_up_user");
-    const flights = require("../requests/all_flights");
+
     const changeUserInfo = require("../requests/edit_user_info");
     const getUserInfo = require("../requests/get_user_info");
+
     const ticketsForFlight = require("../requests/all_tickets_for_flight");
-    const ticketsBooking = require("../requests/tickets_booking");
     const searchFlightsByCity = require("../requests/search_flights");
+
     const addingTickets = require("../requests/add_tickets");
     const addingFlights = require("../requests/add_flights");
     const addingPlanes = require("../requests/post_add_plane");
     const addingClasses = require("../requests/post_add_class");
     const addingAirports = require("../requests/post_add_airport");
     const addingCompanies = require("../requests/post_add_company");
+
     const userBooking = require("../requests/get_user_booking");
+    const ticketsBooking = require("../requests/tickets_booking");
+    const changeBookingStatus = require("../requests/post_confirm_booking");
+    const rejection = require("../requests/post_reject_booking");
+
+    const flights = require("../requests/all_flights");
     const airports = require("../requests/all_airports");
     const planes = require("../requests/all_planes");
     const classes = require("../requests/all_classes");
-    const changeBookingStatus = require("../requests/post_confirm_booking");
-    const rejection = require("../requests/post_reject_booking");
+
+    const ticketController = require("../requests/ticket_controller");
+    const flightController = require("../requests/flight_controller");
+
 
     server.post('/login', postSignIn);
     server.post('/register', postSignUp);
@@ -37,8 +46,8 @@ module.exports = (server, database) => {
     server.post('/plane/add', postAddPlane);
     server.post('/company/add', postAddCompany);
 
-    // server.post('/delete/flight', postDeleteFlight);
-    // server.post('/delete/ticket', postDeleteTicket);
+    server.post('/delete/flight', postDeleteFlight);
+    server.post('/delete/ticket', postDeleteTicket);
     // server.post('/company/del' ,postDeleteCompany);
     // server.post('/airport/del', postDeleteAirport);
     // server.post('plane/del', postDeletePlane);
@@ -423,20 +432,38 @@ module.exports = (server, database) => {
             res.send("error no body");
         }
 
-        // deleteTickets.deleteTickets(database, data, next)
-        //    .then((result1) => {
-         //       console.log("response1");
-         //       return deleteFlights.deleteFlight(database, data, next);
-         //    })
-         //    .then((result2) => {
-         //        console.log("response2");
-         //        res.send(JSON.stringify(result2));
-            // })
-            // .catch((error) => {
-            //     console.log("reject: " + error);
-            //     let response = {status: "error"};
-            //     res.send(JSON.stringify(response));
-            // });
+        ticketController.deleteTickets(database, data, next)
+            .then(() => {
+                console.log("response1");
+                    return flightController.deleteFlight(database, data, next);
+            })
+            .then((result) => {
+                console.log("response2");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = { status: "error" };
+                res.send(JSON.stringify(response));
+            });
+    }
+
+    function postDeleteTicket(req, res, next) {
+        const data = req.body;
+        if (!req.body) {
+            res.send("error no body");
+        }
+
+        ticketController.deleteTicket(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = { status: "error" };
+                res.send(JSON.stringify(response));
+            });
     }
 
     function postConfirmBooking(req, res, next) {

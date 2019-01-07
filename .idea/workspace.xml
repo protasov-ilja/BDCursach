@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ccf1a72e-3f30-4db3-a230-ad25d8569c28" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/server/requests/flight_controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/requests/ticket_controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/routes/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/routes.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -129,7 +132,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="7381" />
+          <entry key="js" value="7873" />
           <entry key="sql" value="561" />
           <entry key="txt" value="14" />
         </counts>
@@ -137,22 +140,22 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="DBN-SQL" value="113" />
-          <entry key="JavaScript" value="7294" />
+          <entry key="JavaScript" value="7782" />
           <entry key="PLAIN_TEXT" value="73" />
-          <entry key="SQL" value="476" />
+          <entry key="SQL" value="480" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="gitattributes" value="1" />
-          <entry key="js" value="84" />
+          <entry key="js" value="86" />
           <entry key="sql" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="DBN-SQL" value="6" />
-          <entry key="JavaScript" value="84" />
+          <entry key="JavaScript" value="86" />
           <entry key="PLAIN_TEXT" value="5" />
           <entry key="SQL" value="6" />
           <entry key="Scratch" value="2" />
@@ -167,12 +170,29 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/server/routes/routes.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="355">
-                  <caret line="241" column="25" lean-forward="true" selection-start-line="241" selection-start-column="25" selection-end-line="241" selection-end-column="25" />
+                <state relative-caret-position="211">
+                  <caret line="49" column="31" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="31" />
                   <folding>
-                    <marker date="1546901700219" expanded="true" signature="2071:2339" ph="..." />
-                    <marker date="1546901700219" expanded="true" signature="14900:15488" ph="..." />
+                    <marker date="1546903344030" expanded="true" signature="2220:2482" ph="..." />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/server/requests/flight_controller.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="306">
+                  <caret line="18" column="2" lean-forward="true" selection-start-line="18" selection-start-column="2" selection-end-line="18" selection-end-column="2" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/server/requests/ticket_controller.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="521">
+                  <caret line="36" column="26" lean-forward="true" selection-start-line="35" selection-start-column="7" selection-end-line="36" selection-end-column="26" />
                 </state>
               </provider>
             </entry>
@@ -218,24 +238,6 @@
               <provider selected="true" editor-type-id="text-editor">
                 <state>
                   <caret column="21" selection-start-column="8" selection-end-column="21" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/server/index.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="578">
-                  <caret line="55" selection-start-line="55" selection-end-line="55" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/server/requests/post_add_plane.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="255">
-                  <caret line="15" column="2" lean-forward="true" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
                 </state>
               </provider>
             </entry>
@@ -328,8 +330,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/server/requests/tickets_booking.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1023">
-                  <caret line="1" selection-start-line="1" selection-end-line="1" />
+                <state relative-caret-position="507">
+                  <caret line="70" column="2" lean-forward="true" selection-start-line="52" selection-end-line="70" selection-end-column="2" />
                 </state>
               </provider>
             </entry>
@@ -413,6 +415,8 @@
         <option value="$PROJECT_DIR$/server/requests/add_tickets.js" />
         <option value="$PROJECT_DIR$/server/requests/tickets_booking.js" />
         <option value="$PROJECT_DIR$/server/requests/post_reject_booking.js" />
+        <option value="$PROJECT_DIR$/server/requests/ticket_controller.js" />
+        <option value="$PROJECT_DIR$/server/requests/flight_controller.js" />
         <option value="$PROJECT_DIR$/server/routes/routes.js" />
       </list>
     </option>
@@ -585,12 +589,12 @@
       <workItem from="1546760602271" duration="14709000" />
       <workItem from="1546809228978" duration="2357000" />
       <workItem from="1546873751196" duration="369000" />
-      <workItem from="1546877694551" duration="20788000" />
+      <workItem from="1546877694551" duration="22461000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="250922000" />
+    <option name="totallyTimeSpent" value="252595000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -692,8 +696,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/index.html" />
-    <entry file="file://$PROJECT_DIR$/userData.json" />
     <entry file="file://D:/Download/air_ticket_bd.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1326">
@@ -943,13 +945,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/requests/tickets_booking.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1023">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/requests/get_user_booking.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -964,13 +959,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/server/requests/tickets_booking.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="507">
+          <caret line="70" column="2" lean-forward="true" selection-start-line="52" selection-end-line="70" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/requests/ticket_controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="521">
+          <caret line="36" column="26" lean-forward="true" selection-start-line="35" selection-start-column="7" selection-end-line="36" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/requests/flight_controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="2" lean-forward="true" selection-start-line="18" selection-start-column="2" selection-end-line="18" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server/routes/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="241" column="25" lean-forward="true" selection-start-line="241" selection-start-column="25" selection-end-line="241" selection-end-column="25" />
+        <state relative-caret-position="211">
+          <caret line="49" column="31" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="31" />
           <folding>
-            <marker date="1546901700219" expanded="true" signature="2071:2339" ph="..." />
-            <marker date="1546901700219" expanded="true" signature="14900:15488" ph="..." />
+            <marker date="1546903344030" expanded="true" signature="2220:2482" ph="..." />
           </folding>
         </state>
       </provider>
