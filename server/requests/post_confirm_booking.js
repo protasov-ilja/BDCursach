@@ -11,7 +11,7 @@ exports.confirmBooking = function (database, data, next) {
                 reject(response);
             }
 
-            resolve(status);
+            resolve("payed");
         });
     });
 };
