@@ -9,35 +9,50 @@ module.exports = (server, database) => {
 	const searchFlightsByCity = require("../requests/search_flights");
 	const addingTickets = require("../requests/add_tickets");
 	const addingFlights = require("../requests/add_flights");
+    const addingPlanes = require("../requests/post_add_plane");
+    const addingClasses = require("../requests/post_add_class");
+    const addingAirports = require("../requests/post_add_airport");
+    const addingCompanies = require("../requests/post_add_company");
 	const userBooking = require("../requests/get_user_booking");
 	const airports = require("../requests/all_airports");
 	const planes = require("../requests/all_planes");
 	const classes = require("../requests/all_classes");
 	const changeBookingStatus = require("../requests/post_confirm_booking");
 
-	server.post('/login', getSignIn); // +
-    server.post('/register', getSignUp); // +
-    server.post('/user/change', postChangeUserInfo); // + next TODO images url sending
-    server.post('/user/get', postGetUserInfo); // + next TODO images url parsing
-    server.post('/book-tickets', postBookTickets); // TODO !waiting for build!
+	server.post('/login', postSignIn);
+    server.post('/register', postSignUp);
+    server.post('/user/change', postChangeUserInfo); // TODO images url sending
+    server.post('/user/get', postGetUserInfo); // TODO images url parsing
+
+    server.post('/book-tickets', postBookTickets);
+	server.post('/flight/confirm', postConfirmBooking);
+
     server.post('/admin/add-tickets', postAddTickets);
     server.post('/admin/add-ticket', postAddTicket);
-	server.post('/admin/add-flight', postAddFlight);
+    server.post('/admin/add-flight', postAddFlight);
     server.post('/admin/add-flights', postAddFlights);
-	server.post('/flight/confirm', postConfirmBooking);
-    server.post('/delete/flight', postDeleteFlight); // TODO in progress
-    //server.post('/delete/ticket', postDeleteTicket); // TODO in progress
+    server.post('/class/add', postAddClass);
+    server.post('/airport/add', postAddAirport);
+    server.post('/plane/add', postAddPlane);
+    server.post('/company/add', postAddCompany);
 
-    server.get('/flights', getFlights); // + next TODO показ билетов, которые еще не забронированы
-    server.get('/flight/tickets', getTicketsForFlight); // + next TODO показ билетов, которые еще не забронированы
+    // server.post('/delete/flight', postDeleteFlight);
+    // server.post('/delete/ticket', postDeleteTicket);
+    // server.post('/company/del' ,postDeleteCompany);
+    // server.post('/airport/del', postDeleteAirport);
+    // server.post('plane/del', postDeletePlane);
+
+    server.get('/flights', getFlights);
+    server.get('/flight/tickets', getTicketsForFlight);
 	server.get('/search-flights-by-two-cities', getSearchFlightsTwo);
     server.get('/search-flights-by-city', getSearchFlightsOne);
     server.get('/user/booking', getBookingsForUser);
     server.get('/planes', getPlanes);
     server.get('/classes', getClasses);
-    server.get('airports', getAirports);
+    server.get('/airports', getAirports);
+    server.get('/ticket/check-status', getCheckTicket);
 
-    function getSignIn(req, res, next) {
+    function postSignIn(req, res, next) {
         const data = req.body;
         if (!req.body) {
             res.send("error no body");
@@ -55,7 +70,7 @@ module.exports = (server, database) => {
             });
     }
 
-	function getSignUp(req, res, next) {
+	function postSignUp(req, res, next) {
 		const data = req.body;
 		if (!req.body) {
 			res.send("error no body");
@@ -215,6 +230,24 @@ module.exports = (server, database) => {
             });
     }
 
+    function getCheckTicket(req, res, next) {
+        const data = req.query;
+        if (!req.query) {
+            res.send("error no query");
+        }
+
+        ticketsForFlight.checkTicketStatus(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
+    }
+
     function postAddFlights(req, res, next) {
         const data = req.body;
         if (!req.body) {
@@ -276,6 +309,78 @@ module.exports = (server, database) => {
         }
 
         addingTickets.addTicket(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
+    }
+
+    function postAddClass(req, res, next) {
+        const data = req.body;
+        if (!req.body) {
+            res.send("error no body");
+        }
+
+        addingClasses.addClass(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
+    }
+
+    function postAddAirport(req, res, next) {
+        const data = req.body;
+        if (!req.body) {
+            res.send("error no body");
+        }
+
+        addingAirports.addAirport(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
+    }
+
+    function postAddPlane(req, res, next) {
+        const data = req.body;
+        if (!req.body) {
+            res.send("error no body");
+        }
+
+        addingPlanes.addPlane(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
+    }
+
+    function postAddCompany(req, res, next) {
+        const data = req.body;
+        if (!req.body) {
+            res.send("error no body");
+        }
+
+        addingCompanies.addCompany(database, data, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));
