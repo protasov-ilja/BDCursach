@@ -474,7 +474,7 @@ module.exports = (server, database) => {
             res.send("error no query");
         }
 
-        userBooking.getBookingForUser(database, data, next)
+        userBooking.bookingForUser(database, data, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));

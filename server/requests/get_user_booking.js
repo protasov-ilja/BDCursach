@@ -1,4 +1,4 @@
-exports.getBookingForUser = function(database, data, next) {
+exports.bookingForUser = function(database, data, next) {
     return new Promise(async (resolve, reject) => {
         console.log("checkUserAccess");
         let sql = `
@@ -8,7 +8,7 @@ exports.getBookingForUser = function(database, data, next) {
               , booking.date AS date
               , SUM(ticket_in_booking.price) AS bookingPrice
           FROM booking
-                LEFT JOIN user USING (id_user)
+                LEFT JOIN 'user' USING (id_user)
                 LEFT JOIN ticket_in_booking USING (id_booking)
             WHERE login = ? AND password = ?
             GROUP BY id_booking`;
