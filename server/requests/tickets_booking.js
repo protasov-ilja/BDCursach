@@ -66,7 +66,28 @@ exports.createTicketsInBooking = function(database, data, next) {
             });
         }
 
+        resolve();
+    });
+};
+
+exports.changeTicketsStatus = function(database, data, next) {
+    return new Promise(async (resolve, reject) => {
+        console.log("createTicketsInBooking");
+        for (const ticket of data.tickets) {
+            let sql = `
+              UPDATE ticket 
+              SET is_booked = ?
+              WHERE id_ticket = ?`;
+            database.query(sql, [data.isBooked, ticket.idTicket], (err, result) => {
+                if (err) {
+                    let response = { status: "err in query" };
+                    reject(response);
+                }
+            });
+        }
+
         let response = { idBookingForTickets: data.idBooking };
         resolve(response);
     });
 };
+

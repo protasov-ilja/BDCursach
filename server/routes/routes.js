@@ -42,6 +42,8 @@ module.exports = (server, database) => {
     // server.post('/airport/del', postDeleteAirport);
     // server.post('plane/del', postDeletePlane);
 
+    server.post('/reject/booking', postRejectBooking);
+
     server.get('/flights', getFlights);
     server.get('/flight/tickets', getTicketsForFlight);
     server.get('/search-flights-by-two-cities', getSearchFlightsTwo);
@@ -182,34 +184,12 @@ module.exports = (server, database) => {
             res.send("error no body");
         }
 
-        // for (let i of data.tickets) {
-        //     console.log(i.idTicket, i.price, i.firstName, i.lastName, i.sex);
-        // }
-
         ticketsBooking.checkUserAccess(database, data, next)
             .then((result) => {
                 console.log("response1");
                 if (result.length !== 0) {
                     data.idUser = result[0].idUser;
                     return ticketsBooking.createBooking(database, data, next);
-                        // .then((newResult) => {
-                        //     data.idBooking = newResult;
-                        //     ticketsBooking.createTicketsInBooking(database, data, next)
-                        //         .then((resp) => {
-                        //             console.log("response3");
-                        //             res.send(JSON.stringify(resp));
-                        //         })
-                        //         .catch((error) => {
-                        //             console.log("reject: " + error);
-                        //             let response = {status: "error"};
-                        //             res.send(JSON.stringify(response));
-                        //         });
-                        // })
-                        // .catch((error) => {
-                        //     console.log("reject: " + error);
-                        //     let response = {status: "error"};
-                        //     res.send(JSON.stringify(response));
-                        // });
                 } else {
                     let response = {status: "not_found"};
                     res.send(JSON.stringify(response));
@@ -218,8 +198,14 @@ module.exports = (server, database) => {
             .then((newResult) => {
                 data.idBooking = newResult;
                 return ticketsBooking.createTicketsInBooking(database, data, next);
-            }).then((resp) => {
+            })
+            .then(() => {
                 console.log("response3");
+                data.isBooked = true;
+                return ticketsBooking.changeTicketsStatus(database, data, next);
+
+            }).then((resp) => {
+                console.log("response4");
                 res.send(JSON.stringify(resp));
             })
             .catch((error) => {
