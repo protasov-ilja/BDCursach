@@ -31,9 +31,9 @@ exports.deleteTicket = function(database, data, next) {
                 let response = { status: "err in query" };
                 reject(response);
             }
-        });
 
-        let response = { status: "deleted" };
-        resolve(response);
+            let response = { status: "deleted" };
+            resolve(response);
+        });
     });
 };
