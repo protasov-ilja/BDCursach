@@ -245,17 +245,19 @@ module.exports = (server, database) => {
                 }
             })
             .then(() => {
+                console.log("response2");
                 return rejection.deleteAllTicketsFromBooking(database, data, next);
             })
             .then((newResult) => {
+                console.log("response3");
                 return rejection.rejectBooking(database, data, next);
             })
             .then(() => {
-                console.log("response3");
+                console.log("response4");
                 data.isBooked = false;
                 return ticketsBooking.changeTicketsStatus(database, data, next);
             }).then((resp) => {
-                console.log("response4");
+                console.log("response5");
                 let response = {status: "rejected"};
                 res.send(JSON.stringify(response));
             })
