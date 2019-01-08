@@ -19,7 +19,12 @@ exports.checkUserAccess = function(database, data, next) {
                 console.log(obj.idUser);
             }
 
-            resolve(result);
+            if (result.length !== 0) {
+                resolve(result);
+            } else {
+                let response = {status: "not_found"};
+                reject(response);
+            }
         });
     });
 };

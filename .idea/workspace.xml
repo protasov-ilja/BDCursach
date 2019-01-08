@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ccf1a72e-3f30-4db3-a230-ad25d8569c28" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/server/requests/tickets_booking.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/requests/tickets_booking.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/routes/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/routes.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -131,7 +132,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="8002" />
+          <entry key="js" value="8033" />
           <entry key="sql" value="561" />
           <entry key="txt" value="14" />
         </counts>
@@ -139,7 +140,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="DBN-SQL" value="113" />
-          <entry key="JavaScript" value="7911" />
+          <entry key="JavaScript" value="7942" />
           <entry key="PLAIN_TEXT" value="73" />
           <entry key="SQL" value="480" />
         </counts>
@@ -163,16 +164,16 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5283019">
+    <splitter split-orientation="horizontal" split-proportion="0.5565648">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/server/routes/routes.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="270">
-                  <caret line="217" lean-forward="true" selection-start-line="217" selection-end-line="217" />
+                <state relative-caret-position="334">
+                  <caret line="196" column="9" lean-forward="true" selection-start-line="196" selection-start-column="9" selection-end-line="196" selection-end-column="9" />
                   <folding>
-                    <marker date="1546966632924" expanded="true" signature="2280:2542" ph="..." />
+                    <marker date="1546967113704" expanded="true" signature="2280:2542" ph="..." />
                   </folding>
                 </state>
               </provider>
@@ -330,7 +331,7 @@
             <entry file="file://$PROJECT_DIR$/server/requests/tickets_booking.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="17">
-                  <caret line="1" selection-start-line="1" selection-end-line="1" />
+                  <caret line="1" column="23" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="23" />
                 </state>
               </provider>
             </entry>
@@ -412,11 +413,11 @@
         <option value="$PROJECT_DIR$/server/requests/get_user_booking.js" />
         <option value="$PROJECT_DIR$/server/requests/post_confirm_booking.js" />
         <option value="$PROJECT_DIR$/server/requests/add_tickets.js" />
-        <option value="$PROJECT_DIR$/server/requests/tickets_booking.js" />
         <option value="$PROJECT_DIR$/server/requests/post_reject_booking.js" />
         <option value="$PROJECT_DIR$/server/requests/flight_controller.js" />
         <option value="$PROJECT_DIR$/server/requests/ticket_controller.js" />
         <option value="$PROJECT_DIR$/server/requests/all_companies.js" />
+        <option value="$PROJECT_DIR$/server/requests/tickets_booking.js" />
         <option value="$PROJECT_DIR$/server/routes/routes.js" />
       </list>
     </option>
@@ -591,12 +592,12 @@
       <workItem from="1546873751196" duration="369000" />
       <workItem from="1546877694551" duration="23970000" />
       <workItem from="1546936785937" duration="1523000" />
-      <workItem from="1546965310346" duration="966000" />
+      <workItem from="1546965310346" duration="1446000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="256593000" />
+    <option name="totallyTimeSpent" value="257073000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -974,16 +975,16 @@
     <entry file="file://$PROJECT_DIR$/server/requests/tickets_booking.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
+          <caret line="1" column="23" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/routes/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="217" lean-forward="true" selection-start-line="217" selection-end-line="217" />
+        <state relative-caret-position="334">
+          <caret line="196" column="9" lean-forward="true" selection-start-line="196" selection-start-column="9" selection-end-line="196" selection-end-column="9" />
           <folding>
-            <marker date="1546966632924" expanded="true" signature="2280:2542" ph="..." />
+            <marker date="1546967113704" expanded="true" signature="2280:2542" ph="..." />
           </folding>
         </state>
       </provider>

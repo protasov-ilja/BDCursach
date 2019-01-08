@@ -202,9 +202,6 @@ module.exports = (server, database) => {
                 if (result.length !== 0) {
                     data.idUser = result[0].idUser;
                     return ticketsBooking.createBooking(database, data, next);
-                } else {
-                    let response = {status: "not_found"};
-                    res.send(JSON.stringify(response));
                 }
             })
             .then((newResult) => {
@@ -239,9 +236,6 @@ module.exports = (server, database) => {
                 if (result.length !== 0) {
                     data.idUser = result[0].idUser;
                     return rejection.getBookingTickets(database, data, next);
-                } else {
-                    let response = {status: "not_found"};
-                    res.send(JSON.stringify(response));
                 }
             })
             .then(() => {
