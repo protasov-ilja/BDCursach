@@ -24,6 +24,7 @@ module.exports = (server, database) => {
     const airports = require("../requests/all_airports");
     const planes = require("../requests/all_planes");
     const classes = require("../requests/all_classes");
+    const companies = require("../requests/all_companies");
 
     const ticketController = require("../requests/ticket_controller");
     const flightController = require("../requests/flight_controller");
@@ -62,6 +63,7 @@ module.exports = (server, database) => {
     server.get('/planes', getPlanes);
     server.get('/classes', getClasses);
     server.get('/airports', getAirports);
+    server.get('/companies', getCompanies);
     server.get('/ticket/check-status', getCheckTicket);
 
     function postSignIn(req, res, next) {
@@ -435,7 +437,7 @@ module.exports = (server, database) => {
         ticketController.deleteTickets(database, data, next)
             .then(() => {
                 console.log("response1");
-                    return flightController.deleteFlight(database, data, next);
+                return flightController.deleteFlight(database, data, next);
             })
             .then((result) => {
                 console.log("response2");
@@ -583,6 +585,24 @@ module.exports = (server, database) => {
         }
 
         classes.getAllClasses(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
+    }
+
+    function getCompanies(req, res, next) {
+        const data = req.query;
+        if (!req.query) {
+            res.send("error no query");
+        }
+
+        companies.getAllCompanies(database, data, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));
