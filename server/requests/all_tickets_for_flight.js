@@ -30,15 +30,10 @@ exports.getAllTicketsForFlight = function (database, data, next) {
 
 exports.checkTicketStatus = function (database, data, next) {
     return new Promise(async (resolve, reject) => {
-        let response = { status: "empty" };
+        let response = { status: "already_booked" };
         let sql = `
 		SELECT 
-			ticket.id_ticket AS idTicket,
-			ticket.price AS price,
-			ticket.place_number AS placeNumber,
-		  	class.name AS name,
-		   	class.description AS classDescription,
-		    ticket.decription AS ticketDescription
+			ticket.id_ticket AS idTicket
 		FROM ticket 
 			LEFT JOIN class ON class.id_class = ticket.id_class 
 		WHERE ticket.id_ticket = ? AND ticket.is_booked = FALSE`;
