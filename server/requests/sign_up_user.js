@@ -24,6 +24,7 @@ exports.checkUserExistenceBeforeAdding = function (database, data, next) {
 
 exports.registerUser = function (database, data, next) {
 	return new Promise(async (resolve, reject) => {
+		let urlImageStr = getRandomUrlImage();
 		let response = { status: "user_added" };
 		let addedSql = `INSERT INTO user (
 				login,
@@ -46,7 +47,7 @@ exports.registerUser = function (database, data, next) {
 			data.dateOfBirth,
 			data.address,
 			data.sex,
-			data.urlImage
+            urlImageStr
 		], (err, newResult) => {
 			if (err) {
 				response = { status: "err in query when added" };
@@ -57,3 +58,17 @@ exports.registerUser = function (database, data, next) {
 		});
 	});
 };
+
+function getRandomUrlImage() {
+	let imgArr = [
+		"https://goo.gl/BMHL8e",
+		"https://goo.gl/FNMCyC",
+		"https://goo.gl/LYtfjU",
+		"https://goo.gl/6iuvg7",
+		"https://goo.gl/oYDRf6",
+		"https://goo.gl/p2wnGJ",
+		"https://goo.gl/qjpj2L"
+	];
+
+    return  imgArr[Math.floor(Math.random() * imgArr.length)];
+}
