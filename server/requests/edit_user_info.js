@@ -27,7 +27,6 @@ exports.editUserInfo = function (database, idUser, data, next) {
 		console.log(data.password);
 		console.log(data.dateOfBirth);
 		console.log(data.status);
-		let img = "http://img";
 		let response = { status: "user_updated" };
 		let updateSql =
 			`UPDATE user SET 
@@ -48,7 +47,7 @@ exports.editUserInfo = function (database, idUser, data, next) {
 				new Date(data.dateOfBirth),
 				data.address,
 				data.sex,
-                img,
+                data.urlImage,
                 idUser
 			],
 			(err, result) => {
