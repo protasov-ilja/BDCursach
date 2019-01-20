@@ -46,7 +46,7 @@ module.exports = (server, database) => {
     server.get('/search-flights-by-two-cities', getSearchFlightsTwo);
     server.get('/search-flights-by-city', getSearchFlightsOne);
     server.get('/user/booking', getBookingsForUser);
-    server.get('/user/booking/tickets', getBookedTicketsForUser);
+    // server.get('/user/booking/tickets', getBookedTicketsForUser);
     server.get('/planes', getPlanes);
     server.get('/classes', getClasses);
     server.get('/airports', getAirports);
