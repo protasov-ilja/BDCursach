@@ -18,8 +18,8 @@ module.exports = (server, database) => {
 
     server.post('/login', postSignIn);
     server.post('/register', postSignUp);
-    server.post('/user/change', postChangeUserInfo); // TODO images url sending
-    server.post('/user/get', postGetUserInfo); // TODO images url parsing
+    server.post('/user/change', postChangeUserInfo);
+    server.post('/user/get', postGetUserInfo);
 
     server.post('/book-tickets', postBookTickets);
     server.post('/booking/confirm', postConfirmBooking);
@@ -28,6 +28,7 @@ module.exports = (server, database) => {
     server.post('/admin/add-ticket', postAddTicket);
     server.post('/admin/add-flight', postAddFlight);
     server.post('/admin/add-flights', postAddFlights);
+    server.post('/admin/get-all-tickets', postGetAllTickets);
     server.post('/class/add', postAddClass);
     server.post('/airport/add', postAddAirport);
     server.post('/plane/add', postAddPlane);
@@ -46,7 +47,7 @@ module.exports = (server, database) => {
     server.get('/search-flights-by-two-cities', getSearchFlightsTwo);
     server.get('/search-flights-by-city', getSearchFlightsOne);
     server.get('/user/booking', getBookingsForUser);
-    // server.get('/user/booking/tickets', getBookedTicketsForUser);
+    server.get('/user/booking/tickets', getBookedTicketsForUser);
     server.get('/planes', getPlanes);
     server.get('/classes', getClasses);
     server.get('/airports', getAirports);
@@ -156,6 +157,39 @@ module.exports = (server, database) => {
             });
     }
 
+    function postGetAllTickets(req, res, next) {
+        const data = req.query;
+        if (!req.query) {
+            res.send("error no query");
+        }
+
+        userController.loginUser(database, data, next)
+            .then((result) => {
+                console.log("response");
+                console.log(result);
+                if (result === "admin") {
+
+                    //return
+                }
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
+
+        // ticketController.getAllTicketsForFlight(database, data, next)
+        //     .then((result) => {
+        //         console.log("response");
+        //         res.send(JSON.stringify(result));
+        //     })
+        //     .catch((error) => {
+        //         console.log("reject: " + error);
+        //         let response = {status: "error"};
+        //         res.send(JSON.stringify(response));
+        //     });
+    }
+
     function getTicketsForFlight(req, res, next) {
         const data = req.query;
         if (!req.query) {
@@ -163,6 +197,24 @@ module.exports = (server, database) => {
         }
 
         ticketController.getAllTicketsForFlight(database, data, next)
+            .then((result) => {
+                console.log("response");
+                res.send(JSON.stringify(result));
+            })
+            .catch((error) => {
+                console.log("reject: " + error);
+                let response = {status: "error"};
+                res.send(JSON.stringify(response));
+            });
+    }
+
+    function getBookedTicketsForUser(req, res, next) {
+        const data = req.query;
+        if (!req.query) {
+            res.send("error no query");
+        }
+
+        bookingController.getTicketsInBooking(database, data, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));
