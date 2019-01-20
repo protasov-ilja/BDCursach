@@ -18,9 +18,6 @@ database.connect((err) => {
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: false}));
 
-//set static path
-//server.use(express.static(path.join(__dirname, 'public')));
-
 server.listen(config.port, () => {
 	console.log(`ready on port ${config.port}`);
 	require("./routes/routes")(server, database);

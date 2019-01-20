@@ -96,7 +96,7 @@ exports.registerUser = function (database, data, next) {
             data.firstName,
             data.lastName,
             data.status,
-            data.dateOfBirth,
+            new Date(data.dateOfBirth),
             data.address,
             data.sex,
             urlImageStr
