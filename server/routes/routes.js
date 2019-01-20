@@ -167,6 +167,7 @@ module.exports = (server, database) => {
             .then((result) => {
                 console.log("response");
                 console.log(result);
+                res.send(JSON.stringify(result));
                 if (result === "admin") {
 
                     //return
