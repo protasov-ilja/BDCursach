@@ -150,3 +150,28 @@ exports.createTicketsInBooking = function(database, data, next) {
         resolve();
     });
 };
+
+exports.getTicketsInBooking = function(database, data, next) {
+    return new Promise(async (resolve, reject) => {
+        console.log("getTicketsInBooking");
+        let sql = `
+          SELECT 
+              id_ticket AS idTicket,
+              id_booking AS idBooking,
+              price,
+              first_name_of_user AS firstName,
+              last_name_of_user AS lastName,
+              sex,
+              date_of_birth AS dateOfBirth              
+          FROM ticket_in_booking 
+          WHERE id_booking = ?`;
+        database.query(sql, [data.idBooking], (err, result) => {
+            if (err) {
+                let response = { status: "err in query" };
+                reject(response);
+            }
+
+            resolve(result);
+        });
+    });
+};
