@@ -1,4 +1,10 @@
-INSERT INTO airport (name, location) VALUES ('Domodedovo', 'Moscow');
+INSERT INTO airport (id_airport, name, location) VALUES (2, 'Medvedkovo', 'Moscow');
+INSERT INTO airport (id_airport, name, location) VALUES (2, 'Medvedkovo', 'Moscow');
+INSERT INTO airport (id_airport, name, location) VALUES (3, 'NewYorkAirport', 'NewYork');
+INSERT INTO airport (id_airport, name, location) VALUES (4, 'SidneyAirport', 'Sidney');
+INSERT INTO airport (id_airport, name, location) VALUES (5, 'ParisAirport', 'Paris');
+INSERT INTO airport (id_airport, name, location) VALUES (6, 'Airport1', 'NewYork');
+INSERT INTO airport (id_airport, name, location) VALUES (7, 'KasanAirport', 'Kasan');
 
 
 INSERT INTO booking (date, id_user, number_card, status) VALUES (NOW(), 1, '123', '123');

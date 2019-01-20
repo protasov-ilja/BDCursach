@@ -1,4 +1,10 @@
 INSERT INTO company (name, rating) VALUES ('FSB', 99.9);
+INSERT INTO company (name, rating) VALUES ('Pobeda', 0.1);
+INSERT INTO company (name, rating) VALUES ('RusAero', 50.0);
+INSERT INTO company (name, rating) VALUES ('UralskieAirlines', 50.0);
+INSERT INTO company (name, rating) VALUES ('Aeroflot', 0.1);
+INSERT INTO company (name, rating) VALUES ('Russia', 50.0);
+INSERT INTO company (name, rating) VALUES ('S7 Airlines', 50.0);
 
 SELECT
 			booking.id_booking AS idBooking

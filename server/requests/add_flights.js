@@ -25,6 +25,11 @@ exports.addFlight = function (database, data, next) {
         console.log("addFlight");
         let response = { status: "added" };
         console.log(data.idPlane, data.idAirport, data.pointOfDeparture, data.pointOfDestination, data.timeOfDeparture, data.timeOfDestination);
+        if (new Date(data.timeOfDeparture) > new Date(data.timeOfDestination)) {
+            response = { status: "err departure > destination time" };
+            reject(response);
+        }
+
         let sql = `
             INSERT INTO flight (id_plane, id_airport, point_of_departure, point_of_destination, time_of_departure, time_of_destination)
             VALUES (?, ?, ?, ?, ?, ?)`;
