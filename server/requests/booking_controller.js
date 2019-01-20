@@ -138,8 +138,8 @@ exports.createTicketsInBooking = function(database, data, next) {
             let sql = `
               INSERT INTO ticket_in_booking (id_ticket, id_booking, price, first_name_of_user, last_name_of_user, sex, date_of_birth) 
               VALUES (?, ?, ?, ?, ?, ?, ?)`;
-            console.log(ticket.idTicket, data.idBooking, ticket.price, ticket.firstName, ticket.lastName, ticket.sex, ticket.dateOfBirth);
-            database.query(sql, [ticket.idTicket, data.idBooking, ticket.price, ticket.firstName, ticket.lastName, ticket.sex, ticket.dateOfBirth], (err, result) => {
+            console.log(ticket.idTicket, data.idBooking, ticket.price, ticket.firstName, ticket.lastName, ticket.sex, new Date(ticket.dateOfBirth));
+            database.query(sql, [ticket.idTicket, data.idBooking, ticket.price, ticket.firstName, ticket.lastName, ticket.sex, new Date(ticket.dateOfBirth)], (err, result) => {
                 if (err) {
                     let response = { status: "err in query" };
                     reject(response);
