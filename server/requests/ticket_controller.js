@@ -139,7 +139,8 @@ exports.getAllTicketsForAdmin = function (database, data, next) {
 			ticket.place_number AS placeNumber,
 		  	class.name AS name,
 		   	class.description AS classDescription,
-		    ticket.decription AS ticketDescription
+		    ticket.decription AS ticketDescription,
+            ticket.is_booked AS isBooked
 		FROM ticket 
 			LEFT JOIN class ON class.id_class = ticket.id_class 
 		WHERE ticket.id_flight = ?`;
@@ -157,7 +158,6 @@ exports.getAllTicketsForAdmin = function (database, data, next) {
         });
     });
 };
-
 
 exports.checkTicketStatus = function (database, data, next) {
     return new Promise(async (resolve, reject) => {
