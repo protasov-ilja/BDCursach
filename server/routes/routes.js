@@ -1,26 +1,11 @@
 module.exports = (server, database) => {
-    const signIn = require("../requests/sign_in_user");
-    const signUp = require("../requests/sign_up_user");
-
-    const changeUserInfo = require("../requests/edit_user_info");
-    const getUserInfo = require("../requests/get_user_info");
-
-    const ticketsForFlight = require("../requests/all_tickets_for_flight");
     const searchFlightsByCity = require("../requests/search_flights");
 
-    const addingTickets = require("../requests/add_tickets");
-    const addingFlights = require("../requests/add_flights");
     const addingPlanes = require("../requests/post_add_plane");
     const addingClasses = require("../requests/post_add_class");
     const addingAirports = require("../requests/post_add_airport");
     const addingCompanies = require("../requests/post_add_company");
 
-    const userBooking = require("../requests/get_user_booking");
-    const ticketsBooking = require("../requests/tickets_booking");
-    const changeBookingStatus = require("../requests/post_confirm_booking");
-    const rejection = require("../requests/post_reject_booking");
-
-    const flights = require("../requests/all_flights");
     const airports = require("../requests/all_airports");
     const planes = require("../requests/all_planes");
     const classes = require("../requests/all_classes");
@@ -28,7 +13,8 @@ module.exports = (server, database) => {
 
     const ticketController = require("../requests/ticket_controller");
     const flightController = require("../requests/flight_controller");
-
+    const userController = require("../requests/user_controller");
+    const bookingController = require("../requests/booking_controller");
 
     server.post('/login', postSignIn);
     server.post('/register', postSignUp);
@@ -60,6 +46,7 @@ module.exports = (server, database) => {
     server.get('/search-flights-by-two-cities', getSearchFlightsTwo);
     server.get('/search-flights-by-city', getSearchFlightsOne);
     server.get('/user/booking', getBookingsForUser);
+    server.get('/user/booking/tickets', getBookedTicketsForUser);
     server.get('/planes', getPlanes);
     server.get('/classes', getClasses);
     server.get('/airports', getAirports);
@@ -72,7 +59,7 @@ module.exports = (server, database) => {
             res.send("error no body");
         }
 
-        signIn.loginUser(database, data, next)
+        userController.loginUser(database, data, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));
@@ -90,11 +77,11 @@ module.exports = (server, database) => {
             res.send("error no body");
         }
 
-        signUp.checkUserExistenceBeforeAdding(database, data, next)
+        userController.checkUserExistenceBeforeAdding(database, data, next)
             .then((userState) => {
                 if (!userState.isFound) {
                     console.log("response1");
-                    return signUp.registerUser(database, data, next);
+                    return userController.registerUser(database, data, next);
                 } else {
                     let response = {status: "already_exists"};
                     res.send(JSON.stringify(response));
@@ -112,7 +99,7 @@ module.exports = (server, database) => {
     }
 
     function getFlights(req, res, next) {
-        flights.getAllFlights(database, next)
+        flightController.getAllFlights(database, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));
@@ -132,15 +119,12 @@ module.exports = (server, database) => {
         console.log(data.login);
         console.log(data.password);
 
-        changeUserInfo.checkUserAccess(database, data, next)
+        userController.checkUserAccess(database, data, next)
             .then((result) => {
                 console.log("response1");
-                console.log("length" + result.length);
                 if (result.length !== 0) {
-                     return changeUserInfo.editUserInfo(database, result[0].idUser, data, next);
-                } else {
-                    let response = {status: "not_such_user"};
-                    res.send(JSON.stringify(response));
+                    data.idUser = result[0].idUser;
+                    return userController.editUserInfo(database, data, next);
                 }
             })
             .then((newResult) => {
@@ -160,7 +144,7 @@ module.exports = (server, database) => {
             res.send("error no body");
         }
 
-        getUserInfo.getUser(database, data, next)
+        userController.getUser(database, data, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));
@@ -178,7 +162,7 @@ module.exports = (server, database) => {
             res.send("error no query");
         }
 
-        ticketsForFlight.getAllTicketsForFlight(database, data, next)
+        ticketController.getAllTicketsForFlight(database, data, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));
@@ -196,22 +180,22 @@ module.exports = (server, database) => {
             res.send("error no body");
         }
 
-        ticketsBooking.checkUserAccess(database, data, next)
+        userController.checkUserAccess(database, data, next)
             .then((result) => {
                 console.log("response1");
                 if (result.length !== 0) {
                     data.idUser = result[0].idUser;
-                    return ticketsBooking.createBooking(database, data, next);
+                    return bookingController.createBooking(database, data, next);
                 }
             })
             .then((newResult) => {
                 data.idBooking = newResult;
-                return ticketsBooking.createTicketsInBooking(database, data, next);
+                return bookingController.createTicketsInBooking(database, data, next);
             })
             .then(() => {
                 console.log("response3");
                 data.isBooked = true;
-                return ticketsBooking.changeTicketsStatus(database, data, next);
+                return ticketController.changeTicketsStatus(database, data, next);
 
             }).then((resp) => {
                 console.log("response4");
@@ -230,26 +214,26 @@ module.exports = (server, database) => {
             res.send("error no body");
         }
 
-        ticketsBooking.checkUserAccess(database, data, next)
+        userController.checkUserAccess(database, data, next)
             .then((result) => {
                 console.log("response1");
                 if (result.length !== 0) {
                     data.idUser = result[0].idUser;
-                    return rejection.getBookingTickets(database, data, next);
+                    return bookingController.getBookingTickets(database, data, next);
                 }
             })
             .then(() => {
                 console.log("response2");
-                return rejection.deleteAllTicketsFromBooking(database, data, next);
+                return bookingController.deleteAllTicketsFromBooking(database, data, next);
             })
             .then((newResult) => {
                 console.log("response3");
-                return rejection.rejectBooking(database, data, next);
+                return bookingController.rejectBooking(database, data, next);
             })
             .then(() => {
                 console.log("response4");
                 data.isBooked = false;
-                return ticketsBooking.changeTicketsStatus(database, data, next);
+                return ticketController.changeTicketsStatus(database, data, next);
             }).then((resp) => {
                 console.log("response5");
                 let response = {status: "rejected"};
@@ -268,7 +252,7 @@ module.exports = (server, database) => {
             res.send("error no query");
         }
 
-        ticketsForFlight.checkTicketStatus(database, data, next)
+        ticketController.checkTicketStatus(database, data, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));
@@ -286,7 +270,7 @@ module.exports = (server, database) => {
             res.send("error no body");
         }
 
-        addingFlights.addFlights(database, data, next)
+        flightController.addFlights(database, data, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));
@@ -304,7 +288,7 @@ module.exports = (server, database) => {
             res.send("error no body");
         }
 
-        addingFlights.addFlight(database, data, next)
+        flightController.addFlight(database, data, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));
@@ -322,7 +306,7 @@ module.exports = (server, database) => {
             res.send("error no body");
         }
 
-        addingTickets.addTickets(database, data, next)
+        ticketController.addTickets(database, data, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));
@@ -340,7 +324,7 @@ module.exports = (server, database) => {
             res.send("error no body");
         }
 
-        addingTickets.addTicket(database, data, next)
+        ticketController.addTicket(database, data, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));
@@ -472,7 +456,7 @@ module.exports = (server, database) => {
 
         console.log(req.body.idBooking);
 
-        changeBookingStatus.confirmBooking(database, data, next)
+        bookingController.confirmBooking(database, data, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));
@@ -526,7 +510,7 @@ module.exports = (server, database) => {
             res.send("error no query");
         }
 
-        userBooking.bookingForUser(database, data, next)
+        bookingController.bookingForUser(database, data, next)
             .then((result) => {
                 console.log("response");
                 res.send(JSON.stringify(result));

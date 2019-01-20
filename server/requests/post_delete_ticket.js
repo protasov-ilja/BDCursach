@@ -1,6 +1,6 @@
-exports.deleteTicket = function (database, data, next) {
+exports.addTickets = function (database, data, next) {
     return new Promise(async (resolve, reject) => {
-        console.log("addFlights");
+        console.log("addTickets");
         let response = { status: "added" };
         let sql = `
           INSERT INTO ticket (id_flight, id_class, price, decription, place_number)
