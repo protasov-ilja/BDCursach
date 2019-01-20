@@ -158,9 +158,9 @@ module.exports = (server, database) => {
     }
 
     function postGetAllTickets(req, res, next) {
-        const data = req.query;
+        const data = req.body;
         if (!req.body) {
-            res.send("error no query");
+            res.send("error no body");
         }
 
         userController.loginUser(database, data, next)
