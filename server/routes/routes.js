@@ -159,7 +159,7 @@ module.exports = (server, database) => {
 
     function postGetAllTickets(req, res, next) {
         const data = req.query;
-        if (!req.query) {
+        if (!req.body) {
             res.send("error no query");
         }
 
@@ -167,11 +167,18 @@ module.exports = (server, database) => {
             .then((result) => {
                 console.log("response");
                 console.log(result.status);
-                res.send(JSON.stringify(result));
-                if (result === "admin") {
-
-                    //return
+                if (result.status === "admin") {
+                    return ticketController.getAllTicketsForAdmin(database, data, next);
                 }
+                else
+                {
+                    let response = {status: "access denied"};
+                    res.send(JSON.stringify(response));
+                }
+            })
+            .then((resp) => {
+                console.log("response1");
+                res.send(JSON.stringify(resp));
             })
             .catch((error) => {
                 console.log("reject: " + error);
