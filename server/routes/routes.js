@@ -166,7 +166,7 @@ module.exports = (server, database) => {
         userController.loginUser(database, data, next)
             .then((result) => {
                 console.log("response");
-                console.log(result);
+                console.log(result.status);
                 res.send(JSON.stringify(result));
                 if (result === "admin") {
 
