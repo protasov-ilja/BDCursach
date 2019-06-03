@@ -78,7 +78,8 @@ exports.registerUser = function (database, data, next) {
     return new Promise(async (resolve, reject) => {
         let urlImageStr = getRandomUrlImage();
         let response = { status: "user_added" };
-        let addedSql = `INSERT INTO user (
+        let addedSql = `
+          INSERT INTO user (
 				login,
 				password,
 				first_name,

@@ -4,15 +4,15 @@ let express = require('express');
 let bodyParser = require('body-parser');
 
 let server = express();
-let database = config.db.get;
+// let database = config.db.get;
 
-database.connect((err) => {
-	if (err) {
-		console.log("can't connect to database " + err);
-	}
-
-	console.log('You are now connected...');
-});
+// database.connect((err) => {
+// 	if (err) {
+// 		console.log("can't connect to database " + err);
+// 	}
+//
+// 	console.log('You are now connected...');
+// });
 
 // body-parser
 server.use(bodyParser.json());
@@ -20,7 +20,7 @@ server.use(bodyParser.urlencoded({extended: false}));
 
 server.listen(config.port, () => {
 	console.log(`ready on port ${config.port}`);
-	require("./routes/routes")(server, database);
+	require("./routes/routes")(server/*, database*/);
 });
 
 server.get('/', (req, res) => {
